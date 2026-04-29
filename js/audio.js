@@ -71,6 +71,8 @@ function _stopIrohaSync() {
 }
 
 async function playIrohaFull(callbacks = {}) {
+  // 停止歌唱版 (互斥)
+  if (_sungAudio) { _sungAudio.pause(); _sungAudio.currentTime = 0; _stopSungSync(); }
   _irohaCallbacks = callbacks;
   _irohaCharCount = _getIrohaCharCount();
   const a = _getIrohaAudio();
@@ -166,8 +168,8 @@ function _stopSungSync() {
 }
 
 async function playIrohaSung(callbacks = {}) {
-  // 停止朗讀版
-  if (_irohaAudio) { _irohaAudio.pause(); _irohaAudio.currentTime = 0; }
+  // 停止朗讀版 (互斥)
+  if (_irohaAudio) { _irohaAudio.pause(); _irohaAudio.currentTime = 0; _stopIrohaSync(); }
   _irohaCallbacks = callbacks;
   const a = _getSungAudio();
   // 第一次需要等 metadata
