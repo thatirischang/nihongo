@@ -131,15 +131,18 @@ async def main() -> int:
     print(f"→ Generating {total} audio files via {VOICE}")
     print(f"  output: {OUT_DIR}")
 
-    # Force regenerate kana at slower rate (-25%) for clarity
+    # Force regenerate kana at slower rate (-25%) + 重复 2 遍 + 逗号停顿
+    # 单 kana 太短 (い、う 等) 听不清 → 重复让用户听两次
     KANA_RATE = "-25%"
     done = 0
     for romaji, kana in KANA:
         out = OUT_DIR / f"{romaji}.mp3"
+        # 「い、い」 → Edge-TTS 读 "い... い"，两次发音 + 自然停顿
+        speak_text = f"{kana}、{kana}"
         try:
-            await synth(kana, out, rate=KANA_RATE, force=True)
+            await synth(speak_text, out, rate=KANA_RATE, force=True)
             done += 1
-            sys.stdout.write(f"\r  [{done}/{total}] {romaji} ({kana}) @ {KANA_RATE}    ")
+            sys.stdout.write(f"\r  [{done}/{total}] {romaji} ({kana}×2) @ {KANA_RATE}    ")
             sys.stdout.flush()
         except Exception as e:
             print(f"\n  ✗ {romaji} ({kana}): {e}")

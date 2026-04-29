@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&amp;family=Noto+Sans+HK:wght@300;400;500;700&amp;family=Noto+Sans+TC:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
-<link href="css/style.css?v=6" rel="stylesheet"/>
+<link href="css/style.css?v=7" rel="stylesheet"/>
 </head>
 <body>
 <header class="site-header">
@@ -307,24 +307,35 @@
 <div class="practice-romaji muted" id="practice-romaji"></div>
 </div>
 <div class="practice-write">
-<h3>書寫練習 <span class="muted">— 用鼠標/手指在格子裏跟着寫</span></h3>
+<h3>書寫練習 <span class="muted">— 用滑鼠/手指在格子裏跟着寫</span></h3>
 <div class="canvas-wrap">
 <canvas height="320" id="write-canvas" width="320"></canvas>
 <div class="canvas-guide" id="canvas-guide"></div>
+<div class="canvas-stroke" id="canvas-stroke"></div>
 </div>
 <div class="canvas-controls">
+<button id="btn-show-stroke">✍ 示範筆順</button>
 <button id="btn-clear">🗑 清空</button>
 <button id="btn-toggle-guide">隱藏參考字</button>
 <button id="btn-replay">🔊 再聽一次</button>
 </div>
 </div>
+<div class="practice-picker">
+<h3>挑一個來練 <span class="muted">— 點任意假名 → 自動播音 + 清畫板</span></h3>
+<div class="sub-tabs">
+<button class="sub-tab active" data-picker-script="h">平假名</button>
+<button class="sub-tab" data-picker-script="k">片假名</button>
+</div>
+<div class="picker-grid" id="picker-grid"></div>
+</div>
 </section>
 </main>
 <footer class="site-footer">
-<p class="muted">日本語入門 <strong style="color:var(--accent)">v0.6</strong> · 由 <a href="https://irischanglabs.com">Iris Chang Labs</a> 製作 · 發音 Microsoft Edge-TTS (NanamiNeural) · 字體 Yuji Syuku + Noto Sans HK/TC</p>
+<p class="muted">日本語入門 <strong style="color:var(--accent)">v0.7</strong> · 由 <a href="https://irischanglabs.com">Iris Chang Labs</a> 製作 · 發音 Microsoft Edge-TTS (NanamiNeural) · 字體 Yuji Syuku + Noto Sans HK/TC</p>
 </footer>
-<script src="js/data.js?v=6"></script>
-<script src="js/audio.js?v=6"></script>
-<script src="js/app.js?v=6"></script>
+<script src="js/data.js?v=7"></script>
+<script src="js/audio.js?v=7"></script>
+<script src="js/strokes.js?v=7"></script>
+<script src="js/app.js?v=7"></script>
 </body>
 </html>

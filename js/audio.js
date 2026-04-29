@@ -22,99 +22,71 @@ function playKana(target) {
   a.play().catch(err => console.warn('audio play failed:', r, err));
 }
 
-// ═══ 伊呂波歌 全文朗读 — 字符级顺序播放，完美同步 + 可暂停/继续/停止 ═══
-// 实现：用现成的 audio/kana/<romaji>.mp3 顺序播放 47 个字（不含 ん）
-// 每字播完进下个；句末加 300ms 停顿；字间加 80ms 微停顿
-let _irohaState = 'stopped';  // 'stopped' | 'playing' | 'paused'
-let _irohaIndex = 0;
-let _irohaSeq = null;
+// ═══ 伊呂波歌 全文朗读 — 用 iroha-full.mp3（连续自然朗读）+ 时间均分高亮 ═══
+// kana mp3 已经是「重复 2 遍」格式不适合连读；改用 iroha-full.mp3（单次连贯 TTS）
+// 通过 audio.currentTime 估算当前字 index 实时高亮
+let _irohaAudio = null;
 let _irohaCallbacks = {};
+let _irohaSyncTimer = null;
+let _irohaCharCount = 47;
 
-function _buildIrohaSequence() {
-  if (_irohaSeq) return _irohaSeq;
-  const seq = [];
-  for (let li = 0; li < IROHA_LINES.length; li++) {
-    const line = IROHA_LINES[li];
-    for (let ci = 0; ci < line.length; ci++) {
-      const c = line[ci];
-      if (c.modern) continue;  // ん 不读
-      seq.push({
-        kana: c,
-        isLineEnd: ci === line.length - 1,
-      });
-    }
+function _getIrohaCharCount() {
+  let n = 0;
+  for (const line of IROHA_LINES) for (const c of line) if (!c.modern) n++;
+  return n;
+}
+
+function _getIrohaAudio() {
+  if (!_irohaAudio) {
+    _irohaAudio = new Audio('audio/iroha-full.mp3');
+    _irohaAudio.addEventListener('ended', () => {
+      _stopIrohaSync();
+      if (_irohaCallbacks.onState) _irohaCallbacks.onState('stopped');
+      if (_irohaCallbacks.onEnd) _irohaCallbacks.onEnd();
+    });
+    _irohaAudio.addEventListener('pause', () => {
+      _stopIrohaSync();
+      if (!_irohaAudio.ended && _irohaCallbacks.onState) _irohaCallbacks.onState('paused');
+    });
+    _irohaAudio.addEventListener('play', () => {
+      _startIrohaSync();
+      if (_irohaCallbacks.onState) _irohaCallbacks.onState('playing');
+    });
   }
-  _irohaSeq = seq;
-  return seq;
+  return _irohaAudio;
 }
 
-function _playOneKana(kana) {
-  return new Promise((res) => {
-    const a = new Audio(`audio/kana/${kana.r}.mp3`);
-    const done = () => { a.removeEventListener('ended', done); a.removeEventListener('error', done); res(); };
-    a.addEventListener('ended', done);
-    a.addEventListener('error', done);
-    a.play().catch(done);
-  });
+function _startIrohaSync() {
+  _stopIrohaSync();
+  _irohaSyncTimer = setInterval(() => {
+    if (!_irohaAudio || !_irohaAudio.duration) return;
+    const ratio = _irohaAudio.currentTime / _irohaAudio.duration;
+    const idx = Math.min(Math.floor(ratio * _irohaCharCount), _irohaCharCount - 1);
+    if (_irohaCallbacks.onChar) _irohaCallbacks.onChar(idx);
+  }, 80);
 }
 
-function _wait(ms) { return new Promise(r => setTimeout(r, ms)); }
-
-async function _waitWhilePaused() {
-  while (_irohaState === 'paused') await _wait(100);
+function _stopIrohaSync() {
+  if (_irohaSyncTimer) { clearInterval(_irohaSyncTimer); _irohaSyncTimer = null; }
 }
 
 async function playIrohaFull(callbacks = {}) {
-  if (_irohaState === 'playing' || _irohaState === 'paused') return;
   _irohaCallbacks = callbacks;
-  const seq = _buildIrohaSequence();
-  _irohaIndex = 0;
-  _irohaState = 'playing';
-  if (callbacks.onState) callbacks.onState('playing');
-
-  while (_irohaIndex < seq.length) {
-    await _waitWhilePaused();
-    if (_irohaState === 'stopped') break;
-
-    const item = seq[_irohaIndex];
-    if (callbacks.onChar) callbacks.onChar(_irohaIndex);
-    await _playOneKana(item.kana);
-
-    if (_irohaState === 'stopped') break;
-    await _waitWhilePaused();
-    if (_irohaState === 'stopped') break;
-
-    await _wait(item.isLineEnd ? 350 : 80);
-    _irohaIndex++;
-  }
-
-  const ended = _irohaState !== 'stopped';
-  _irohaState = 'stopped';
-  if (callbacks.onState) callbacks.onState('stopped');
-  if (ended && callbacks.onEnd) callbacks.onEnd();
+  _irohaCharCount = _getIrohaCharCount();
+  const a = _getIrohaAudio();
+  a.currentTime = 0;
+  try { await a.play(); }
+  catch (err) { console.warn('iroha play failed:', err); }
 }
 
-function pauseIroha() {
-  if (_irohaState === 'playing') {
-    _irohaState = 'paused';
-    if (_irohaCallbacks.onState) _irohaCallbacks.onState('paused');
-  }
-}
-
-function resumeIroha() {
-  if (_irohaState === 'paused') {
-    _irohaState = 'playing';
-    if (_irohaCallbacks.onState) _irohaCallbacks.onState('playing');
-  }
-}
-
+function pauseIroha() { if (_irohaAudio) _irohaAudio.pause(); }
+function resumeIroha() { if (_irohaAudio && _irohaAudio.paused) _irohaAudio.play().catch(()=>{}); }
 function stopIroha() {
-  if (_irohaState !== 'stopped') {
-    _irohaState = 'stopped';
-  }
+  if (_irohaAudio) { _irohaAudio.pause(); _irohaAudio.currentTime = 0; }
+  _stopIrohaSync();
+  if (_irohaCallbacks.onState) _irohaCallbacks.onState('stopped');
 }
-
-function isIrohaPaused() { return _irohaState === 'paused'; }
+function isIrohaPaused() { return _irohaAudio && _irohaAudio.paused && _irohaAudio.currentTime > 0; }
 
 // 单个假名 → 罗马字 的查表（懒构建，依赖 data.js）
 let _kanaToRomaji = null;

@@ -287,12 +287,68 @@ canvas.addEventListener('touchstart', _start, { passive: false });
 canvas.addEventListener('touchmove', _move, { passive: false });
 canvas.addEventListener('touchend', _end);
 
-document.getElementById('btn-clear').addEventListener('click', clearCanvas);
+document.getElementById('btn-clear').addEventListener('click', () => {
+  clearCanvas();
+  clearStrokes(document.getElementById('canvas-stroke'));
+});
 document.getElementById('btn-toggle-guide').addEventListener('click', () => {
   const g = document.getElementById('canvas-guide');
   g.classList.toggle('hidden');
   document.getElementById('btn-toggle-guide').textContent =
-    g.classList.contains('hidden') ? '显示参考字' : '隐藏参考字';
+    g.classList.contains('hidden') ? '顯示參考字' : '隱藏參考字';
+});
+
+// 示范笔顺：在画板上叠加 SVG，按笔顺动画
+document.getElementById('btn-show-stroke').addEventListener('click', async () => {
+  const guide = document.getElementById('canvas-guide');
+  const glyph = guide.textContent.trim();
+  if (!glyph) return;
+  clearCanvas();
+  const strokeBox = document.getElementById('canvas-stroke');
+  await animateStrokes(glyph, strokeBox);
+});
+
+// ═══ 练习 — 全 50 音 picker ═══
+let _pickerScript = 'h';
+function renderPicker() {
+  const container = document.getElementById('picker-grid');
+  container.innerHTML = '';
+  for (const row of GOJUON) {
+    for (const cell of row) {
+      const div = document.createElement('div');
+      if (!cell) {
+        div.className = 'picker-cell empty';
+      } else {
+        div.className = 'picker-cell';
+        div.textContent = _pickerScript === 'h' ? cell.h : cell.k;
+        div.dataset.romaji = cell.r;
+        div.addEventListener('click', () => {
+          document.querySelectorAll('.picker-cell.active').forEach(c => c.classList.remove('active'));
+          div.classList.add('active');
+          _practiceCurrent = cell;
+          _practiceLastRomaji = cell.r;
+          const glyphEl = document.getElementById('practice-glyph');
+          glyphEl.textContent = _pickerScript === 'h' ? cell.h : cell.k;
+          glyphEl.classList.remove('placeholder');
+          document.getElementById('practice-romaji').textContent = _practiceShowRomaji ? cell.r : '';
+          document.getElementById('canvas-guide').textContent = _pickerScript === 'h' ? cell.h : cell.k;
+          clearCanvas();
+          clearStrokes(document.getElementById('canvas-stroke'));
+          playKana(cell);
+        });
+      }
+      container.appendChild(div);
+    }
+  }
+}
+
+document.querySelectorAll('[data-picker-script]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-picker-script]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    _pickerScript = btn.dataset.pickerScript;
+    renderPicker();
+  });
 });
 
 // ═══ 日语构成页：点击 .speak 元素朗读 ═══
@@ -308,4 +364,5 @@ document.addEventListener('click', (e) => {
 // ═══ 初始化 ═══
 renderGojuon();
 renderIroha();
+renderPicker();
 document.getElementById('practice-glyph').classList.add('placeholder');
