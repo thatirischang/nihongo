@@ -206,6 +206,23 @@ main {
   opacity: 0.75;
   line-height: 1;
 }
+/* 字源 info 圖標 — 右上角 */
+.kana-info {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  background: transparent;
+  border: none;
+  font-size: 14px;
+  color: var(--accent-soft);
+  cursor: pointer;
+  padding: 2px 4px;
+  opacity: 0.5;
+  transition: opacity 0.15s;
+  line-height: 1;
+}
+.kana-info:hover { opacity: 1; }
+.kana-cell:hover .kana-info { opacity: 0.8; }
 .kana-cell.playing .kana-etymon { color: var(--paper); opacity: 0.9; }
 
 /* 古假名标记 */
@@ -483,6 +500,282 @@ details.extra[open] > summary::before { transform: rotate(90deg); }
 }
 .prose .termbox dd strong { color: var(--ink); }
 
+/* 助詞速覽表格 */
+.particles-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0 24px;
+  font-family: var(--font-zh);
+  font-size: 14px;
+}
+.particles-table thead th {
+  background: var(--paper-deep);
+  padding: 10px 8px;
+  text-align: left;
+  border-bottom: 2px solid var(--accent);
+  font-weight: 500;
+  color: var(--ink);
+}
+.particles-table tbody td {
+  padding: 12px 8px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+  color: var(--ink-soft);
+}
+.particles-table tbody tr:hover { background: var(--paper-deep); }
+.particles-table td.ja-big {
+  font-family: var(--font-ja);
+  font-size: 28px;
+  color: var(--ink);
+  text-align: center;
+  width: 60px;
+  cursor: pointer;
+}
+.particles-table td.ja-big:hover { color: var(--accent); background: var(--hl); }
+
+/* 5 分鐘讀第一句 */
+.first-sentence {
+  background: linear-gradient(135deg, #fff7e6 0%, #fbf8f3 100%);
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  padding: 28px 24px;
+  margin: 16px 0 24px;
+  text-align: center;
+}
+.first-sentence-headline {
+  font-family: var(--font-ja);
+  font-size: 36px;
+  line-height: 1.7;
+  cursor: pointer;
+  padding: 12px;
+  border-radius: 8px;
+  transition: background 0.15s;
+  margin-bottom: 8px;
+}
+.first-sentence-headline:hover { background: rgba(255, 255, 255, 0.5); }
+.first-sentence-headline ruby rt { font-size: 12px; color: var(--ink-soft); }
+.dissect {
+  margin: 16px 0 16px 24px;
+  color: var(--ink-soft);
+}
+.dissect li {
+  margin-bottom: 12px;
+  line-height: 1.85;
+  padding-left: 4px;
+}
+.dissect li strong:first-child { color: var(--ink); }
+
+/* 練習模式 tabs */
+.practice-mode-tabs {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 16px 0;
+}
+.mode-tab {
+  background: transparent;
+  border: 1px solid var(--line);
+  padding: 8px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: var(--font-zh);
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+.mode-tab.active {
+  background: var(--accent);
+  color: var(--paper);
+  border-color: var(--accent);
+}
+
+/* Quiz 模式 */
+.quiz-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 16px;
+  background: var(--paper-deep);
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+.quiz-controls button {
+  background: var(--accent);
+  color: var(--paper);
+  border: none;
+  padding: 8px 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font-zh);
+  font-size: 14px;
+}
+.quiz-controls .quiz-reset {
+  background: transparent;
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
+}
+.quiz-score {
+  font-family: var(--font-zh);
+  font-size: 15px;
+  color: var(--ink);
+  font-weight: 500;
+}
+.quiz-stage {
+  text-align: center;
+  padding: 32px 16px;
+}
+.quiz-prompt {
+  font-family: var(--font-zh);
+  font-size: 18px;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+.quiz-replay {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-bottom: 24px;
+}
+.quiz-replay:hover { background: var(--accent); color: var(--paper); }
+.quiz-options {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.quiz-option {
+  background: var(--paper-deep);
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  padding: 24px 8px;
+  font-family: var(--font-ja);
+  font-size: 56px;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: var(--ink);
+}
+.quiz-option:hover { border-color: var(--accent); transform: translateY(-2px); }
+.quiz-option.correct {
+  background: #c8e6c9;
+  border-color: #2e7d32;
+  color: #1b5e20;
+}
+.quiz-option.wrong {
+  background: #ffcdd2;
+  border-color: #c62828;
+  color: #b71c1c;
+}
+.quiz-feedback {
+  font-family: var(--font-zh);
+  font-size: 16px;
+  margin-top: 16px;
+  min-height: 24px;
+  color: var(--ink);
+}
+.quiz-feedback.correct { color: #2e7d32; }
+.quiz-feedback.wrong { color: #c62828; }
+@media (max-width: 540px) {
+  .quiz-options { grid-template-columns: repeat(2, 1fr); }
+  .quiz-option { font-size: 48px; }
+}
+
+/* 進度顯示 */
+.progress-bar {
+  background: var(--paper-deep);
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin: 16px 0;
+  font-family: var(--font-zh);
+  font-size: 13px;
+  color: var(--ink-soft);
+  text-align: center;
+}
+.progress-bar strong { color: var(--accent); font-size: 15px; }
+
+/* 實戰：詞彙 + 句子 */
+.vocab-section { margin-top: 16px; }
+.vocab-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+.vocab-list.n5-list {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+.vocab-card {
+  background: var(--paper-deep);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.15s;
+  position: relative;
+}
+.vocab-card:hover {
+  background: var(--hl);
+  border-color: var(--accent-soft);
+  transform: translateY(-1px);
+}
+.vocab-card .vocab-ja {
+  font-family: var(--font-ja);
+  font-size: 26px;
+  line-height: 1.3;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.vocab-card .vocab-romaji,
+.vocab-card .vocab-kana {
+  font-family: var(--font-zh);
+  font-size: 12px;
+  color: var(--ink-soft);
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+.vocab-card .vocab-zh {
+  font-family: var(--font-zh);
+  font-size: 14px;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.vocab-card .vocab-note {
+  font-family: var(--font-zh);
+  font-size: 12px;
+  color: var(--ink-soft);
+  font-style: italic;
+  margin-top: 4px;
+}
+.vocab-card.n5-card .vocab-ja { font-size: 22px; }
+.vocab-card.speak::before {
+  content: '🔊';
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: 11px;
+  opacity: 0.4;
+}
+.vocab-card:hover.speak::before { opacity: 1; }
+
+/* SVG 示意圖 */
+.diagram-svg {
+  display: block;
+  width: 100%;
+  max-width: 640px;
+  height: auto;
+  margin: 16px auto 24px;
+  background: var(--paper);
+  border-radius: 8px;
+  padding: 8px;
+}
+.cv-diagram { max-width: 480px; }
+.ety-diagram { max-width: 580px; }
+
 /* ═══ 练习 ═══ */
 .practice-controls {
   display: flex;
@@ -723,6 +1016,120 @@ details.extra[open] > summary::before { transform: rotate(90deg); }
 @media (max-width: 640px) {
   .picker-grid { grid-template-columns: repeat(5, 1fr); }
   .picker-cell { font-size: 20px; padding: 6px 0; }
+}
+
+/* ═══ 字源解析 modal ═══ */
+.ety-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.ety-modal[hidden] { display: none; }
+.ety-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+.ety-card {
+  position: relative;
+  background: var(--paper);
+  border-radius: 12px;
+  padding: 32px 24px 24px;
+  max-width: 640px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  border: 2px solid var(--accent);
+}
+.ety-close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--ink-soft);
+  line-height: 1;
+  padding: 4px 8px;
+}
+.ety-close:hover { color: var(--accent); }
+.ety-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.ety-side {
+  text-align: center;
+  padding: 16px 8px;
+  background: var(--paper-deep);
+  border-radius: 8px;
+}
+.ety-label {
+  font-family: var(--font-zh);
+  font-size: 12px;
+  color: var(--ink-soft);
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+.ety-glyph {
+  font-family: var(--font-ja);
+  font-size: 88px;
+  line-height: 1;
+  color: var(--ink);
+  margin: 4px 0 12px;
+}
+.ety-arrow {
+  font-size: 20px;
+  color: var(--accent);
+  margin: 4px 0;
+}
+.ety-source {
+  font-family: var(--font-ja);
+  font-size: 56px;
+  line-height: 1;
+  color: var(--accent);
+  margin: 4px 0 12px;
+}
+.ety-note {
+  font-family: var(--font-zh);
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  text-align: left;
+  padding: 0 8px;
+}
+.ety-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.ety-play {
+  background: var(--accent);
+  color: var(--paper);
+  border: none;
+  padding: 8px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: var(--font-zh);
+  font-size: 13px;
+}
+.ety-play:hover { background: var(--accent-soft); }
+.ety-hint { font-size: 13px; }
+@media (max-width: 540px) {
+  .ety-grid { grid-template-columns: 1fr; gap: 12px; }
+  .ety-glyph { font-size: 72px; }
+  .ety-source { font-size: 44px; }
 }
 
 /* ═══ 页脚 ═══ */

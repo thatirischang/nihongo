@@ -9,10 +9,23 @@
 <meta content="0" http-equiv="expires"/>
 <title>日本語 — 五十音 · 伊呂波歌</title>
 <meta content="日語五十音、伊呂波歌、構成講解、隨機練習 — 點哪個讀哪個，毛筆書法字體。" name="description"/>
+<meta content="website" property="og:type"/>
+<meta content="日本語入門 — 五十音 · 伊呂波歌" property="og:title"/>
+<meta content="零基礎日語入門：五十音 + 伊呂波歌 + 字源速記 + 筆順動畫 + 手寫練習。點哪個讀哪個，毛筆書法字體。" property="og:description"/>
+<meta content="https://nihongo.irischanglabs.com/" property="og:url"/>
+<meta content="https://nihongo.irischanglabs.com/icon.svg" property="og:image"/>
+<meta content="zh_HK" property="og:locale"/>
+<meta content="summary" name="twitter:card"/>
+<meta content="日本語入門 — 五十音 · 伊呂波歌" name="twitter:title"/>
+<meta content="零基礎日語入門：五十音、伊呂波歌、構成講解、隨機練習。" name="twitter:description"/>
+<meta content="#8b1a1a" name="theme-color"/>
+<link href="manifest.webmanifest" rel="manifest"/>
+<link href="icon.svg" rel="icon" type="image/svg+xml"/>
+<link href="icon.svg" rel="apple-touch-icon"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&amp;family=Noto+Sans+HK:wght@300;400;500;700&amp;family=Noto+Sans+TC:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
-<link href="css/style.css?v=9" rel="stylesheet"/>
+<link href="css/style.css?v=10" rel="stylesheet"/>
 </head>
 <body>
 <header class="site-header">
@@ -22,6 +35,7 @@
 <button class="tab" data-tab="iroha" role="tab">伊呂波歌</button>
 <button class="tab" data-tab="about" role="tab">日語構成</button>
 <button class="tab" data-tab="practice" role="tab">練習</button>
+<button class="tab" data-tab="vocab" role="tab">實戰</button>
 </nav>
 </header>
 <main>
@@ -87,6 +101,35 @@
 <p class="muted"><strong>先對齊術語：</strong>「主語」= 句子裏做動作的人（「<strong>我</strong>吃蘋果」的「我」）；「謂語」= 那個動作本身（通常是動詞，「我<strong>吃</strong>蘋果」的「吃」）；「賓語」= 動作的對象（「我吃<strong>蘋果</strong>」的「蘋果」）。這三個是任何語言都離不開的句子骨架。</p>
 <p>中文：<strong>我</strong>（主）<strong>吃</strong>（謂）<strong>蘋果</strong>（賓），順序是「主+謂+賓」，英文叫 SVO。</p>
 <p>日語：<strong>我</strong>（主）<strong>蘋果</strong>（賓）<strong>吃</strong>（謂），順序是「主+賓+謂」，英文叫 SOV。動詞永遠在最後。</p>
+<svg aria-label="中文 SVO vs 日語 SOV 對比" class="diagram-svg" viewbox="0 0 600 220" xmlns="http://www.w3.org/2000/svg">
+<text fill="#4a4a4a" font-family="sans-serif" font-size="14" x="40" y="35">中文 (SVO)：</text>
+<rect fill="#fff7e6" height="50" rx="6" stroke="#8b1a1a" stroke-width="2" width="100" x="40" y="50"></rect>
+<text fill="#1a1a1a" font-family="sans-serif" font-size="20" text-anchor="middle" x="90" y="80">我 (S)</text>
+<rect fill="#fff7e6" height="50" rx="6" stroke="#8b1a1a" stroke-width="2" width="100" x="170" y="50"></rect>
+<text fill="#1a1a1a" font-family="sans-serif" font-size="20" text-anchor="middle" x="220" y="80">吃 (V)</text>
+<rect fill="#fff7e6" height="50" rx="6" stroke="#8b1a1a" stroke-width="2" width="100" x="300" y="50"></rect>
+<text fill="#1a1a1a" font-family="sans-serif" font-size="20" text-anchor="middle" x="350" y="80">蘋果 (O)</text>
+<line marker-end="url(#arr)" stroke="#8b1a1a" stroke-width="2" x1="140" x2="170" y1="75" y2="75"></line>
+<line marker-end="url(#arr)" stroke="#8b1a1a" stroke-width="2" x1="270" x2="300" y1="75" y2="75"></line>
+<text fill="#4a4a4a" font-family="sans-serif" font-size="14" x="40" y="135">日語 (SOV)：</text>
+<rect fill="#e6f0ff" height="50" rx="6" stroke="#2c5282" stroke-width="2" width="100" x="40" y="150"></rect>
+<text fill="#1a1a1a" font-family="sans-serif" font-size="20" text-anchor="middle" x="90" y="180">我 (S)</text>
+<rect fill="#e6f0ff" height="50" rx="6" stroke="#2c5282" stroke-width="2" width="100" x="170" y="150"></rect>
+<text fill="#1a1a1a" font-family="sans-serif" font-size="20" text-anchor="middle" x="220" y="180">蘋果 (O)</text>
+<rect fill="#e6f0ff" height="50" rx="6" stroke="#2c5282" stroke-width="2" width="100" x="300" y="150"></rect>
+<text fill="#1a1a1a" font-family="sans-serif" font-size="20" text-anchor="middle" x="350" y="180">吃 (V)</text>
+<line marker-end="url(#arrb)" stroke="#2c5282" stroke-width="2" x1="140" x2="170" y1="175" y2="175"></line>
+<line marker-end="url(#arrb)" stroke="#2c5282" stroke-width="2" x1="270" x2="300" y1="175" y2="175"></line>
+<text fill="#c25555" font-family="sans-serif" font-size="13" x="430" y="180">↑ 動詞在最後</text>
+<defs>
+<marker id="arr" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M0,0 L10,5 L0,10 z" fill="#8b1a1a"></path>
+</marker>
+<marker id="arrb" markerheight="6" markerwidth="6" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M0,0 L10,5 L0,10 z" fill="#2c5282"></path>
+</marker>
+</defs>
+</svg>
 <p class="example">
       中文：<strong>我</strong> <strong>喝</strong> <strong>咖啡</strong> 。<br/>
       日語：<span class="kanji-hl"><span class="speak" data-speak="私">私</span></span>は <span class="kata-hl"><span class="ja-big speak">コーヒー</span></span>を <span class="kanji-hl"><span class="speak" data-speak="飲む">飲</span></span>む 。<br/>
@@ -166,6 +209,20 @@
 <dd>一個輔音 + 一個元音的組合，是<strong>能單獨發出聲的最小單位</strong>。比如「ka」「shi」「mu」就是音節。日語的 50 音表裏每個假名 = 一個音節。</dd>
 </dl>
 </div>
+<svg aria-label="CV 音節結構：輔音 + 元音 = 音節" class="diagram-svg cv-diagram" viewbox="0 0 460 140" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#fff7e6" height="60" rx="8" stroke="#8b1a1a" stroke-width="2" width="100" x="20" y="40"></rect>
+<text fill="#4a4a4a" font-family="sans-serif" font-size="14" text-anchor="middle" x="70" y="68">輔音</text>
+<text fill="#1a1a1a" font-family="sans-serif" font-size="22" font-weight="500" text-anchor="middle" x="70" y="90">k</text>
+<text fill="#8b1a1a" font-family="sans-serif" font-size="32" text-anchor="middle" x="135" y="78">+</text>
+<rect fill="#e6f0ff" height="60" rx="8" stroke="#2c5282" stroke-width="2" width="100" x="160" y="40"></rect>
+<text fill="#4a4a4a" font-family="sans-serif" font-size="14" text-anchor="middle" x="210" y="68">元音</text>
+<text fill="#1a1a1a" font-family="sans-serif" font-size="22" font-weight="500" text-anchor="middle" x="210" y="90">a</text>
+<text fill="#8b1a1a" font-family="sans-serif" font-size="32" text-anchor="middle" x="285" y="78">=</text>
+<rect fill="#fbf8f3" height="60" rx="8" stroke="#1a1a1a" stroke-width="2.5" width="120" x="320" y="40"></rect>
+<text fill="#4a4a4a" font-family="sans-serif" font-size="13" text-anchor="middle" x="380" y="62">音節 (1 拍)</text>
+<text fill="#1a1a1a" font-family="sans-serif" font-size="22" font-weight="600" text-anchor="middle" x="380" y="88">ka  か</text>
+<text fill="#4a4a4a" font-family="sans-serif" font-size="12" text-anchor="middle" x="230" y="125">日語每個假名 = 一個 CV 音節（ん 和促音 っ 例外）</text>
+</svg>
 <h3>① 元音只有 5 個：a · i · u · e · o</h3>
 <p>日語的元音就是這 5 個 — 跟漢語拼音 a/i/u/e/o 幾乎一樣。沒有 ü（拼音的「u」）、沒有 ㄚ 的各種變體、沒有英語的 ʌ ɔ ɛ æ 等。對中文母語者來説，<strong>發音門檻在所有語言裏屬於最低</strong>。</p>
 <p class="example">
@@ -284,10 +341,73 @@
 <span class="ja-big speak">パーティー</span> pātī（party）
     </p>
 <hr class="rule"/>
+<h2>常用助詞速覽 — 8 個走遍日本</h2>
+<p class="lede">助詞是日語的「<strong>句子膠水</strong>」 — 中文沒有這東西，但日語每句話都得用。先把這 8 個記住，看任何句子就能拆出主語、賓語、動作。</p>
+<table class="particles-table">
+<thead><tr><th>助詞</th><th>讀音</th><th>功能</th><th>例句</th></tr></thead>
+<tbody>
+<tr><td class="ja-big speak" data-speak="は">は</td><td>wa<br/><span class="muted">(讀 wa 不讀 ha)</span></td><td><strong>主題標記</strong>「關於 X」</td><td><span class="speak" data-speak="私は学生">私は学生</span>（我是學生）</td></tr>
+<tr><td class="ja-big speak" data-speak="が">が</td><td>ga</td><td><strong>主語標記</strong>「是 X 在做」</td><td><span class="speak" data-speak="雨が降る">雨が降る</span>（下雨）</td></tr>
+<tr><td class="ja-big speak" data-speak="を">を</td><td>o<br/><span class="muted">(讀 o 不讀 wo)</span></td><td><strong>賓語標記</strong>「動作的對象」</td><td><span class="speak" data-speak="本を読む">本を読む</span>（讀書）</td></tr>
+<tr><td class="ja-big speak" data-speak="に">に</td><td>ni</td><td><strong>方向/時間/對象</strong>「到 X / 在 X 時 / 給 X」</td><td><span class="speak" data-speak="学校に行く">学校に行く</span>（去學校）</td></tr>
+<tr><td class="ja-big speak" data-speak="で">で</td><td>de</td><td><strong>場所/工具</strong>「在 X / 用 X」</td><td><span class="speak" data-speak="家で食べる">家で食べる</span>（在家吃）</td></tr>
+<tr><td class="ja-big speak" data-speak="と">と</td><td>to</td><td><strong>「和」</strong>連接</td><td><span class="speak" data-speak="友達と">友達と</span>（和朋友）</td></tr>
+<tr><td class="ja-big speak" data-speak="も">も</td><td>mo</td><td><strong>「也」</strong></td><td><span class="speak" data-speak="私も">私も</span>（我也）</td></tr>
+<tr><td class="ja-big speak" data-speak="の">の</td><td>no</td><td><strong>「的」</strong>所有/修飾</td><td><span class="speak" data-speak="私の本">私の本</span>（我的書）</td></tr>
+</tbody>
+</table>
+<p class="muted">最容易踩坑：<strong>は 寫作 ha 但讀 wa</strong>（當助詞時）；<strong>を 寫作 wo 但讀 o</strong>。這是歷史拼寫遺留 — 死記就行。</p>
+<hr class="rule"/>
+<h2>5 分鐘讀懂第一句日語 ✨</h2>
+<p class="lede">學完上面的，現在我們<strong>真的讀</strong>一句日語。從零基礎到能拆解一個完整句子，5 分鐘。</p>
+<div class="first-sentence">
+<p class="first-sentence-headline speak" data-speak="はじめまして。私はブライアンです。">
+<ruby>初<rt>はじ</rt></ruby>めまして。<span class="kanji-hl"><ruby>私<rt>わたし</rt></ruby></span>は<span class="kata-hl">ブライアン</span>です。
+</p>
+<p class="muted center">「初次見面，我是 Brian。」<span class="ety-play" style="display:inline-block;margin-left:8px;font-size:13px;cursor:pointer">🔊 點上面整句聽朗讀</span></p>
+</div>
+<h3>逐字拆解</h3>
+<ol class="dissect">
+<li><strong><span class="speak" data-speak="初めまして">はじめまして</span></strong> — 寒暄語「初次見面」。<strong>整段是固定短語，記住即可</strong>。漢字寫法 <span class="speak" data-speak="初めまして">初めまして</span> 也對。</li>
+<li><strong>。</strong> — 句號「<span class="ja-big">。</span>」。日語句號是個<strong>實心小圈</strong>，不是中文的「。」(略大) 也不是英文的 "."。</li>
+<li><strong><span class="speak" data-speak="私">私</span></strong>（<span class="speak">わたし</span>）— 「<strong>我</strong>」。漢字寫法。讀音 watashi。</li>
+<li><strong><span class="speak" data-speak="は">は</span></strong> — 助詞，當助詞時讀 <strong>wa</strong>（不是 ha）。功能：標記前面的「私」是這句話的<strong>主題</strong>，意思是「<strong>關於我</strong>」。</li>
+<li><strong><span class="speak" data-speak="ブライアン">ブライアン</span></strong> — <strong>外來名字「Brian」</strong>，所以用片假名寫。讀 bu-ra-i-a-n（每個輔音後都要塞元音，這就是上面講的「沒有複合輔音」規則）。</li>
+<li><strong><span class="speak" data-speak="です">です</span></strong> — <strong>「是」</strong>，禮貌體 sentence-ending。漢語「我是 X」對應日語「X です」（X 在前，です 在後）。</li>
+</ol>
+<h3>再對照一次語法骨架</h3>
+<p class="example">
+<strong>主語</strong>「私」 + <strong>主題標記</strong>「は」 + <strong>賓語/補語</strong>「ブライアン」 + <strong>謂語</strong>「です」<br/>
+中文順序：<strong>我（主） + 是（謂） + Brian（賓）</strong> — 動詞在中間。<br/>
+日語順序：<strong>我（主） + は + Brian（賓） + 是（謂）</strong> — 動詞「です」永遠在最後。
+</p>
+<p class="muted center">恭喜 — 你剛剛讀懂了第一句完整日語。</p>
+<hr class="rule"/>
 <h3>字源速記法 — 會漢字就會假名</h3>
-<p>每個假名都源自一個漢字。中文學習者認識漢字，看一眼字源就能記住假名形狀 — 本站每個假名格子的<strong>左上角小字</strong>就是它的源漢字。</p>
-<p class="example"><span class="ja-big">あ</span> ← <span class="ja-big">安</span>的草書；<span class="ja-big">ア</span> ← <span class="ja-big">阿</span>左側偏旁<br/>
-<span class="ja-big">の</span> ← <span class="ja-big">乃</span>的草書；<span class="ja-big">ノ</span> ← <span class="ja-big">乃</span>第一筆 — 同一漢字的不同切片</p>
+<p>每個假名都源自一個漢字。中文學習者認識漢字，看一眼字源就能記住假名形狀 — 本站每個假名格子的<strong>左上角小字</strong>就是它的源漢字。<strong>點任意假名格子右上角的「ⓘ」，會彈出字源解析卡片</strong>。</p>
+<svg aria-label="字源演化：安 → あ / 阿 → ア" class="diagram-svg ety-diagram" viewbox="0 0 600 180" xmlns="http://www.w3.org/2000/svg">
+<text fill="#4a4a4a" font-family="sans-serif" font-size="14" x="20" y="35">範例：</text>
+<text fill="#8b1a1a" font-family="serif" font-size="64" x="50" y="100">安</text>
+<text fill="#4a4a4a" font-family="sans-serif" font-size="14" x="100" y="80">楷書整字</text>
+<text fill="#8b1a1a" font-family="sans-serif" font-size="32" x="155" y="100">→</text>
+<text fill="#c25555" font-family="serif" font-size="64" font-style="italic" x="190" y="100">安</text>
+<text fill="#4a4a4a" font-family="sans-serif" font-size="14" x="240" y="80">草書連筆</text>
+<text fill="#8b1a1a" font-family="sans-serif" font-size="32" x="295" y="100">→</text>
+<text fill="#1a1a1a" font-family="serif" font-size="64" x="335" y="105">あ</text>
+<text fill="#4a4a4a" font-family="sans-serif" font-size="13" x="395" y="100">平假名</text>
+<text fill="#8b1a1a" font-family="serif" font-size="64" x="50" y="170">阿</text>
+<text fill="#4a4a4a" font-family="sans-serif" font-size="14" x="100" y="145">楷書整字</text>
+<text fill="#8b1a1a" font-family="sans-serif" font-size="32" x="155" y="170">→</text>
+<text fill="#c25555" font-family="serif" font-size="44" x="200" y="170">阝</text>
+<text fill="#4a4a4a" font-family="sans-serif" font-size="14" x="250" y="145">取左偏旁</text>
+<text fill="#8b1a1a" font-family="sans-serif" font-size="32" x="295" y="170">→</text>
+<text fill="#1a1a1a" font-family="serif" font-size="64" x="340" y="172">ア</text>
+<text fill="#4a4a4a" font-family="sans-serif" font-size="13" x="395" y="170">片假名</text>
+<text fill="#4a4a4a" font-family="sans-serif" font-size="13" text-anchor="start" x="450" y="100">同源「a」音</text>
+<text fill="#4a4a4a" font-family="sans-serif" font-size="13" text-anchor="start" x="450" y="170">不同字 / 都讀 a</text>
+</svg>
+<p class="example"><span class="ja-big">あ</span> ← <span class="ja-big">安</span>的草書；<span class="ja-big">ア</span> ← <span class="ja-big">阿</span>左側偏旁<br>
+<span class="ja-big">の</span> ← <span class="ja-big">乃</span>的草書；<span class="ja-big">ノ</span> ← <span class="ja-big">乃</span>第一筆 — 同一漢字的不同切片</br></p>
 <p class="muted">規律：平假名多取整字草書（曲線柔），片假名多取部分筆畫（稜角硬）。</p>
 <h3>學習順序建議</h3>
 <ol>
@@ -301,6 +421,10 @@
 </section>
 <!-- ═══ 練習 ═══ -->
 <section class="page" id="page-practice">
+<div class="practice-mode-tabs">
+<button class="mode-tab active" data-mode="learn">📖 學習模式</button>
+<button class="mode-tab" data-mode="quiz">🎯 測驗模式</button>
+</div>
 <div class="practice-controls">
 <label>範圍：
       <select id="practice-scope">
@@ -319,6 +443,17 @@
 </label>
 <button id="btn-random">🎲 隨機一個</button>
 <button id="btn-show-romaji">顯示羅馬字</button>
+</div>
+<div class="quiz-controls" hidden="">
+<button id="btn-quiz-next">▶ 出下一題</button>
+<span class="quiz-score" id="quiz-score">得分：0 / 0</span>
+<button class="quiz-reset" id="btn-quiz-reset">重置</button>
+</div>
+<div class="quiz-stage" hidden="" id="quiz-stage">
+<p class="quiz-prompt">聽到的是哪一個假名？</p>
+<button class="quiz-replay" id="quiz-replay">🔊 再聽一遍</button>
+<div class="quiz-options" id="quiz-options"></div>
+<div class="quiz-feedback" id="quiz-feedback"></div>
 </div>
 <div class="practice-stage">
 <div class="practice-glyph" id="practice-glyph">點「隨機」開始</div>
@@ -347,13 +482,61 @@
 <div class="picker-grid" id="picker-grid"></div>
 </div>
 </section>
+<!-- ═══ 實戰 ═══ -->
+<section class="page" id="page-vocab">
+<article class="prose">
+<h2>實戰：高頻句子 + N5 詞彙</h2>
+<p class="lede">學完五十音之後就讀真句子。這裏是日本人天天用的<strong>高頻日常表達</strong>。每句都點得響，慢慢攢。</p>
+<div class="sub-tabs">
+<button class="sub-tab active" data-vocab-tab="phrases">日常 20 句</button>
+<button class="sub-tab" data-vocab-tab="n5">N5 100 詞</button>
+</div>
+<div class="vocab-section" id="vocab-phrases">
+<div class="vocab-list" id="phrases-list"></div>
+</div>
+<div class="vocab-section" hidden="" id="vocab-n5">
+<div class="vocab-list n5-list" id="n5-list"></div>
+</div>
+</article>
+</section>
 </main>
 <footer class="site-footer">
-<p class="muted">日本語入門 <strong style="color:var(--accent)">v0.9</strong> · 由 <a href="https://irischanglabs.com">Iris Chang Labs</a> 製作 · 發音 Microsoft Edge-TTS (NanamiNeural) · 字體 Yuji Syuku + Noto Sans HK/TC</p>
+<p class="muted">日本語入門 <strong style="color:var(--accent)">v1.0</strong> · 由 <a href="https://irischanglabs.com">Iris Chang Labs</a> 製作 · 發音 Microsoft Edge-TTS (NanamiNeural) · 字體 Yuji Syuku + Noto Sans HK/TC</p>
 </footer>
-<script src="js/data.js?v=9"></script>
-<script src="js/audio.js?v=9"></script>
-<script src="js/strokes.js?v=9"></script>
-<script src="js/app.js?v=9"></script>
+<!-- 字源解析 modal -->
+<div class="ety-modal" hidden="" id="ety-modal">
+<div class="ety-backdrop"></div>
+<div aria-modal="true" class="ety-card" role="dialog">
+<button aria-label="關閉" class="ety-close" id="ety-close">×</button>
+<div class="ety-grid">
+<div class="ety-side">
+<div class="ety-label">平假名</div>
+<div class="ety-glyph" id="ety-h-glyph"></div>
+<div class="ety-arrow">↑</div>
+<div class="ety-label">源自</div>
+<div class="ety-source" id="ety-h-kanji"></div>
+<p class="ety-note" id="ety-h-note"></p>
+</div>
+<div class="ety-side">
+<div class="ety-label">片假名</div>
+<div class="ety-glyph" id="ety-k-glyph"></div>
+<div class="ety-arrow">↑</div>
+<div class="ety-label">源自</div>
+<div class="ety-source" id="ety-k-kanji"></div>
+<p class="ety-note" id="ety-k-note"></p>
+</div>
+</div>
+<div class="ety-actions">
+<button class="ety-play" id="ety-play">🔊 再聽一次</button>
+<span class="muted ety-hint">羅馬字：<span id="ety-romaji"></span></span>
+</div>
+</div>
+</div>
+<script src="js/data.js?v=10"></script>
+<script src="js/etymology.js?v=10"></script>
+<script src="js/vocab.js?v=10"></script>
+<script src="js/audio.js?v=10"></script>
+<script src="js/strokes.js?v=10"></script>
+<script src="js/app.js?v=10"></script>
 </body>
 </html>

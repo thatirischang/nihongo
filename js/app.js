@@ -36,11 +36,16 @@ function _kanaCell(cell, opts = {}) {
   div.className = 'kana-cell' + (opts.youon ? ' youon' : '') + (opts.archaic ? ' archaic' : '');
   const etymon = currentScript === 'h' ? cell.eh : cell.ek;
   div.innerHTML = `
-    ${etymon ? `<div class="kana-etymon" title="字源：${etymon}">${etymon}</div>` : ''}
+    ${etymon ? `<div class="kana-etymon" title="字源：${etymon} — 點此格右上角 ⓘ 看詳細">${etymon}</div>` : ''}
+    ${cell.eh && cell.ek ? `<button class="kana-info" title="看字源解析" aria-label="字源解析">ⓘ</button>` : ''}
     <div class="kana-glyph">${currentScript === 'h' ? cell.h : cell.k}</div>
     <div class="kana-romaji">${cell.r}</div>
   `;
-  div.addEventListener('click', () => {
+  div.addEventListener('click', (e) => {
+    if (e.target.classList.contains('kana-info')) {
+      openEtymologyModal(cell);
+      return;
+    }
     document.querySelectorAll('.kana-cell.playing').forEach(c => c.classList.remove('playing'));
     div.classList.add('playing');
     setTimeout(() => div.classList.remove('playing'), 600);
@@ -48,6 +53,28 @@ function _kanaCell(cell, opts = {}) {
   });
   return div;
 }
+
+// ═══ 字源解析 modal ═══
+function openEtymologyModal(cell) {
+  const ety = getEtymology(cell.r, cell.eh, cell.ek);
+  document.getElementById('ety-h-glyph').textContent = cell.h || '—';
+  document.getElementById('ety-k-glyph').textContent = cell.k || '—';
+  document.getElementById('ety-h-kanji').textContent = ety.h_kanji;
+  document.getElementById('ety-k-kanji').textContent = ety.k_kanji;
+  document.getElementById('ety-h-note').textContent = ety.h_note;
+  document.getElementById('ety-k-note').textContent = ety.k_note;
+  document.getElementById('ety-romaji').textContent = cell.r;
+  document.getElementById('ety-modal').hidden = false;
+  document.getElementById('ety-play').onclick = () => playKana(cell);
+}
+function closeEtymologyModal() {
+  document.getElementById('ety-modal').hidden = true;
+}
+document.getElementById('ety-close').addEventListener('click', closeEtymologyModal);
+document.querySelector('.ety-backdrop').addEventListener('click', closeEtymologyModal);
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !document.getElementById('ety-modal').hidden) closeEtymologyModal();
+});
 
 function _renderTable(containerId, table, opts = {}) {
   const container = document.getElementById(containerId);
@@ -361,8 +388,181 @@ document.addEventListener('click', (e) => {
   playPhrase(text);
 });
 
+// ═══ 練習模式 (學習 / 測驗) ═══
+let _practiceMode = 'learn';
+const _learnEls = ['.practice-controls', '.practice-stage', '.practice-write', '.practice-picker'];
+const _quizEls = ['.quiz-controls', '#quiz-stage'];
+
+function _setPracticeMode(mode) {
+  _practiceMode = mode;
+  document.querySelectorAll('.mode-tab').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+  if (mode === 'learn') {
+    _learnEls.forEach(s => { const el = document.querySelector(s); if (el) el.hidden = false; });
+    _quizEls.forEach(s => { const el = document.querySelector(s); if (el) el.hidden = true; });
+  } else {
+    _learnEls.forEach(s => { const el = document.querySelector(s); if (el) el.hidden = true; });
+    _quizEls.forEach(s => { const el = document.querySelector(s); if (el) el.hidden = false; });
+    if (!_quizCurrent) startQuiz();
+  }
+}
+
+document.querySelectorAll('.mode-tab').forEach(btn => {
+  btn.addEventListener('click', () => _setPracticeMode(btn.dataset.mode));
+});
+
+// ═══ 測驗：聽音 → 4 選 1 ═══
+let _quizCurrent = null;
+let _quizScore = { correct: 0, total: 0 };
+
+function _allKana() {
+  return [...GOJUON.flat().filter(Boolean), ...ARCHAIC, ...DAKUON.flat(), ...HANDAKUON.flat(), ...YOUON.flat()];
+}
+
+function startQuiz() {
+  const pool = _allKana();
+  const correct = pool[Math.floor(Math.random() * pool.length)];
+  // 3 干扰项，从同一类别（避免拗音夹清音过明显）
+  const distractors = [];
+  while (distractors.length < 3) {
+    const cand = pool[Math.floor(Math.random() * pool.length)];
+    if (cand.r !== correct.r && !distractors.some(d => d.r === cand.r)) {
+      distractors.push(cand);
+    }
+  }
+  const opts = [correct, ...distractors].sort(() => Math.random() - 0.5);
+  _quizCurrent = { correct, opts, answered: false };
+
+  document.getElementById('quiz-feedback').textContent = '';
+  document.getElementById('quiz-feedback').className = 'quiz-feedback';
+  const optsEl = document.getElementById('quiz-options');
+  optsEl.innerHTML = '';
+  for (const o of opts) {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-option';
+    btn.textContent = o.h;  // 顯示平假名
+    btn.dataset.romaji = o.r;
+    btn.addEventListener('click', () => _checkQuiz(btn, o));
+    optsEl.appendChild(btn);
+  }
+  // 自動播放正確答案的音
+  setTimeout(() => playKana(correct), 300);
+  _updateQuizScore();
+}
+
+function _checkQuiz(btnEl, choice) {
+  if (_quizCurrent.answered) return;
+  _quizCurrent.answered = true;
+  _quizScore.total++;
+  const correct = _quizCurrent.correct;
+  const fb = document.getElementById('quiz-feedback');
+  if (choice.r === correct.r) {
+    btnEl.classList.add('correct');
+    fb.textContent = `✓ 正確！${correct.h} / ${correct.k} (${correct.r})`;
+    fb.className = 'quiz-feedback correct';
+    _quizScore.correct++;
+    _recordPractice(correct.r, true);
+  } else {
+    btnEl.classList.add('wrong');
+    // 找出正確答案 button 並標綠
+    document.querySelectorAll('.quiz-option').forEach(el => {
+      if (el.dataset.romaji === correct.r) el.classList.add('correct');
+    });
+    fb.textContent = `✗ 答案是「${correct.h} / ${correct.k}」(${correct.r})`;
+    fb.className = 'quiz-feedback wrong';
+    _recordPractice(correct.r, false);
+  }
+  _updateQuizScore();
+}
+
+function _updateQuizScore() {
+  document.getElementById('quiz-score').textContent =
+    `得分：${_quizScore.correct} / ${_quizScore.total}`;
+}
+
+document.getElementById('btn-quiz-next').addEventListener('click', startQuiz);
+document.getElementById('btn-quiz-reset').addEventListener('click', () => {
+  _quizScore = { correct: 0, total: 0 };
+  _updateQuizScore();
+  startQuiz();
+});
+document.getElementById('quiz-replay').addEventListener('click', () => {
+  if (_quizCurrent) playKana(_quizCurrent.correct);
+});
+
+// ═══ localStorage 進度記錄 ═══
+const _STORAGE_KEY = 'nihongo_progress_v1';
+function _loadProgress() {
+  try { return JSON.parse(localStorage.getItem(_STORAGE_KEY)) || { practiced: {}, quiz: {} }; }
+  catch { return { practiced: {}, quiz: {} }; }
+}
+function _saveProgress(p) {
+  try { localStorage.setItem(_STORAGE_KEY, JSON.stringify(p)); } catch {}
+}
+function _recordPractice(romaji, correct) {
+  const p = _loadProgress();
+  p.quiz[romaji] = p.quiz[romaji] || { right: 0, wrong: 0 };
+  if (correct) p.quiz[romaji].right++;
+  else p.quiz[romaji].wrong++;
+  _saveProgress(p);
+}
+function getProgressSummary() {
+  const p = _loadProgress();
+  const total = Object.keys(p.quiz).length;
+  let right = 0, wrong = 0;
+  for (const r of Object.values(p.quiz)) { right += r.right; wrong += r.wrong; }
+  return { total, right, wrong, accuracy: right + wrong > 0 ? Math.round(right * 100 / (right + wrong)) : 0 };
+}
+
+// ═══ 實戰 (詞彙 + 句子) ═══
+function renderPhrases() {
+  const list = document.getElementById('phrases-list');
+  if (!list) return;
+  list.innerHTML = '';
+  for (const p of PHRASES) {
+    const card = document.createElement('div');
+    card.className = 'vocab-card speak';
+    card.dataset.speak = p.ja;
+    card.innerHTML = `
+      <div class="vocab-ja">${p.ja}</div>
+      <div class="vocab-romaji">${p.romaji || ''}</div>
+      <div class="vocab-zh">${p.zh}</div>
+      ${p.note ? `<div class="vocab-note">${p.note}</div>` : ''}
+    `;
+    list.appendChild(card);
+  }
+}
+
+function renderN5() {
+  const list = document.getElementById('n5-list');
+  if (!list) return;
+  list.innerHTML = '';
+  for (const w of N5_WORDS) {
+    const card = document.createElement('div');
+    card.className = 'vocab-card n5-card speak';
+    card.dataset.speak = w.ja;
+    card.innerHTML = `
+      <div class="vocab-ja">${w.ja}</div>
+      ${w.kana ? `<div class="vocab-kana">${w.kana}</div>` : ''}
+      <div class="vocab-zh">${w.zh}</div>
+    `;
+    list.appendChild(card);
+  }
+}
+
+document.querySelectorAll('[data-vocab-tab]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-vocab-tab]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const which = btn.dataset.vocabTab;
+    document.getElementById('vocab-phrases').hidden = which !== 'phrases';
+    document.getElementById('vocab-n5').hidden = which !== 'n5';
+  });
+});
+
 // ═══ 初始化 ═══
 renderGojuon();
 renderIroha();
 renderPicker();
+renderPhrases();
+renderN5();
 document.getElementById('practice-glyph').classList.add('placeholder');

@@ -1,0 +1,20 @@
+{
+  "name": "日本語入門 — 五十音 · 伊呂波歌",
+  "short_name": "日本語",
+  "description": "零基礎日語入門：五十音、伊呂波歌、構成講解、隨機練習。點哪個讀哪個，毛筆書法字體。",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fbf8f3",
+  "theme_color": "#8b1a1a",
+  "lang": "zh-Hant-HK",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
