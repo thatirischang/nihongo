@@ -94,16 +94,36 @@ WORDS = [
     "飲む", "飲", "橋", "箸",
     "ストライク", "ブライアン",
     "あ", "い", "う", "え", "お",
+    "濁点", "半濁点",
 ]
 WORDS_DIR = IROHA_OUT / "words"
 WORDS_DIR.mkdir(parents=True, exist_ok=True)
 
 
-async def synth(text: str, out_path: Path) -> None:
-    if out_path.exists() and out_path.stat().st_size > 0:
+async def synth(text: str, out_path: Path, rate: str = "+0%", force: bool = False) -> None:
+    if not force and out_path.exists() and out_path.stat().st_size > 0:
         return
-    communicate = edge_tts.Communicate(text, VOICE)
+    communicate = edge_tts.Communicate(text, VOICE, rate=rate)
     await communicate.save(str(out_path))
+
+
+async def synth_with_timings(text: str, out_path: Path, timings_path: Path, rate: str = "+0%") -> None:
+    """Generate audio + capture WordBoundary timings to JSON."""
+    import json
+    communicate = edge_tts.Communicate(text, VOICE, rate=rate)
+    timings = []
+    with open(out_path, "wb") as f:
+        async for chunk in communicate.stream():
+            if chunk["type"] == "audio":
+                f.write(chunk["data"])
+            elif chunk["type"] == "WordBoundary":
+                # offset/duration in 100-ns units (1e-7 sec) → convert to ms
+                timings.append({
+                    "offset_ms": chunk["offset"] / 10000,
+                    "duration_ms": chunk["duration"] / 10000,
+                    "text": chunk["text"],
+                })
+    timings_path.write_text(json.dumps(timings, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
 async def main() -> int:
@@ -111,25 +131,28 @@ async def main() -> int:
     print(f"→ Generating {total} audio files via {VOICE}")
     print(f"  output: {OUT_DIR}")
 
+    # Force regenerate kana at slower rate (-25%) for clarity
+    KANA_RATE = "-25%"
     done = 0
     for romaji, kana in KANA:
         out = OUT_DIR / f"{romaji}.mp3"
         try:
-            await synth(kana, out)
+            await synth(kana, out, rate=KANA_RATE, force=True)
             done += 1
-            sys.stdout.write(f"\r  [{done}/{total}] {romaji} ({kana}) → {out.name}    ")
+            sys.stdout.write(f"\r  [{done}/{total}] {romaji} ({kana}) @ {KANA_RATE}    ")
             sys.stdout.flush()
         except Exception as e:
             print(f"\n  ✗ {romaji} ({kana}): {e}")
             return 1
         await asyncio.sleep(0.2)  # 间隔，避免被 Microsoft 临时 block
 
-    # 伊呂波歌整首
+    # 伊呂波歌整首 + WordBoundary timings (用于点击高亮同步)
     iroha_out = IROHA_OUT / "iroha-full.mp3"
+    iroha_timings = IROHA_OUT / "iroha-timings.json"
     try:
-        await synth(IROHA_FULL, iroha_out)
+        await synth_with_timings(IROHA_FULL, iroha_out, iroha_timings, rate="-10%")
         done += 1
-        sys.stdout.write(f"\r  [{done}/{total}] iroha-full → {iroha_out.name}              ")
+        sys.stdout.write(f"\r  [{done}/{total}] iroha-full + timings → {iroha_out.name}      ")
         sys.stdout.flush()
     except Exception as e:
         print(f"\n  ✗ iroha-full: {e}")

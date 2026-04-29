@@ -77,9 +77,14 @@ function renderGojuon() {
 }
 
 // ═══ 伊呂波歌 ═══
+// 全局：伊呂波字符 DOM 引用，按 charIndex 排列（不含 ん）— 用于全文朗读时同步高亮
+let _irohaCharEls = [];
+
 function renderIroha() {
   const container = document.getElementById('iroha-poem');
   container.innerHTML = '';
+  _irohaCharEls = [];
+  let idx = 0;
   for (const line of IROHA_LINES) {
     const lineEl = document.createElement('div');
     lineEl.className = 'iroha-line';
@@ -89,6 +94,12 @@ function renderIroha() {
       if (c.archaic) span.classList.add('archaic');
       if (c.modern) span.classList.add('modern');
       span.textContent = currentScript === 'h' ? c.h : c.k;
+      // 给非 modern 字符（即朗读音频里有的 47 字）记 charIndex，用于同步高亮
+      if (!c.modern) {
+        span.dataset.charIndex = String(idx);
+        _irohaCharEls[idx] = span;
+        idx++;
+      }
       span.addEventListener('click', () => {
         document.querySelectorAll('.iroha-char.playing').forEach(x => x.classList.remove('playing'));
         span.classList.add('playing');
@@ -102,8 +113,57 @@ function renderIroha() {
   document.getElementById('iroha-translation').textContent = IROHA_TRANSLATION;
 }
 
-document.getElementById('btn-iroha-play').addEventListener('click', () => {
-  playIrohaFull();
+const btnIrohaPlay = document.getElementById('btn-iroha-play');
+const btnIrohaPause = document.getElementById('btn-iroha-pause');
+const btnIrohaStop = document.getElementById('btn-iroha-stop');
+
+function _clearIrohaHighlight() {
+  document.querySelectorAll('.iroha-char.playing').forEach(x => x.classList.remove('playing'));
+}
+
+function _setIrohaUiState(state) {
+  // state: 'playing' | 'paused' | 'stopped'
+  if (state === 'playing') {
+    btnIrohaPlay.hidden = true;
+    btnIrohaPause.hidden = false;
+    btnIrohaPause.textContent = '⏸ 暫停';
+    btnIrohaStop.hidden = false;
+  } else if (state === 'paused') {
+    btnIrohaPlay.hidden = true;
+    btnIrohaPause.hidden = false;
+    btnIrohaPause.textContent = '▶ 繼續';
+    btnIrohaStop.hidden = false;
+  } else { // stopped
+    btnIrohaPlay.hidden = false;
+    btnIrohaPause.hidden = true;
+    btnIrohaStop.hidden = true;
+    _clearIrohaHighlight();
+  }
+}
+
+btnIrohaPlay.addEventListener('click', () => {
+  playIrohaFull({
+    onChar: (idx) => {
+      _clearIrohaHighlight();
+      const el = _irohaCharEls[idx];
+      if (el) {
+        el.classList.add('playing');
+        // 自动滚动让高亮字保持在视野内
+        el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+      }
+    },
+    onState: _setIrohaUiState,
+    onEnd: () => _setIrohaUiState('stopped'),
+  });
+});
+
+btnIrohaPause.addEventListener('click', () => {
+  if (isIrohaPaused()) resumeIroha();
+  else pauseIroha();
+});
+
+btnIrohaStop.addEventListener('click', () => {
+  stopIroha();
 });
 
 // ═══ 随机练习 ═══
