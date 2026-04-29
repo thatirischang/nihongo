@@ -93,35 +93,34 @@ function isIrohaPaused() { return _irohaAudio && _irohaAudio.paused && _irohaAud
 // 每段內字符均分時間，段末有 breath pause
 let _sungAudio = null;
 let _sungSyncTimer = null;
-const SUNG_INTRO_SEC = 0;       // 之前 3.5 太多，導致高亮慢 ~7s。歌曲幾乎一開始就唱
-const SUNG_OUTRO_SEC = 0;
-const SUNG_LINE_BREATH_RATIO = 0;     // 段末不加 breath，純按字數均分
+// 歌唱版 timing — 經 user 反饋實測校準
+// 歌曲實際「唱字段」每字約 1.5s，而非用總時長均分 (3.6s 太慢)
+// 169.64s 中只有 ~70s 是唱字 + ~3s intro + ~96s 餘韻/間奏
+const SUNG_INTRO_SEC = 2;             // 前奏沉默/樂器 ~2s
+const SUNG_CHAR_SEC = 1.5;            // 每字約 1.5s
+const SUNG_OUTRO_SEC = 0;             // 唱完 47 字後高亮停在最後一字，餘韻不再 schedule
+const SUNG_LINE_BREATH_RATIO = 0;     // 段末不加 breath
 
 function _buildSungSchedule(totalDuration) {
-  // 47 字按 IROHA_LINES 分 8 段
+  // 47 字按固定 SUNG_CHAR_SEC 分配 — 不再根據 totalDuration 均分
+  // 因為歌曲文件含長前奏/餘韻/間奏，總時長 ÷ 47 會嚴重高估每字時長
   const lines = [];
   for (const line of IROHA_LINES) {
     const chars = line.filter(c => !c.modern);
     if (chars.length) lines.push(chars);
   }
-  const sungBody = totalDuration - SUNG_INTRO_SEC - SUNG_OUTRO_SEC;
-  // 每段時長按字數比例分配
-  const totalChars = lines.reduce((s, l) => s + l.length, 0);
-  const schedule = []; // {startMs, endMs, charIndex}
+  const schedule = [];
   let charIdx = 0;
   let cursor = SUNG_INTRO_SEC;
   for (const line of lines) {
-    const lineFraction = line.length / totalChars;
-    const lineSec = sungBody * lineFraction;
-    const breathSec = lineSec * SUNG_LINE_BREATH_RATIO;
-    const charSec = (lineSec - breathSec) / line.length;
+    const breathSec = SUNG_CHAR_SEC * SUNG_LINE_BREATH_RATIO;
     for (let i = 0; i < line.length; i++) {
       schedule.push({
-        startMs: (cursor) * 1000,
-        endMs: (cursor + charSec) * 1000,
+        startMs: cursor * 1000,
+        endMs: (cursor + SUNG_CHAR_SEC) * 1000,
         charIndex: charIdx,
       });
-      cursor += charSec;
+      cursor += SUNG_CHAR_SEC;
       charIdx++;
     }
     cursor += breathSec;
