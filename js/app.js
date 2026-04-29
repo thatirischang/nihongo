@@ -235,6 +235,16 @@ document.getElementById('btn-toggle-guide').addEventListener('click', () => {
     g.classList.contains('hidden') ? '显示参考字' : '隐藏参考字';
 });
 
+// ═══ 日语构成页：点击 .speak 元素朗读 ═══
+document.addEventListener('click', (e) => {
+  const el = e.target.closest('.speak');
+  if (!el) return;
+  const text = el.dataset.speak || el.textContent.trim();
+  el.classList.add('speak-playing');
+  setTimeout(() => el.classList.remove('speak-playing'), 800);
+  playPhrase(text);
+});
+
 // ═══ 初始化 ═══
 renderGojuon();
 renderIroha();

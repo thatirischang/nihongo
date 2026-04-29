@@ -57,6 +57,42 @@ IROHA_FULL = "いろはにほへと、ちりぬるを。わかよたれそ、つ
 
 IROHA_OUT = OUT_DIR.parent  # audio/iroha-full.mp3 直接放 audio/ 下
 
+# 日语构成页里出现的所有词/句 — 点击播放
+# 文件名 = 词本身（UTF-8）。浏览器自动 URL-encode。
+WORDS = [
+    # 平假名词
+    "わたし", "です", "が", "これ", "どこ", "きれい",
+    "ひらがな", "カタカナ",
+    "ゆき", "ゆうき",
+    # 片假名外来词
+    "コーヒー", "パソコン", "アルバイト", "ラーメン",
+    "ワンワン", "キラキラ", "ドキドキ",
+    "サクラ", "ネコ",
+    "ニューヨーク", "トヨタ",
+    "パン", "ピアノ", "ぱちぱち", "いっぱい",
+    "ベッド", "ゲーム", "パーティー",
+    # 汉字单字
+    "私", "山", "水", "人", "桜", "漢字",
+    # 汉字读音（音/训）
+    "やま", "さん", "みず", "すい", "ひと", "じん", "にん", "さくら",
+    # 复合词 / 例句
+    "山口", "富士山", "やまぐち", "ふじさん",
+    "学校", "がっこう", "大学", "だいがく",
+    "手紙", "てがみ", "青空", "あおぞら",
+    "食べる", "たべる", "食べた", "食べない",
+    "教室", "きょうしつ", "写真", "しゃしん", "切手", "きって",
+    # 长音例
+    "おばさん", "おばあさん",
+    "おかあさん", "おにいさん", "くうき", "おねえさん", "せんせい", "おとうさん", "おおきい",
+    # 关键术语
+    "濁音", "だくてん", "半濁音", "はんだくてん",
+    "拗音", "促音", "長音",
+    # demo 句子
+    "私はコーヒーを飲む",
+]
+WORDS_DIR = IROHA_OUT / "words"
+WORDS_DIR.mkdir(parents=True, exist_ok=True)
+
 
 async def synth(text: str, out_path: Path) -> None:
     if out_path.exists() and out_path.stat().st_size > 0:
@@ -94,7 +130,21 @@ async def main() -> int:
         print(f"\n  ✗ iroha-full: {e}")
         return 1
 
-    print(f"\n✓ Done. {done}/{total} files in audio/")
+    # 词 / 句
+    print(f"\n→ Generating {len(WORDS)} word/phrase audio files")
+    wdone = 0
+    for w in WORDS:
+        out = WORDS_DIR / f"{w}.mp3"
+        try:
+            await synth(w, out)
+            wdone += 1
+            sys.stdout.write(f"\r  [{wdone}/{len(WORDS)}] {w}                              ")
+            sys.stdout.flush()
+        except Exception as e:
+            print(f"\n  ✗ {w}: {e}")
+        await asyncio.sleep(0.2)
+
+    print(f"\n✓ Done. kana={done}/{total} words={wdone}/{len(WORDS)}")
     return 0
 
 

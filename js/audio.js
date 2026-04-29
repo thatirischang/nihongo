@@ -35,3 +35,16 @@ function playIrohaFull() {
   a.currentTime = 0;
   a.play().catch(err => console.warn('iroha play failed:', err));
 }
+
+// 播放词 / 句（日语构成页用）
+function playPhrase(text) {
+  if (!text) return;
+  const key = '__w__' + text;
+  let a = _audioCache.get(key);
+  if (!a) {
+    a = new Audio('audio/words/' + encodeURIComponent(text) + '.mp3');
+    _audioCache.set(key, a);
+  }
+  a.currentTime = 0;
+  a.play().catch(err => console.warn('phrase play failed:', text, err));
+}

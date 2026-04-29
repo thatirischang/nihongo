@@ -110,13 +110,13 @@ main {
 .page.active { display: block; }
 
 .section-title {
-  font-family: var(--font-ja);
-  font-size: 28px;
-  font-weight: 400;
+  font-family: var(--font-zh);
+  font-size: 24px;
+  font-weight: 500;
   margin: 32px 0 16px;
   color: var(--ink);
   text-align: center;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
 }
 
 /* ═══ 五十音 网格 ═══ */
@@ -317,9 +317,9 @@ details.extra[open] > summary::before { transform: rotate(90deg); }
   border-radius: 4px;
 }
 .iroha-translation h3 {
-  font-family: var(--font-ja);
-  font-size: 20px;
-  font-weight: 400;
+  font-family: var(--font-zh);
+  font-size: 18px;
+  font-weight: 500;
   margin-bottom: 12px;
   color: var(--accent);
 }
@@ -333,13 +333,14 @@ details.extra[open] > summary::before { transform: rotate(90deg); }
 /* ═══ 日语构成 ═══ */
 .prose { max-width: 680px; margin: 0 auto; padding: 24px 8px; }
 .prose h2 {
-  font-family: var(--font-ja);
-  font-size: 32px;
-  font-weight: 400;
+  font-family: var(--font-zh);
+  font-size: 26px;
+  font-weight: 500;
   text-align: center;
   margin-bottom: 24px;
+  margin-top: 16px;
   color: var(--accent);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
 }
 .prose h3 {
   font-family: var(--font-zh);
@@ -376,6 +377,35 @@ details.extra[open] > summary::before { transform: rotate(90deg); }
 }
 .prose .kata-hl { color: var(--accent); }
 .prose .kanji-hl { color: #2c5282; }
+
+/* 可点击朗读的日语词 */
+.speak {
+  cursor: pointer;
+  border-bottom: 1px dashed transparent;
+  transition: all 0.15s;
+  padding: 0 2px;
+  border-radius: 3px;
+}
+.speak:hover {
+  background: var(--hl);
+  border-bottom-color: var(--accent-soft);
+}
+.speak.speak-playing {
+  background: var(--accent);
+  color: var(--paper) !important;
+  border-bottom-color: var(--accent);
+}
+.speak.speak-playing .kata-hl,
+.speak.speak-playing .kanji-hl { color: var(--paper) !important; }
+.speak::before {
+  content: '🔊';
+  font-size: 0.5em;
+  opacity: 0;
+  margin-right: 2px;
+  transition: opacity 0.15s;
+  vertical-align: super;
+}
+.speak:hover::before { opacity: 0.6; }
 .prose ruby rt { font-size: 12px; color: var(--ink-soft); }
 .prose .lede {
   font-size: 17px;
