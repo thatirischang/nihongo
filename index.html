@@ -3,12 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="0">
 <title>日本語 — 五十音 · 伊呂波歌</title>
 <meta name="description" content="日语五十音、伊呂波歌、构成讲解、随机练习 — 点哪个读哪个，毛笔书法字体。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=2">
+<link rel="stylesheet" href="css/style.css?v=4">
 </head>
 <body>
 
@@ -79,16 +82,50 @@
 <section class="page" id="page-about">
   <article class="prose">
 
+    <h2>先看大局：日语到底是什么</h2>
+    <p class="lede">学日语前，先知道几件最重要的事 — 看完这段，你已经不算「完全零基础」了。<br><span class="muted">本页所有日文都可以<strong>点击听发音</strong> 🔊</span></p>
+
+    <h3>1. 日语跟中文是「邻居」，不是「亲戚」</h3>
+    <p>很多人第一反应「日语像中文」 — 其实<strong>语言学上日语和汉语没有亲缘关系</strong>。日语属于<strong>日本语族</strong>，是个语言孤岛（只跟琉球语沾亲）。它的语法、发音系统、句子结构跟汉语<strong>完全不同</strong>。</p>
+    <p>但日本从公元 5 世纪开始大量从中国借汉字、借汉语词，借了 1500 多年没断过。今天日语词汇里：</p>
+    <p class="example">
+      • <strong>和语</strong>（日本本土词）约 <strong>33%</strong> — 例：<span class="ja-big speak">やま</span>（山）、<span class="ja-big speak">みず</span>（水）<br>
+      • <strong>汉语</strong>（从中国借来或日本仿造的汉字词）约 <strong>49%</strong> — 例：<span class="ja-big speak">学校</span>、<span class="ja-big speak">大学</span>、<span class="ja-big speak">教室</span><br>
+      • <strong>外来语</strong>（近代从欧美借）约 <strong>10%</strong> — 例：<span class="ja-big speak">コーヒー</span>、<span class="ja-big speak">パソコン</span><br>
+      • 其他混合 ~8%
+    </p>
+    <p>所以看日语文章里有很多汉字 — 那是因为一半的词本来就来自汉语。但<strong>骨架是日本本土的</strong>，跟中文骨架完全两码事。</p>
+
+    <h3>2. 语序跟中文是反的：主语 → 宾语 → 动词</h3>
+    <p>中文「<strong>我吃苹果</strong>」(主+谓+宾, SVO)；日语「<strong>我 苹果 吃</strong>」(主+宾+谓, SOV)。动词永远在最后。</p>
+    <p class="example">
+      中文：<strong>我</strong> <strong>喝</strong> <strong>咖啡</strong> 。<br>
+      日语：<span class="kanji-hl"><span class="speak" data-speak="私">私</span></span>は <span class="kata-hl"><span class="ja-big speak">コーヒー</span></span>を <span class="kanji-hl"><span class="speak" data-speak="飲む">飲</span></span>む 。<br>
+      直译：<strong>我</strong> [主题] <strong>咖啡</strong> [宾语] <strong>喝</strong> 。
+    </p>
+    <p>这意味着听日语时<strong>要听到最后才知道动作是什么</strong> — 一开始会很别扭，但这就是日语的呼吸方式。</p>
+
+    <h3>3. 没有声调，但每个假名一拍</h3>
+    <p>中文有四声（mā má mǎ mà 不同字），<strong>日语没有声调</strong> — 同一个音节用「平」「升」「降」读出来意思都一样。</p>
+    <p>但日语严格遵循「<strong>拍</strong>」（モーラ）— 每个假名占一拍，时长一致。所以「<span class="ja-big speak">学校</span>」（がっこう）是 4 拍：が-っ-こ-う，连促音那个停顿都是一拍。这跟中文的「音节」概念不同。</p>
+
+    <hr class="rule">
+
     <h2>日语由三套文字混写而成</h2>
-    <p class="lede">读懂任何一句日语，先理清这三种文字怎么分工。<br><span class="muted">本页所有日文都可以<strong>点击听发音</strong> 🔊</span></p>
+    <p class="lede">理清这三种文字的分工，是看懂任何一句日语的前提。</p>
 
     <p class="example big speak" data-speak="私はコーヒーを飲む">
       <span class="kanji-hl"><ruby>私<rt>わたし</rt></ruby></span>は <span class="kata-hl">コーヒー</span>を <span class="kanji-hl"><ruby>飲<rt>の</rt></ruby></span>む。
     </p>
     <p class="muted center">「我喝咖啡。」 — <span class="kanji-hl">蓝字</span>是<strong>汉字</strong>（实词），黑字是<strong>平假名</strong>（语法），<span class="kata-hl">红字</span>是<strong>片假名</strong>（外来词）。</p>
 
-    <p>这三套文字不是谁替代谁的关系，而是<strong>各管一摊</strong>。汉字管「意思最重的那个核心」，平假名管「连接和变化的语法部件」，片假名管「从外语借来的词」。少一种都写不成现代日语。</p>
-    <p class="muted">中文里只有一套字，所以这件事一开始会觉得别扭 — 多看几个例子就习惯了。</p>
+    <p>这三套文字不是谁替代谁的关系，而是<strong>各管一摊</strong>：</p>
+    <ul>
+      <li><strong>汉字</strong>管「意思最重的那个核心」 — 名词、动词词根、形容词词根</li>
+      <li><strong>平假名</strong>管「连接和变化的语法部件」 — 助词、动词尾巴、和语虚词</li>
+      <li><strong>片假名</strong>管「从外语借来的词」 — 外来词、拟声词、强调</li>
+    </ul>
+    <p class="muted">中文里只有一套字，所以「同一句话用三种字」一开始会觉得很别扭 — 多看几个例子就习惯了。其实这套混写系统很高效：眼睛一扫就知道这个词是「核心」（汉字）还是「连接词」（平假名）还是「外来词」（片假名）。</p>
 
     <hr class="rule">
 
@@ -136,8 +173,79 @@
 
     <hr class="rule">
 
+    <h2>发音系统：5 元音 + 9 辅音 = 46 音节</h2>
+    <p class="lede">日语的发音结构在所有大语言里属于<strong>最简单的几个</strong>。说清楚这个，你会明白 50 音表为什么长那个样子。</p>
+
+    <h3>① 元音只有 5 个：a · i · u · e · o</h3>
+    <p>跟汉语拼音 a/i/u/e/o 几乎一样发音（u 略不圆唇、e 接近「ㄝ」）。<strong>这就是日语全部的元音</strong> — 没有 ü（拼音 u）、没有 ㄚ的多种变体、没有英语的 ʌ ɔ ɛ æ 那些。</p>
+    <p class="example">
+      <span class="ja-big speak">あ</span> a — 张大嘴 「啊」<br>
+      <span class="ja-big speak">い</span> i — 嘴角拉开 「一」<br>
+      <span class="ja-big speak">う</span> u — 嘴唇放松（不像中文 u 撅嘴）<br>
+      <span class="ja-big speak">え</span> e — 介于「ㄝ」和「e」之间<br>
+      <span class="ja-big speak">お</span> o — 圆口 「哦」
+    </p>
+
+    <h3>② 辅音 9 个 × 5 元音 = 5×10 网格</h3>
+    <p>把 5 个元音横排，9 个辅音 (k/s/t/n/h/m/y/r/w) 加 1 个零辅音（纯元音行）竖排，就组合出 50 个格子的「五十音表」。</p>
+    <p class="example">
+      <strong>k 行</strong>：<span class="ja-big speak">か</span>ka <span class="ja-big speak">き</span>ki <span class="ja-big speak">く</span>ku <span class="ja-big speak">け</span>ke <span class="ja-big speak">こ</span>ko<br>
+      <strong>s 行</strong>：<span class="ja-big speak">さ</span>sa <span class="ja-big speak">し</span>shi <span class="ja-big speak">す</span>su <span class="ja-big speak">せ</span>se <span class="ja-big speak">そ</span>so<br>
+      <strong>t 行</strong>：<span class="ja-big speak">た</span>ta <span class="ja-big speak">ち</span>chi <span class="ja-big speak">つ</span>tsu <span class="ja-big speak">て</span>te <span class="ja-big speak">と</span>to
+    </p>
+    <p>有几个空位（や 行只有 や/ゆ/よ；わ 行只有 わ/を；末尾再加单独的 ん）— 算下来现代日语<strong>实际清音是 46 个</strong>。<strong>本站「五十音」标签页里的就是这张表</strong>。</p>
+
+    <h3>③ 没有声调、没有复合辅音、没有辅音收尾</h3>
+    <ul>
+      <li><strong>没有声调</strong>：mā/má/mǎ/mà 在日语里都是同一个 ma。但有「<strong>音调高低</strong>」(アクセント) — 比如「橋 はし」(桥) 和「箸 はし」(筷子) 拼写一样，靠音高区分，初学不用管。</li>
+      <li><strong>没有复合辅音</strong>：英语的 spr- str- bl- 在日语里不存在。Strike → ストライク (sutoraiku，5 拍)。</li>
+      <li><strong>辅音不能单独收尾</strong>：每个音节都得以元音结束（除了 ん 和促音 っ）。所以「Brian」→ ブライアン (buraian)，每个辅音后都要塞个元音。</li>
+    </ul>
+    <p class="muted">这就是为什么日语外来词听起来「日本味儿很重」 — coffee 变 <span class="ja-big speak">コーヒー</span>(kōhī) 不是因为「读不准」，而是日语音节系统不允许 cf 这种组合，只能拆成「ko-o-hi-i」。</p>
+
+    <h3>④ 「拍」(モーラ) — 日语的节奏单位</h3>
+    <p>日语是「<strong>等拍语言</strong>」(mora-timed)：<strong>每个假名占一拍，每拍时长完全相等</strong>。这跟英语（重音节奏）和中文（音节节奏）都不同。</p>
+    <p class="example">
+      <span class="ja-big speak">学校</span>（がっこう）= が-っ-こ-う = <strong>4 拍</strong>（连促音「っ」也是 1 拍，虽然不发音只停顿）<br>
+      <span class="ja-big speak">コーヒー</span> = コ-ー-ヒ-ー = <strong>4 拍</strong>（长音「ー」也是 1 拍）<br>
+      <span class="ja-big speak">東京</span>（とうきょう）= と-う-きょ-う = <strong>4 拍</strong>（拗音「きょ」是 1 拍，不是 2 拍）
+    </p>
+    <p class="muted">说日语听起来像「打节拍器」就是因为这个 — 每个假名时长相等，不重不轻。</p>
+
+    <h3>⑤ 罗马字 (ローマ字) — 学日语的拐杖，不是终点</h3>
+    <p>用拉丁字母拼日语叫「罗马字」(<span class="ja-big speak">ローマ字</span>)，方便外国人入门。但有<strong>两套主流拼法</strong>：</p>
+    <ul>
+      <li><strong>ヘボン式</strong>（Hepburn 式）：按英语习惯。し = shi、つ = tsu、ち = chi、ふ = fu、じ = ji。<strong>本站用这套</strong>，国际通用，机场路牌和大多数教材都用它。</li>
+      <li><strong>訓令式</strong>（Kunrei 式）：日本官方系统化拼法。し = si、つ = tu、ち = ti、ふ = hu、じ = zi。日本小学课本和地名罗马化用这套。</li>
+    </ul>
+    <p class="muted"><strong>关键提示：</strong>罗马字只是拐杖。真正学日语<strong>越早脱离罗马字越好</strong> — 用罗马字读多了会带着英语口音。直接看假名 → 出声音，是最佳路径。</p>
+
+    <hr class="rule">
+
     <h2>读音的进阶：浊音 · 半浊音 · 拗音 · 促音 · 长音</h2>
     <p class="lede">学完 50 音清音之后，下面这五个变化系统是日语发音的<strong>剩余全部</strong>。原理都很简单。</p>
+
+    <h3>为什么会出现这五种音变？</h3>
+    <p>这是个值得理解的问题 — <strong>知道「为什么」之后，记规则就不再是死背</strong>。简单说：</p>
+
+    <p><strong>① 50 音表本身只有 46 个清音。</strong>但口语里实际用到的发音远不止 46 种。日语从汉语借词、从外语借词、本土词的演化，都需要更多音节。<strong>这五种音变就是「用现有 46 个假名拼出更多发音」的扩展系统</strong> — 不是另起炉灶造新假名，而是给已有假名加标记或组合。</p>
+
+    <p><strong>② 各自的来历：</strong></p>
+    <ul>
+      <li><strong>浊音</strong>（が・ざ・だ・ば 行）：<strong>从汉语来</strong>。古汉语本来就分清浊（k/g、s/z、t/d、p/b），日语借汉字时连浊音一起借了。但平安时代以前没有专门的浊音假名，写作时「<span class="ja-big">か</span>」既可能读 ka 也可能读 ga，靠语境判断。后来为了消歧义，给浊化的音<strong>加两点</strong>，从此浊音正式有了写法。</li>
+
+      <li><strong>半浊音</strong>（ぱ 行）：<strong>从外来词来</strong>。古日语本身没有 p 音 — 古代「は 行」其实读 pa/pi/pu/pe/po，后来逐渐弱化成 ha/hi/fu/he/ho。等到 16 世纪葡萄牙传教士带来了大量含 p 音的词（如「pan 面包」），日语没字母可写，就给 は 行<strong>加个小圆圈</strong>恢复古音 p。所以半浊音是「找回失去的音」。</li>
+
+      <li><strong>拗音</strong>（きゃ・しゅ・ちょ 等）：<strong>也是从汉语来</strong>。古汉语有大量「j-/q-/x-」类带「介音 i」的音（如「教 jiào」、「钱 qián」），日语单用一个假名拼不出，就发明了「i 段假名 + 小写 ゃ/ゅ/ょ」的组合写法。所以拗音几乎只出现在<strong>汉字音读</strong>里 — 和语固有词基本不用拗音。</li>
+
+      <li><strong>促音</strong>（っ）：<strong>音节边界的「卡顿」自然产生</strong>。日语是「拍语言」（每个假名占一拍），词语连读时偶尔出现「停一拍才接下个辅音」的现象（类似中文「不可」连读偶有的小停顿）。古代写作时常省略，到平安末期才统一用<strong>小写的 つ</strong>占位表示。从汉语借词时大量出现（如「学 gak + 校 kō → 学校 gakkō」）。</li>
+
+      <li><strong>长音</strong>（おう・コー）：<strong>音节合并的产物</strong>。古日语很多两个连续的元音（如 a-u、e-i），口语里慢慢合并成一个被拉长的音（au→ō、ei→ē）。但写法保留了原来的两个假名，所以变成「写两个、读一个长的」。片假名干脆发明了横棒「ー」专门表长音，更直观。</li>
+    </ul>
+
+    <p><strong>③ 一句话总结：</strong></p>
+    <p class="muted center"><strong>清音 46 个</strong>是<strong>骨架</strong>；这 5 种音变是为了应付「<strong>借汉字</strong>」「<strong>借外语</strong>」「<strong>口语自然演化</strong>」三件事而长出的<strong>扩展机制</strong>。所以浊音/拗音常出现在汉字音读，半浊音常出现在外来词，长音/促音哪儿都有。看到一个生词，能从音变形态反推它大概是哪种来源 — 这是高级日语阅读的「直觉」。</p>
+
 
     <h3>① 浊音 <span class="ja-big speak" data-speak="濁音">濁音</span> — 加两点变浊辅音</h3>
     <p><strong>道理很简单：</strong>清辅音 k / s / t / h，把<strong>声带振动起来</strong> → 就变成浊辅音 g / z / d / b。日语用一个「<strong>点点</strong>」（゛，正式叫「<span class="speak" data-speak="濁点">濁点</span> / <span class="speak">だくてん</span>」）加在假名右上角来标记。</p>
@@ -269,11 +377,11 @@
 </main>
 
 <footer class="site-footer">
-  <p class="muted">日本語入門 · 由 <a href="https://irischanglabs.com">Iris Chang Labs</a> 制作 · 发音 Microsoft Edge-TTS (NanamiNeural) · 字体 Yuji Syuku</p>
+  <p class="muted">日本語入門 <strong style="color:var(--accent)">v0.4</strong> · 由 <a href="https://irischanglabs.com">Iris Chang Labs</a> 制作 · 发音 Microsoft Edge-TTS (NanamiNeural) · 字体 Yuji Syuku + Noto Sans SC</p>
 </footer>
 
-<script src="js/data.js?v=2"></script>
-<script src="js/audio.js?v=2"></script>
-<script src="js/app.js?v=2"></script>
+<script src="js/data.js?v=4"></script>
+<script src="js/audio.js?v=4"></script>
+<script src="js/app.js?v=4"></script>
 </body>
 </html>
