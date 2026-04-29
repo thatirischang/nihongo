@@ -444,6 +444,45 @@ details.extra[open] > summary::before { transform: rotate(90deg); }
 }
 .prose ul li strong { color: var(--ink); }
 
+/* 术语对齐框 — 給零基礎讀者解釋專業詞 */
+.prose .termbox {
+  background: #fff7e6;
+  border-left: 3px solid var(--accent);
+  padding: 18px 22px;
+  margin: 24px 0;
+  border-radius: 4px;
+}
+.prose .termbox h4 {
+  font-family: var(--font-zh);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--accent);
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+}
+.prose .termbox p {
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin-bottom: 8px;
+}
+.prose .termbox dl {
+  margin: 12px 0 0;
+}
+.prose .termbox dt {
+  margin-top: 12px;
+  color: var(--ink);
+  font-size: 14px;
+}
+.prose .termbox dt:first-child { margin-top: 0; }
+.prose .termbox dd {
+  margin-left: 0;
+  margin-top: 4px;
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.75;
+}
+.prose .termbox dd strong { color: var(--ink); }
+
 /* ═══ 练习 ═══ */
 .practice-controls {
   display: flex;

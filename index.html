@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&amp;family=Noto+Sans+HK:wght@300;400;500;700&amp;family=Noto+Sans+TC:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
-<link href="css/style.css?v=7" rel="stylesheet"/>
+<link href="css/style.css?v=9" rel="stylesheet"/>
 </head>
 <body>
 <header class="site-header">
@@ -58,8 +58,8 @@
 </div>
 <div class="iroha-controls">
 <button class="btn-play-all" id="btn-iroha-play">▶ 朗讀全文</button>
-<button class="btn-play-all" id="btn-iroha-pause" hidden>⏸ 暫停</button>
-<button class="btn-play-all" id="btn-iroha-stop" hidden>■ 停止</button>
+<button class="btn-play-all" hidden="" id="btn-iroha-pause">⏸ 暫停</button>
+<button class="btn-play-all" hidden="" id="btn-iroha-stop">■ 停止</button>
 <span class="muted">點單字朗讀單音</span>
 </div>
 <div class="iroha-poem" id="iroha-poem"></div>
@@ -84,7 +84,9 @@
     </p>
 <p>所以看日語文章裏有很多漢字 — 那是因為一半的詞本來就來自漢語。但<strong>骨架是日本本土的</strong>，跟中文骨架完全兩碼事。</p>
 <h3>2. 語序跟中文是反的：主語 → 賓語 → 動詞</h3>
-<p>中文「<strong>我吃蘋果</strong>」(主+謂+賓, SVO)；日語「<strong>我 蘋果 吃</strong>」(主+賓+謂, SOV)。動詞永遠在最後。</p>
+<p class="muted"><strong>先對齊術語：</strong>「主語」= 句子裏做動作的人（「<strong>我</strong>吃蘋果」的「我」）；「謂語」= 那個動作本身（通常是動詞，「我<strong>吃</strong>蘋果」的「吃」）；「賓語」= 動作的對象（「我吃<strong>蘋果</strong>」的「蘋果」）。這三個是任何語言都離不開的句子骨架。</p>
+<p>中文：<strong>我</strong>（主）<strong>吃</strong>（謂）<strong>蘋果</strong>（賓），順序是「主+謂+賓」，英文叫 SVO。</p>
+<p>日語：<strong>我</strong>（主）<strong>蘋果</strong>（賓）<strong>吃</strong>（謂），順序是「主+賓+謂」，英文叫 SOV。動詞永遠在最後。</p>
 <p class="example">
       中文：<strong>我</strong> <strong>喝</strong> <strong>咖啡</strong> 。<br/>
       日語：<span class="kanji-hl"><span class="speak" data-speak="私">私</span></span>は <span class="kata-hl"><span class="ja-big speak">コーヒー</span></span>を <span class="kanji-hl"><span class="speak" data-speak="飲む">飲</span></span>む 。<br/>
@@ -92,8 +94,10 @@
     </p>
 <p>這意味着聽日語時<strong>要聽到最後才知道動作是什麼</strong> — 一開始會很彆扭，但這就是日語的呼吸方式。</p>
 <h3>3. 沒有聲調，但每個假名一拍</h3>
-<p>中文有四聲（mā má mǎ mà 不同字），<strong>日語沒有聲調</strong> — 同一個音節用「平」「升」「降」讀出來意思都一樣。</p>
-<p>但日語嚴格遵循「<strong>拍</strong>」（モーラ）— 每個假名佔一拍，時長一致。所以「<span class="ja-big speak">学校</span>」（がっこう）是 4 拍：が-っ-こ-う，連促音那個停頓都是一拍。這跟中文的「音節」概念不同。</p>
+<p class="muted"><strong>先對齊術語：</strong>「聲調」= 同一個音節用不同音高念出來代表不同字。中文最典型 — 「mā 媽 / má 麻 / mǎ 馬 / mà 罵」拼音字母全一樣，靠音高的「平、升、降」分四個字。</p>
+<p><strong>日語沒這套</strong>。一個音節無論你用平、升、降念，意思都一樣（最多顯得語氣不同）。所以日語的發音對中文母語者來説，第一關就比英語簡單 — 不用記四聲。</p>
+<p class="muted"><strong>另一個術語：</strong>「拍」（モーラ / mora）= 日語特有的時間單位。<strong>每個假名佔一拍，每拍時長相等</strong>，像打節拍器。這跟中文的「音節」不同 — 中文「中（zhōng）」是 1 個音節，但日語「ちゅう（chū）」是 2 拍。</p>
+<p>例：<span class="ja-big speak">学校</span>（がっこう）= が-っ-こ-う = 4 拍。連那個不發音的促音「っ」也佔一拍。</p>
 <hr class="rule"/>
 <h2>日語由三套文字混寫而成</h2>
 <p class="lede">理清這三種文字的分工，是看懂任何一句日語的前提。</p>
@@ -113,8 +117,8 @@
 <p>9 世紀左右，日本宮廷女性書寫時為了快，把漢字一筆寫完，慢慢簡化成了今天圓滑柔和的樣子。所以平假名又叫「<strong>女手</strong>」（おんなで）。<strong>每一個平假名都是某個漢字的草書</strong>。</p>
 <p><strong>它用來寫什麼：</strong></p>
 <ul>
-<li><strong>所有助詞</strong>（は・が・を・に・で・と・も・の…）— 中文裏沒有助詞，但日語句子全靠它們粘合，每句話都用得到。</li>
-<li><strong>動詞、形容詞的尾巴</strong>。漢字管「核心意思」，平假名管「時態/否定/被動」這些尾巴變化。例：<span class="speak" data-speak="食べる">食べる</span>（吃，原形）/ <span class="speak" data-speak="食べた">食べた</span>（吃過了）/ <span class="speak" data-speak="食べない">食べない</span>（不吃）— 「食」是漢字不變，後面 る/た/ない 是平假名在變。</li>
+<li><strong>所有助詞</strong>（助詞 = particle，中文裏沒有的東西。功能是「貼在名詞後面，標記這個詞在句中是主語、賓語、地點、工具、還是別的角色」）。常見的有 は・が・を・に・で・と・も・の…。日語句子全靠它們粘合，每句話都用得到。</li>
+<li><strong>動詞、形容詞的尾巴變化</strong>（術語叫「<strong>活用</strong>」conjugation = 一個動詞變不同形態表達時態、否定、被動、命令等）。中文動詞不變形（「我吃」「我吃過了」「我不吃」用同一個「吃」字）；日語動詞要變字尾。漢字管「核心意思（詞根）」，平假名管「變化的尾巴（詞尾）」。例：<span class="speak" data-speak="食べる">食べる</span>（吃，原形）/ <span class="speak" data-speak="食べた">食べた</span>（吃過了）/ <span class="speak" data-speak="食べない">食べない</span>（不吃）— 「食」是漢字詞根永不變，後面 る/た/ない 是平假名在變。</li>
 <li><strong>沒有漢字、或漢字太冷門不寫的和語詞</strong>。例：<span class="ja-big speak">これ</span>（這）、<span class="ja-big speak">どこ</span>（哪裏）、<span class="ja-big speak">きれい</span>（漂亮）。</li>
 <li><strong>給漢字注音（振り仮名 / フリガナ）</strong>。給小孩、外國人或者生僻字標讀音用，寫在漢字上方。例：<ruby><span class="speak" data-speak="桜">桜</span><rt>さくら</rt></ruby>。</li>
 </ul>
@@ -150,8 +154,20 @@
 <hr class="rule"/>
 <h2>發音系統：5 元音 + 9 輔音 = 46 音節</h2>
 <p class="lede">日語的發音結構在所有大語言裏屬於<strong>最簡單的幾個</strong>。説清楚這個，你會明白 50 音表為什麼長那個樣子。</p>
+<div class="termbox">
+<h4>📖 先對齊三個關鍵術語</h4>
+<p>下面這三個詞如果你已經懂可以略過，但很多教材直接用，沒解釋過。理解它們，整個 50 音表立刻一目瞭然。</p>
+<dl>
+<dt><strong>元音 (vowel，又叫「母音」)</strong></dt>
+<dd>嘴巴打開、空氣從喉嚨直接流出來、嘴唇舌頭<strong>不擋路</strong>的音。中文拼音的 <strong>a / i / u / e / o</strong> 就是元音。發音時把手放在嘴前能感覺到氣流穩穩出來。</dd>
+<dt><strong>輔音 (consonant，又叫「子音」)</strong></dt>
+<dd>發音時嘴唇、舌頭、牙齒<strong>擋一下</strong>空氣，造出阻礙再放開的音。比如 <strong>k / s / t / n / m / h</strong> 這些。發 k 時舌根頂上顎、發 m 時嘴唇閉緊、發 s 時舌尖接近上齒齦 — 都有「擋」這個動作。輔音<strong>單獨念不出聲</strong>，必須跟元音搭配。</dd>
+<dt><strong>音節 (syllable)</strong></dt>
+<dd>一個輔音 + 一個元音的組合，是<strong>能單獨發出聲的最小單位</strong>。比如「ka」「shi」「mu」就是音節。日語的 50 音表裏每個假名 = 一個音節。</dd>
+</dl>
+</div>
 <h3>① 元音只有 5 個：a · i · u · e · o</h3>
-<p>跟漢語拼音 a/i/u/e/o 幾乎一樣發音（u 略不圓唇、e 接近「ㄝ」）。<strong>這就是日語全部的元音</strong> — 沒有 ü（拼音 u）、沒有 ㄚ的多種變體、沒有英語的 ʌ ɔ ɛ æ 那些。</p>
+<p>日語的元音就是這 5 個 — 跟漢語拼音 a/i/u/e/o 幾乎一樣。沒有 ü（拼音的「u」）、沒有 ㄚ 的各種變體、沒有英語的 ʌ ɔ ɛ æ 等。對中文母語者來説，<strong>發音門檻在所有語言裏屬於最低</strong>。</p>
 <p class="example">
 <span class="ja-big speak">あ</span> a — 張大嘴 「啊」<br/>
 <span class="ja-big speak">い</span> i — 嘴角拉開 「一」<br/>
@@ -170,8 +186,8 @@
 <h3>③ 沒有聲調、沒有複合輔音、沒有輔音收尾</h3>
 <ul>
 <li><strong>沒有聲調</strong>：mā/má/mǎ/mà 在日語裏都是同一個 ma。但有「<strong>音調高低</strong>」(アクセント) — 比如「橋 はし」(橋) 和「箸 はし」(筷子) 拼寫一樣，靠音高區分，初學不用管。</li>
-<li><strong>沒有複合輔音</strong>：英語的 spr- str- bl- 在日語裏不存在。Strike → ストライク (sutoraiku，5 拍)。</li>
-<li><strong>輔音不能單獨收尾</strong>：每個音節都得以元音結束（除了 ん 和促音 っ）。所以「Brian」→ ブライアン (buraian)，每個輔音後都要塞個元音。</li>
+<li><strong>沒有複合輔音</strong>（複合輔音 = 兩個輔音連著、中間沒元音。英語的 spr-、str-、bl- 都是；中文也沒有）：日語不允許這種組合，所有輔音必須跟一個元音搭配。Strike → ストライク (su-to-ra-i-ku，5 拍)，每個輔音後面都被塞了個元音。</li>
+<li><strong>輔音不能單獨收尾</strong>：每個音節都必須以元音結束（只有 ん 和促音 っ 例外）。所以「Brian」→ ブライアン (bu-ra-i-a-n)，b 後面也要塞個 u。</li>
 </ul>
 <p class="muted">這就是為什麼日語外來詞聽起來「日本味兒很重」 — coffee 變 <span class="ja-big speak">コーヒー</span>(kōhī) 不是因為「讀不準」，而是日語音節系統不允許 cf 這種組合，只能拆成「ko-o-hi-i」。</p>
 <h3>④ 「拍」(モーラ) — 日語的節奏單位</h3>
@@ -206,7 +222,8 @@
 <p><strong>③ 一句話總結：</strong></p>
 <p class="muted center"><strong>清音 46 個</strong>是<strong>骨架</strong>；這 5 種音變是為了應付「<strong>借漢字</strong>」「<strong>借外語</strong>」「<strong>口語自然演化</strong>」三件事而長出的<strong>擴展機制</strong>。所以濁音/拗音常出現在漢字音讀，半濁音常出現在外來詞，長音/促音哪兒都有。看到一個生詞，能從音變形態反推它大概是哪種來源 — 這是高級日語閲讀的「直覺」。</p>
 <h3>① 濁音 <span class="ja-big speak" data-speak="濁音">濁音</span> — 加兩點變濁輔音</h3>
-<p><strong>道理很簡單：</strong>清輔音 k / s / t / h，把<strong>聲帶振動起來</strong> → 就變成濁輔音 g / z / d / b。日語用一個「<strong>點點</strong>」（゛，正式叫「<span class="speak" data-speak="濁点">濁点</span> / <span class="speak">だくてん</span>」）加在假名右上角來標記。</p>
+<p class="muted"><strong>先對齊術語：</strong>「<strong>清輔音</strong>」= 發音時聲帶<strong>不振動</strong>的輔音（k / s / t / h / p）；「<strong>濁輔音</strong>」= 聲帶<strong>振動</strong>的輔音（g / z / d / b）。<strong>用手摸著喉嚨自己試</strong>：發「ka」喉嚨不抖，發「ga」喉嚨抖。這就是清濁的物理區別。中文沒有清濁對立（普通話 b / d / g 其實是不送氣清音，不是真濁音），所以中文母語者要練。</p>
+<p><strong>道理：</strong>把清輔音 k / s / t / h 的「聲帶振動起來」 → 自動變成濁輔音 g / z / d / b。日語用一個「<strong>點點</strong>」（゛，正式叫「<span class="speak" data-speak="濁点">濁点</span> / <span class="speak">だくてん</span>」）加在假名右上角來標記。</p>
 <p class="example">
 <span class="ja-big speak">か</span> ka → <span class="ja-big speak">が</span> ga
       <span class="ja-big speak">さ</span> sa → <span class="ja-big speak">ざ</span> za
@@ -224,6 +241,7 @@
     </p>
 <p><strong>怎麼用：</strong>大量出現在外來詞裏（<span class="ja-big speak">パン</span> pan「麪包」、<span class="ja-big speak">ピアノ</span> piano），還有擬聲詞（<span class="ja-big speak">ぱちぱち</span>「啪啪」）和少數促音後的和語詞（<span class="ja-big speak">いっぱい</span>「滿滿」）。和語詞裏獨立的半濁音很少，遇到大概率是藉詞。</p>
 <h3>③ 拗音 <span class="ja-big speak" data-speak="拗音">拗音</span> — 像中文拼音裏的「介音 i」</h3>
+<p class="muted"><strong>先對齊術語：</strong>「<strong>介音</strong>」= 中文拼音裏夾在輔音和元音中間的「i / u / ü」。比如「教 jiào」中的 <strong>i</strong>、「靴 xuē」中的 <strong>u</strong>、「全 quán」中的 <strong>ü</strong> 都是介音。它讓主元音前面多一個短促的「滑音」。日語也有這個需求 — 用「i 段假名 + 小寫的 ゃ/ゅ/ょ」組合來寫。</p>
 <p><strong>道理：</strong>「i 段假名」（き・し・ち・に・ひ・み・り，以及它們的濁音/半濁音）後面跟一個<strong>小一號寫</strong>的 ゃ・ゅ・ょ，兩個字符<strong>合拼成一個音節</strong>，只讀一拍不讀兩拍。</p>
 <p class="example">
 <span class="ja-big speak">き</span> ki + <span class="ja-big speak">ゃ</span> ya → <span class="ja-big speak">きゃ</span> kya（不是 ki-ya 兩拍，是 kya 一拍）<br/>
@@ -331,11 +349,11 @@
 </section>
 </main>
 <footer class="site-footer">
-<p class="muted">日本語入門 <strong style="color:var(--accent)">v0.8</strong> · 由 <a href="https://irischanglabs.com">Iris Chang Labs</a> 製作 · 發音 Microsoft Edge-TTS (NanamiNeural) · 字體 Yuji Syuku + Noto Sans HK/TC</p>
+<p class="muted">日本語入門 <strong style="color:var(--accent)">v0.9</strong> · 由 <a href="https://irischanglabs.com">Iris Chang Labs</a> 製作 · 發音 Microsoft Edge-TTS (NanamiNeural) · 字體 Yuji Syuku + Noto Sans HK/TC</p>
 </footer>
-<script src="js/data.js?v=7"></script>
-<script src="js/audio.js?v=7"></script>
-<script src="js/strokes.js?v=7"></script>
-<script src="js/app.js?v=7"></script>
+<script src="js/data.js?v=9"></script>
+<script src="js/audio.js?v=9"></script>
+<script src="js/strokes.js?v=9"></script>
+<script src="js/app.js?v=9"></script>
 </body>
 </html>
