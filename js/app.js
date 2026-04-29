@@ -35,15 +35,21 @@ function _kanaCell(cell, opts = {}) {
   const div = document.createElement('div');
   div.className = 'kana-cell' + (opts.youon ? ' youon' : '') + (opts.archaic ? ' archaic' : '');
   const etymon = currentScript === 'h' ? cell.eh : cell.ek;
+  const hasEtymology = cell.eh && cell.ek;
   div.innerHTML = `
-    ${etymon ? `<div class="kana-etymon" title="字源：${etymon} — 點此格右上角 ⓘ 看詳細">${etymon}</div>` : ''}
-    ${cell.eh && cell.ek ? `<button class="kana-info" title="看字源解析" aria-label="字源解析">ⓘ</button>` : ''}
+    ${etymon ? `<div class="kana-etymon" title="字源：${etymon}">${etymon}</div>` : ''}
+    ${hasEtymology ? `<button class="kana-info" title="字源解析" aria-label="字源解析">ⓘ</button>` : ''}
+    <button class="kana-stroke-btn" title="筆順示範" aria-label="筆順示範">✍</button>
     <div class="kana-glyph">${currentScript === 'h' ? cell.h : cell.k}</div>
     <div class="kana-romaji">${cell.r}</div>
   `;
   div.addEventListener('click', (e) => {
     if (e.target.classList.contains('kana-info')) {
       openEtymologyModal(cell);
+      return;
+    }
+    if (e.target.classList.contains('kana-stroke-btn')) {
+      openStrokeModal(cell);
       return;
     }
     document.querySelectorAll('.kana-cell.playing').forEach(c => c.classList.remove('playing'));
@@ -53,6 +59,29 @@ function _kanaCell(cell, opts = {}) {
   });
   return div;
 }
+
+// 笔顺示范 modal
+function openStrokeModal(cell) {
+  const glyph = currentScript === 'h' ? cell.h : cell.k;
+  document.getElementById('stroke-modal-glyph').textContent = `${cell.h} / ${cell.k}`;
+  document.getElementById('stroke-modal-romaji').textContent = cell.r;
+  const box = document.getElementById('stroke-modal-canvas');
+  box.innerHTML = '';
+  document.getElementById('stroke-modal').hidden = false;
+  // 動畫
+  animateStrokes(glyph, box);
+  document.getElementById('stroke-modal-replay').onclick = () => {
+    box.innerHTML = '';
+    animateStrokes(glyph, box);
+  };
+  document.getElementById('stroke-modal-play').onclick = () => playKana(cell);
+}
+function closeStrokeModal() { document.getElementById('stroke-modal').hidden = true; }
+document.getElementById('stroke-close')?.addEventListener('click', closeStrokeModal);
+document.getElementById('stroke-backdrop')?.addEventListener('click', closeStrokeModal);
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !document.getElementById('stroke-modal').hidden) closeStrokeModal();
+});
 
 // ═══ 字源解析 modal ═══
 function openEtymologyModal(cell) {
@@ -419,9 +448,9 @@ function _allKana() {
 }
 
 function startQuiz() {
+  const direction = document.getElementById('quiz-direction')?.value || 'audio2kana';
   const pool = _allKana();
   const correct = pool[Math.floor(Math.random() * pool.length)];
-  // 3 干扰项，从同一类别（避免拗音夹清音过明显）
   const distractors = [];
   while (distractors.length < 3) {
     const cand = pool[Math.floor(Math.random() * pool.length)];
@@ -430,22 +459,45 @@ function startQuiz() {
     }
   }
   const opts = [correct, ...distractors].sort(() => Math.random() - 0.5);
-  _quizCurrent = { correct, opts, answered: false };
+  _quizCurrent = { correct, opts, answered: false, direction };
 
   document.getElementById('quiz-feedback').textContent = '';
   document.getElementById('quiz-feedback').className = 'quiz-feedback';
+
+  const promptEl = document.querySelector('.quiz-prompt');
+  const replayBtn = document.getElementById('quiz-replay');
   const optsEl = document.getElementById('quiz-options');
   optsEl.innerHTML = '';
-  for (const o of opts) {
-    const btn = document.createElement('button');
-    btn.className = 'quiz-option';
-    btn.textContent = o.h;  // 顯示平假名
-    btn.dataset.romaji = o.r;
-    btn.addEventListener('click', () => _checkQuiz(btn, o));
-    optsEl.appendChild(btn);
+
+  if (direction === 'audio2kana') {
+    // 聽音 → 選假名
+    promptEl.textContent = '聽到的是哪一個假名？';
+    replayBtn.style.display = '';
+    for (const o of opts) {
+      const btn = document.createElement('button');
+      btn.className = 'quiz-option';
+      btn.textContent = o.h;
+      btn.dataset.romaji = o.r;
+      btn.addEventListener('click', () => _checkQuiz(btn, o));
+      optsEl.appendChild(btn);
+    }
+    setTimeout(() => playKana(correct), 300);
+  } else {
+    // 看字 → 選讀音 (顯示假名，4 個讀音選)
+    promptEl.innerHTML = `這個假名讀作什麼？<br><span class="quiz-target-glyph">${correct.h}</span>`;
+    replayBtn.style.display = 'none';
+    for (const o of opts) {
+      const btn = document.createElement('button');
+      btn.className = 'quiz-option quiz-option-romaji';
+      btn.innerHTML = `<div class="r-text">${o.r}</div>`;
+      btn.dataset.romaji = o.r;
+      btn.addEventListener('click', () => {
+        playKana(o);  // 點擊播放選的讀音
+        _checkQuiz(btn, o);
+      });
+      optsEl.appendChild(btn);
+    }
   }
-  // 自動播放正確答案的音
-  setTimeout(() => playKana(correct), 300);
   _updateQuizScore();
 }
 
@@ -480,6 +532,7 @@ function _updateQuizScore() {
 }
 
 document.getElementById('btn-quiz-next').addEventListener('click', startQuiz);
+document.getElementById('quiz-direction').addEventListener('change', startQuiz);
 document.getElementById('btn-quiz-reset').addEventListener('click', () => {
   _quizScore = { correct: 0, total: 0 };
   _updateQuizScore();
@@ -532,11 +585,35 @@ function renderPhrases() {
   }
 }
 
+let _n5CurrentCat = null;
+function renderN5CategoryTabs() {
+  const tabs = document.getElementById('n5-cat-tabs');
+  if (!tabs) return;
+  tabs.innerHTML = '';
+  for (const cat of N5_CATEGORIES) {
+    const btn = document.createElement('button');
+    btn.className = 'n5-cat-tab';
+    btn.textContent = `${cat.label} (${cat.words.length})`;
+    btn.dataset.catId = cat.id;
+    btn.addEventListener('click', () => {
+      _n5CurrentCat = cat.id;
+      tabs.querySelectorAll('.n5-cat-tab').forEach(b => b.classList.toggle('active', b.dataset.catId === cat.id));
+      renderN5();
+    });
+    tabs.appendChild(btn);
+  }
+  // 默認第一個
+  if (!_n5CurrentCat) _n5CurrentCat = N5_CATEGORIES[0].id;
+  const activeBtn = tabs.querySelector(`[data-cat-id="${_n5CurrentCat}"]`);
+  if (activeBtn) activeBtn.classList.add('active');
+}
+
 function renderN5() {
   const list = document.getElementById('n5-list');
   if (!list) return;
+  const cat = N5_CATEGORIES.find(c => c.id === _n5CurrentCat) || N5_CATEGORIES[0];
   list.innerHTML = '';
-  for (const w of N5_WORDS) {
+  for (const w of cat.words) {
     const card = document.createElement('div');
     card.className = 'vocab-card n5-card speak';
     card.dataset.speak = w.ja;
@@ -544,7 +621,24 @@ function renderN5() {
       <div class="vocab-ja">${w.ja}</div>
       ${w.kana ? `<div class="vocab-kana">${w.kana}</div>` : ''}
       <div class="vocab-zh">${w.zh}</div>
+      ${w.ex ? `
+        <div class="vocab-ex-toggle">▸ 例句</div>
+        <div class="vocab-ex" hidden>
+          <div class="vocab-ex-ja speak" data-speak="${w.ex}">${w.ex}</div>
+          <div class="vocab-ex-zh">${w.ex_zh || ''}</div>
+        </div>
+      ` : ''}
     `;
+    // toggle example expansion
+    const exToggle = card.querySelector('.vocab-ex-toggle');
+    if (exToggle) {
+      exToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const ex = card.querySelector('.vocab-ex');
+        ex.hidden = !ex.hidden;
+        exToggle.textContent = ex.hidden ? '▸ 例句' : '▾ 例句';
+      });
+    }
     list.appendChild(card);
   }
 }
@@ -559,10 +653,52 @@ document.querySelectorAll('[data-vocab-tab]').forEach(btn => {
   });
 });
 
+// ═══ 日語構成頁 — 自動章節目錄 (TOC) ═══
+function buildAboutToc() {
+  const article = document.querySelector('#page-about .prose');
+  if (!article) return;
+  const h2s = article.querySelectorAll('h2');
+  if (!h2s.length) return;
+  // 為每個 h2 加 ID
+  h2s.forEach((h, i) => {
+    if (!h.id) h.id = `about-sec-${i}`;
+  });
+  // 創建 TOC
+  const toc = document.createElement('nav');
+  toc.className = 'about-toc';
+  toc.innerHTML = '<div class="toc-label">目錄</div>';
+  const ol = document.createElement('ol');
+  h2s.forEach(h => {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = `#${h.id}`;
+    // 提取純文本（去掉子 span）
+    a.textContent = h.textContent.trim();
+    li.appendChild(a);
+    ol.appendChild(li);
+  });
+  toc.appendChild(ol);
+  // 插到 article 開頭
+  article.insertBefore(toc, article.firstChild);
+}
+
+// ═══ Service Worker 註冊 — 飛機上也能用 ═══
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').then(reg => {
+      console.log('[SW] registered', reg.scope);
+    }).catch(err => {
+      console.warn('[SW] register failed:', err);
+    });
+  });
+}
+
 // ═══ 初始化 ═══
 renderGojuon();
 renderIroha();
 renderPicker();
 renderPhrases();
+renderN5CategoryTabs();
 renderN5();
+buildAboutToc();
 document.getElementById('practice-glyph').classList.add('placeholder');
