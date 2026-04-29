@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>日本語 — 五十音 · 伊呂波歌</title>
+<meta name="description" content="日语五十音、伊呂波歌、构成讲解、随机练习 — 点哪个读哪个，毛笔书法字体。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <h1 class="site-title"><span class="ja">日本語</span> <span class="zh">入門</span></h1>
+  <nav class="tabs" role="tablist">
+    <button class="tab active" data-tab="gojuon" role="tab">五十音</button>
+    <button class="tab" data-tab="iroha" role="tab">伊呂波歌</button>
+    <button class="tab" data-tab="about" role="tab">日语构成</button>
+    <button class="tab" data-tab="practice" role="tab">练习</button>
+  </nav>
+</header>
+
+<main>
+
+<!-- ═══ 五十音 ═══ -->
+<section class="page active" id="page-gojuon">
+  <div class="sub-tabs">
+    <button class="sub-tab active" data-script="h">平假名 ひらがな</button>
+    <button class="sub-tab" data-script="k">片假名 カタカナ</button>
+  </div>
+
+  <h2 class="section-title">清音 <span class="muted">— 46 字 + ん</span></h2>
+  <div class="grid-gojuon" id="grid-seion"></div>
+
+  <details class="extra">
+    <summary>古假名（伊呂波歌中出现，现代不再使用）</summary>
+    <div class="grid-archaic" id="grid-archaic"></div>
+  </details>
+
+  <details class="extra">
+    <summary>浊音 <span class="muted">— が・ざ・だ・ば 行</span></summary>
+    <div class="grid-gojuon" id="grid-dakuon"></div>
+  </details>
+
+  <details class="extra">
+    <summary>半浊音 <span class="muted">— ぱ 行</span></summary>
+    <div class="grid-gojuon" id="grid-handakuon"></div>
+  </details>
+
+  <details class="extra">
+    <summary>拗音 <span class="muted">— きゃ・しゃ・ちゃ … 等</span></summary>
+    <div class="grid-youon" id="grid-youon"></div>
+  </details>
+</section>
+
+<!-- ═══ 伊呂波歌 ═══ -->
+<section class="page" id="page-iroha">
+  <div class="sub-tabs">
+    <button class="sub-tab active" data-script="h">平假名</button>
+    <button class="sub-tab" data-script="k">片假名</button>
+  </div>
+
+  <div class="iroha-controls">
+    <button class="btn-play-all" id="btn-iroha-play">▶ 朗读全文</button>
+    <span class="muted">点单字朗读单音</span>
+  </div>
+
+  <div class="iroha-poem" id="iroha-poem"></div>
+
+  <div class="iroha-translation">
+    <h3>意译</h3>
+    <p id="iroha-translation"></p>
+  </div>
+</section>
+
+<!-- ═══ 日语构成 ═══ -->
+<section class="page" id="page-about">
+  <article class="prose">
+    <h2>日语由三套文字混写而成</h2>
+    <p>读懂任何一句日语，先理清这三种文字。</p>
+
+    <h3>① 平假名 <span class="ja-big">ひらがな</span></h3>
+    <p>由汉字草书演变而来，曲线柔和。<strong>用途：</strong>写日语固有词、写汉字读音、写所有语法成分（助词、动词词尾）。</p>
+    <p class="example">例：<span class="ja-big">わたし</span>（我）、<span class="ja-big">です</span>（是）、<span class="ja-big">が</span>（助词）</p>
+
+    <h3>② 片假名 <span class="ja-big">カタカナ</span></h3>
+    <p>由汉字楷书的部分笔画截取而来，棱角分明。<strong>用途：</strong>外来词、拟声词、动植物名、强调（相当于英文斜体）。</p>
+    <p class="example">例：<span class="ja-big">コーヒー</span>（咖啡）、<span class="ja-big">パソコン</span>（电脑）、<span class="ja-big">ワンワン</span>（汪汪）</p>
+
+    <h3>③ 汉字 <span class="ja-big">漢字</span></h3>
+    <p>大部分是繁体字（也有日本简化或自造的「国字」）。每个字常有<strong>音读</strong>（保留古汉语发音）和<strong>训读</strong>（套上日语固有读法）两种以上读法。</p>
+    <p class="example">例：<span class="ja-big">山</span> = やま（训）/ さん（音）　<span class="ja-big">水</span> = みず（训）/ すい（音）</p>
+
+    <h3>三者混用是常态</h3>
+    <p class="example big">
+      <ruby>私<rt>わたし</rt></ruby>は <span class="kata-hl">コーヒー</span>を <ruby>飲<rt>の</rt></ruby>む。
+    </p>
+    <p class="muted">「私」「飲」是汉字。「は」「を」「む」是平假名（助词 + 动词尾）。「コーヒー」是片假名（外来词「coffee」）。整句意思：「我喝咖啡。」</p>
+
+    <h3>字源速记法 — 会汉字就会假名</h3>
+    <p>每一个假名都源自一个汉字。中文学习者认识汉字，看一眼字源就能记住假名形状。本站每个假名格子的<strong>左上角小字</strong>就是它的源汉字。</p>
+    <p class="example">例如：<span class="ja-big">あ</span> ← 由<span class="ja-big">安</span>的草书演化；<span class="ja-big">ア</span> ← 取<span class="ja-big">阿</span>左侧偏旁。</p>
+    <p class="example">再如：<span class="ja-big">の</span> ← <span class="ja-big">乃</span>的草书；<span class="ja-big">ノ</span> ← <span class="ja-big">乃</span>的第一笔。是同一个汉字的不同切片。</p>
+    <p class="muted">规律：平假名多取整字草书（曲线柔），片假名多取部分笔画（棱角硬）。</p>
+
+    <h3>学习顺序建议</h3>
+    <ol>
+      <li>平假名 50 音（最重要，所有汉字都能用平假名注音）</li>
+      <li>片假名 50 音（外来词遍布日语，必学）</li>
+      <li>常用汉字 + 词汇（边读边积累）</li>
+    </ol>
+  </article>
+</section>
+
+<!-- ═══ 练习 ═══ -->
+<section class="page" id="page-practice">
+  <div class="practice-controls">
+    <label>范围：
+      <select id="practice-scope">
+        <option value="all">全部</option>
+        <option value="seion">仅清音</option>
+        <option value="dakuon">仅浊音/半浊音</option>
+        <option value="youon">仅拗音</option>
+      </select>
+    </label>
+    <label>字体：
+      <select id="practice-script">
+        <option value="h">平假名</option>
+        <option value="k">片假名</option>
+        <option value="mix">混合</option>
+      </select>
+    </label>
+    <button id="btn-random">🎲 随机一个</button>
+    <button id="btn-show-romaji">显示罗马字</button>
+  </div>
+
+  <div class="practice-stage">
+    <div class="practice-glyph" id="practice-glyph">点「随机」开始</div>
+    <div class="practice-romaji muted" id="practice-romaji"></div>
+  </div>
+
+  <div class="practice-write">
+    <h3>书写练习 <span class="muted">— 用鼠标/手指在格子里跟着写</span></h3>
+    <div class="canvas-wrap">
+      <canvas id="write-canvas" width="320" height="320"></canvas>
+      <div class="canvas-guide" id="canvas-guide"></div>
+    </div>
+    <div class="canvas-controls">
+      <button id="btn-clear">🗑 清空</button>
+      <button id="btn-toggle-guide">隐藏参考字</button>
+      <button id="btn-replay">🔊 再听一次</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <p class="muted">日本語入門 · 由 <a href="https://irischanglabs.com">Iris Chang Labs</a> 制作 · 发音 Microsoft Edge-TTS (NanamiNeural) · 字体 Yuji Syuku</p>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
