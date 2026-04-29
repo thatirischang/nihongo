@@ -375,7 +375,44 @@ details.extra[open] > summary::before { transform: rotate(90deg); }
   line-height: 2.2;
 }
 .prose .kata-hl { color: var(--accent); }
+.prose .kanji-hl { color: #2c5282; }
 .prose ruby rt { font-size: 12px; color: var(--ink-soft); }
+.prose .lede {
+  font-size: 17px;
+  text-align: center;
+  color: var(--ink);
+  margin: 0 auto 24px;
+  max-width: 580px;
+  font-weight: 400;
+}
+.prose .center { text-align: center; }
+.prose hr.rule {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 48px auto;
+  width: 60%;
+  position: relative;
+}
+.prose hr.rule::after {
+  content: '✦';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--paper);
+  padding: 0 12px;
+  color: var(--accent);
+  font-size: 14px;
+}
+.prose ul {
+  margin: 12px 0 16px 24px;
+  color: var(--ink-soft);
+}
+.prose ul li {
+  margin-bottom: 8px;
+  line-height: 1.85;
+}
+.prose ul li strong { color: var(--ink); }
 
 /* ═══ 练习 ═══ */
 .practice-controls {
