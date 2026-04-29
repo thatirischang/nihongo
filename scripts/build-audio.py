@@ -127,6 +127,8 @@ WORDS = [
     "私は学生", "雨が降る", "本を読む", "学校に行く", "家で食べる", "友達と", "私も", "私の本",
     # 5 分鐘讀第一句 — demo 句
     "私はブライアンです", "ブライアン",
+    "はじめまして。私はブライアンです。",
+    "初めまして",
 ]
 WORDS_DIR = IROHA_OUT / "words"
 WORDS_DIR.mkdir(parents=True, exist_ok=True)

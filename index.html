@@ -25,7 +25,7 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&amp;family=Noto+Sans+HK:wght@300;400;500;700&amp;family=Noto+Sans+TC:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
-<link href="css/style.css?v=10" rel="stylesheet"/>
+<link href="css/style.css?v=11" rel="stylesheet"/>
 </head>
 <body>
 <header class="site-header">
@@ -385,27 +385,41 @@
 <hr class="rule"/>
 <h3>字源速記法 — 會漢字就會假名</h3>
 <p>每個假名都源自一個漢字。中文學習者認識漢字，看一眼字源就能記住假名形狀 — 本站每個假名格子的<strong>左上角小字</strong>就是它的源漢字。<strong>點任意假名格子右上角的「ⓘ」，會彈出字源解析卡片</strong>。</p>
-<svg aria-label="字源演化：安 → あ / 阿 → ア" class="diagram-svg ety-diagram" viewbox="0 0 600 180" xmlns="http://www.w3.org/2000/svg">
-<text fill="#4a4a4a" font-family="sans-serif" font-size="14" x="20" y="35">範例：</text>
-<text fill="#8b1a1a" font-family="serif" font-size="64" x="50" y="100">安</text>
-<text fill="#4a4a4a" font-family="sans-serif" font-size="14" x="100" y="80">楷書整字</text>
-<text fill="#8b1a1a" font-family="sans-serif" font-size="32" x="155" y="100">→</text>
-<text fill="#c25555" font-family="serif" font-size="64" font-style="italic" x="190" y="100">安</text>
-<text fill="#4a4a4a" font-family="sans-serif" font-size="14" x="240" y="80">草書連筆</text>
-<text fill="#8b1a1a" font-family="sans-serif" font-size="32" x="295" y="100">→</text>
-<text fill="#1a1a1a" font-family="serif" font-size="64" x="335" y="105">あ</text>
-<text fill="#4a4a4a" font-family="sans-serif" font-size="13" x="395" y="100">平假名</text>
-<text fill="#8b1a1a" font-family="serif" font-size="64" x="50" y="170">阿</text>
-<text fill="#4a4a4a" font-family="sans-serif" font-size="14" x="100" y="145">楷書整字</text>
-<text fill="#8b1a1a" font-family="sans-serif" font-size="32" x="155" y="170">→</text>
-<text fill="#c25555" font-family="serif" font-size="44" x="200" y="170">阝</text>
-<text fill="#4a4a4a" font-family="sans-serif" font-size="14" x="250" y="145">取左偏旁</text>
-<text fill="#8b1a1a" font-family="sans-serif" font-size="32" x="295" y="170">→</text>
-<text fill="#1a1a1a" font-family="serif" font-size="64" x="340" y="172">ア</text>
-<text fill="#4a4a4a" font-family="sans-serif" font-size="13" x="395" y="170">片假名</text>
-<text fill="#4a4a4a" font-family="sans-serif" font-size="13" text-anchor="start" x="450" y="100">同源「a」音</text>
-<text fill="#4a4a4a" font-family="sans-serif" font-size="13" text-anchor="start" x="450" y="170">不同字 / 都讀 a</text>
-</svg>
+<div class="ety-evolution">
+<div class="ety-row">
+<div class="ety-step">
+<div class="ety-step-glyph kanji-orig">安</div>
+<div class="ety-step-label">楷書原字</div>
+</div>
+<div class="ety-arrow-large">→</div>
+<div class="ety-step">
+<div class="ety-step-glyph kanji-cursive">安</div>
+<div class="ety-step-label">草書連筆</div>
+</div>
+<div class="ety-arrow-large">→</div>
+<div class="ety-step">
+<div class="ety-step-glyph kana-final speak" data-speak="あ">あ</div>
+<div class="ety-step-label">平假名</div>
+</div>
+</div>
+<div class="ety-row">
+<div class="ety-step">
+<div class="ety-step-glyph kanji-orig">阿</div>
+<div class="ety-step-label">楷書原字</div>
+</div>
+<div class="ety-arrow-large">→</div>
+<div class="ety-step">
+<div class="ety-step-glyph kanji-cursive" style="font-size:54px">阝</div>
+<div class="ety-step-label">取左偏旁</div>
+</div>
+<div class="ety-arrow-large">→</div>
+<div class="ety-step">
+<div class="ety-step-glyph kana-final speak" data-speak="ア">ア</div>
+<div class="ety-step-label">片假名</div>
+</div>
+</div>
+<p class="ety-evolution-caption muted">同樣讀「a」音 — 不同字 / 不同切片</p>
+</div>
 <p class="example"><span class="ja-big">あ</span> ← <span class="ja-big">安</span>的草書；<span class="ja-big">ア</span> ← <span class="ja-big">阿</span>左側偏旁<br>
 <span class="ja-big">の</span> ← <span class="ja-big">乃</span>的草書；<span class="ja-big">ノ</span> ← <span class="ja-big">乃</span>第一筆 — 同一漢字的不同切片</br></p>
 <p class="muted">規律：平假名多取整字草書（曲線柔），片假名多取部分筆畫（稜角硬）。</p>
@@ -501,7 +515,7 @@
 </section>
 </main>
 <footer class="site-footer">
-<p class="muted">日本語入門 <strong style="color:var(--accent)">v1.0</strong> · 由 <a href="https://irischanglabs.com">Iris Chang Labs</a> 製作 · 發音 Microsoft Edge-TTS (NanamiNeural) · 字體 Yuji Syuku + Noto Sans HK/TC</p>
+<p class="muted">日本語入門 <strong style="color:var(--accent)">v1.0.1</strong> · 由 <a href="https://irischanglabs.com">Iris Chang Labs</a> 製作 · 發音 Microsoft Edge-TTS (NanamiNeural) · 字體 Yuji Syuku + Noto Sans HK/TC</p>
 </footer>
 <!-- 字源解析 modal -->
 <div class="ety-modal" hidden="" id="ety-modal">
@@ -532,11 +546,11 @@
 </div>
 </div>
 </div>
-<script src="js/data.js?v=10"></script>
-<script src="js/etymology.js?v=10"></script>
-<script src="js/vocab.js?v=10"></script>
-<script src="js/audio.js?v=10"></script>
-<script src="js/strokes.js?v=10"></script>
-<script src="js/app.js?v=10"></script>
+<script src="js/data.js?v=11"></script>
+<script src="js/etymology.js?v=11"></script>
+<script src="js/vocab.js?v=11"></script>
+<script src="js/audio.js?v=11"></script>
+<script src="js/strokes.js?v=11"></script>
+<script src="js/app.js?v=11"></script>
 </body>
 </html>
