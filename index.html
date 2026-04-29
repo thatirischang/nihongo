@@ -1,387 +1,328 @@
 <!DOCTYPE html>
-<html lang="zh-Hans-CN">
+
+<html lang="zh-Hant-HK">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="pragma" content="no-cache">
-<meta http-equiv="expires" content="0">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="no-cache, no-store, must-revalidate" http-equiv="cache-control"/>
+<meta content="no-cache" http-equiv="pragma"/>
+<meta content="0" http-equiv="expires"/>
 <title>日本語 — 五十音 · 伊呂波歌</title>
-<meta name="description" content="日语五十音、伊呂波歌、构成讲解、随机练习 — 点哪个读哪个，毛笔书法字体。">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=4">
+<meta content="日語五十音、伊呂波歌、構成講解、隨機練習 — 點哪個讀哪個，毛筆書法字體。" name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&amp;family=Noto+Sans+HK:wght@300;400;500;700&amp;family=Noto+Sans+TC:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="css/style.css?v=5" rel="stylesheet"/>
 </head>
 <body>
-
 <header class="site-header">
-  <h1 class="site-title"><span class="ja">日本語</span> <span class="zh">入門</span></h1>
-  <nav class="tabs" role="tablist">
-    <button class="tab active" data-tab="gojuon" role="tab">五十音</button>
-    <button class="tab" data-tab="iroha" role="tab">伊呂波歌</button>
-    <button class="tab" data-tab="about" role="tab">日语构成</button>
-    <button class="tab" data-tab="practice" role="tab">练习</button>
-  </nav>
+<h1 class="site-title"><span class="ja">日本語</span> <span class="zh">入門</span></h1>
+<nav class="tabs" role="tablist">
+<button class="tab active" data-tab="gojuon" role="tab">五十音</button>
+<button class="tab" data-tab="iroha" role="tab">伊呂波歌</button>
+<button class="tab" data-tab="about" role="tab">日語構成</button>
+<button class="tab" data-tab="practice" role="tab">練習</button>
+</nav>
 </header>
-
 <main>
-
 <!-- ═══ 五十音 ═══ -->
 <section class="page active" id="page-gojuon">
-  <div class="sub-tabs">
-    <button class="sub-tab active" data-script="h">平假名 ひらがな</button>
-    <button class="sub-tab" data-script="k">片假名 カタカナ</button>
-  </div>
-
-  <h2 class="section-title">清音 <span class="muted">— 46 字 + ん</span></h2>
-  <div class="grid-gojuon" id="grid-seion"></div>
-
-  <details class="extra">
-    <summary>古假名（伊呂波歌中出现，现代不再使用）</summary>
-    <div class="grid-archaic" id="grid-archaic"></div>
-  </details>
-
-  <details class="extra">
-    <summary>浊音 <span class="muted">— が・ざ・だ・ば 行</span></summary>
-    <div class="grid-gojuon" id="grid-dakuon"></div>
-  </details>
-
-  <details class="extra">
-    <summary>半浊音 <span class="muted">— ぱ 行</span></summary>
-    <div class="grid-gojuon" id="grid-handakuon"></div>
-  </details>
-
-  <details class="extra">
-    <summary>拗音 <span class="muted">— きゃ・しゃ・ちゃ … 等</span></summary>
-    <div class="grid-youon" id="grid-youon"></div>
-  </details>
+<div class="sub-tabs">
+<button class="sub-tab active" data-script="h">平假名 ひらがな</button>
+<button class="sub-tab" data-script="k">片假名 カタカナ</button>
+</div>
+<h2 class="section-title">清音 <span class="muted">— 46 字 + ん</span></h2>
+<div class="grid-gojuon" id="grid-seion"></div>
+<details class="extra">
+<summary>古假名（伊呂波歌中出現，現代不再使用）</summary>
+<div class="grid-archaic" id="grid-archaic"></div>
+</details>
+<details class="extra">
+<summary>濁音 <span class="muted">— が・ざ・だ・ば 行</span></summary>
+<div class="grid-gojuon" id="grid-dakuon"></div>
+</details>
+<details class="extra">
+<summary>半濁音 <span class="muted">— ぱ 行</span></summary>
+<div class="grid-gojuon" id="grid-handakuon"></div>
+</details>
+<details class="extra">
+<summary>拗音 <span class="muted">— きゃ・しゃ・ちゃ … 等</span></summary>
+<div class="grid-youon" id="grid-youon"></div>
+</details>
 </section>
-
 <!-- ═══ 伊呂波歌 ═══ -->
 <section class="page" id="page-iroha">
-  <div class="sub-tabs">
-    <button class="sub-tab active" data-script="h">平假名</button>
-    <button class="sub-tab" data-script="k">片假名</button>
-  </div>
-
-  <div class="iroha-controls">
-    <button class="btn-play-all" id="btn-iroha-play">▶ 朗读全文</button>
-    <span class="muted">点单字朗读单音</span>
-  </div>
-
-  <div class="iroha-poem" id="iroha-poem"></div>
-
-  <div class="iroha-translation">
-    <h3>意译</h3>
-    <p id="iroha-translation"></p>
-  </div>
+<div class="sub-tabs">
+<button class="sub-tab active" data-script="h">平假名</button>
+<button class="sub-tab" data-script="k">片假名</button>
+</div>
+<div class="iroha-controls">
+<button class="btn-play-all" id="btn-iroha-play">▶ 朗讀全文</button>
+<span class="muted">點單字朗讀單音</span>
+</div>
+<div class="iroha-poem" id="iroha-poem"></div>
+<div class="iroha-translation">
+<h3>意譯</h3>
+<p id="iroha-translation"></p>
+</div>
 </section>
-
-<!-- ═══ 日语构成 ═══ -->
+<!-- ═══ 日語構成 ═══ -->
 <section class="page" id="page-about">
-  <article class="prose">
-
-    <h2>先看大局：日语到底是什么</h2>
-    <p class="lede">学日语前，先知道几件最重要的事 — 看完这段，你已经不算「完全零基础」了。<br><span class="muted">本页所有日文都可以<strong>点击听发音</strong> 🔊</span></p>
-
-    <h3>1. 日语跟中文是「邻居」，不是「亲戚」</h3>
-    <p>很多人第一反应「日语像中文」 — 其实<strong>语言学上日语和汉语没有亲缘关系</strong>。日语属于<strong>日本语族</strong>，是个语言孤岛（只跟琉球语沾亲）。它的语法、发音系统、句子结构跟汉语<strong>完全不同</strong>。</p>
-    <p>但日本从公元 5 世纪开始大量从中国借汉字、借汉语词，借了 1500 多年没断过。今天日语词汇里：</p>
-    <p class="example">
-      • <strong>和语</strong>（日本本土词）约 <strong>33%</strong> — 例：<span class="ja-big speak">やま</span>（山）、<span class="ja-big speak">みず</span>（水）<br>
-      • <strong>汉语</strong>（从中国借来或日本仿造的汉字词）约 <strong>49%</strong> — 例：<span class="ja-big speak">学校</span>、<span class="ja-big speak">大学</span>、<span class="ja-big speak">教室</span><br>
-      • <strong>外来语</strong>（近代从欧美借）约 <strong>10%</strong> — 例：<span class="ja-big speak">コーヒー</span>、<span class="ja-big speak">パソコン</span><br>
+<article class="prose">
+<h2>先看大局：日語到底是什麼</h2>
+<p class="lede">學日語前，先知道幾件最重要的事 — 看完這段，你已經不算「完全零基礎」了。<br/><span class="muted">本頁所有日文都可以<strong>點擊聽發音</strong> 🔊</span></p>
+<h3>1. 日語跟中文是「鄰居」，不是「親戚」</h3>
+<p>很多人第一反應「日語像中文」 — 其實<strong>語言學上日語和漢語沒有親緣關係</strong>。日語屬於<strong>日本語族</strong>，是個語言孤島（只跟琉球語沾親）。它的語法、發音系統、句子結構跟漢語<strong>完全不同</strong>。</p>
+<p>但日本從公元 5 世紀開始大量從中國借漢字、借漢語詞，借了 1500 多年沒斷過。今天日語詞彙裏：</p>
+<p class="example">
+      • <strong>和語</strong>（日本本土詞）約 <strong>33%</strong> — 例：<span class="ja-big speak">やま</span>（山）、<span class="ja-big speak">みず</span>（水）<br/>
+      • <strong>漢語</strong>（從中國借來或日本仿造的漢字詞）約 <strong>49%</strong> — 例：<span class="ja-big speak">学校</span>、<span class="ja-big speak">大学</span>、<span class="ja-big speak">教室</span><br/>
+      • <strong>外來語</strong>（近代從歐美借）約 <strong>10%</strong> — 例：<span class="ja-big speak">コーヒー</span>、<span class="ja-big speak">パソコン</span><br/>
       • 其他混合 ~8%
     </p>
-    <p>所以看日语文章里有很多汉字 — 那是因为一半的词本来就来自汉语。但<strong>骨架是日本本土的</strong>，跟中文骨架完全两码事。</p>
-
-    <h3>2. 语序跟中文是反的：主语 → 宾语 → 动词</h3>
-    <p>中文「<strong>我吃苹果</strong>」(主+谓+宾, SVO)；日语「<strong>我 苹果 吃</strong>」(主+宾+谓, SOV)。动词永远在最后。</p>
-    <p class="example">
-      中文：<strong>我</strong> <strong>喝</strong> <strong>咖啡</strong> 。<br>
-      日语：<span class="kanji-hl"><span class="speak" data-speak="私">私</span></span>は <span class="kata-hl"><span class="ja-big speak">コーヒー</span></span>を <span class="kanji-hl"><span class="speak" data-speak="飲む">飲</span></span>む 。<br>
-      直译：<strong>我</strong> [主题] <strong>咖啡</strong> [宾语] <strong>喝</strong> 。
+<p>所以看日語文章裏有很多漢字 — 那是因為一半的詞本來就來自漢語。但<strong>骨架是日本本土的</strong>，跟中文骨架完全兩碼事。</p>
+<h3>2. 語序跟中文是反的：主語 → 賓語 → 動詞</h3>
+<p>中文「<strong>我吃蘋果</strong>」(主+謂+賓, SVO)；日語「<strong>我 蘋果 吃</strong>」(主+賓+謂, SOV)。動詞永遠在最後。</p>
+<p class="example">
+      中文：<strong>我</strong> <strong>喝</strong> <strong>咖啡</strong> 。<br/>
+      日語：<span class="kanji-hl"><span class="speak" data-speak="私">私</span></span>は <span class="kata-hl"><span class="ja-big speak">コーヒー</span></span>を <span class="kanji-hl"><span class="speak" data-speak="飲む">飲</span></span>む 。<br/>
+      直譯：<strong>我</strong> [主題] <strong>咖啡</strong> [賓語] <strong>喝</strong> 。
     </p>
-    <p>这意味着听日语时<strong>要听到最后才知道动作是什么</strong> — 一开始会很别扭，但这就是日语的呼吸方式。</p>
-
-    <h3>3. 没有声调，但每个假名一拍</h3>
-    <p>中文有四声（mā má mǎ mà 不同字），<strong>日语没有声调</strong> — 同一个音节用「平」「升」「降」读出来意思都一样。</p>
-    <p>但日语严格遵循「<strong>拍</strong>」（モーラ）— 每个假名占一拍，时长一致。所以「<span class="ja-big speak">学校</span>」（がっこう）是 4 拍：が-っ-こ-う，连促音那个停顿都是一拍。这跟中文的「音节」概念不同。</p>
-
-    <hr class="rule">
-
-    <h2>日语由三套文字混写而成</h2>
-    <p class="lede">理清这三种文字的分工，是看懂任何一句日语的前提。</p>
-
-    <p class="example big speak" data-speak="私はコーヒーを飲む">
-      <span class="kanji-hl"><ruby>私<rt>わたし</rt></ruby></span>は <span class="kata-hl">コーヒー</span>を <span class="kanji-hl"><ruby>飲<rt>の</rt></ruby></span>む。
+<p>這意味着聽日語時<strong>要聽到最後才知道動作是什麼</strong> — 一開始會很彆扭，但這就是日語的呼吸方式。</p>
+<h3>3. 沒有聲調，但每個假名一拍</h3>
+<p>中文有四聲（mā má mǎ mà 不同字），<strong>日語沒有聲調</strong> — 同一個音節用「平」「升」「降」讀出來意思都一樣。</p>
+<p>但日語嚴格遵循「<strong>拍</strong>」（モーラ）— 每個假名佔一拍，時長一致。所以「<span class="ja-big speak">学校</span>」（がっこう）是 4 拍：が-っ-こ-う，連促音那個停頓都是一拍。這跟中文的「音節」概念不同。</p>
+<hr class="rule"/>
+<h2>日語由三套文字混寫而成</h2>
+<p class="lede">理清這三種文字的分工，是看懂任何一句日語的前提。</p>
+<p class="example big speak" data-speak="私はコーヒーを飲む">
+<span class="kanji-hl"><ruby>私<rt>わたし</rt></ruby></span>は <span class="kata-hl">コーヒー</span>を <span class="kanji-hl"><ruby>飲<rt>の</rt></ruby></span>む。
     </p>
-    <p class="muted center">「我喝咖啡。」 — <span class="kanji-hl">蓝字</span>是<strong>汉字</strong>（实词），黑字是<strong>平假名</strong>（语法），<span class="kata-hl">红字</span>是<strong>片假名</strong>（外来词）。</p>
-
-    <p>这三套文字不是谁替代谁的关系，而是<strong>各管一摊</strong>：</p>
-    <ul>
-      <li><strong>汉字</strong>管「意思最重的那个核心」 — 名词、动词词根、形容词词根</li>
-      <li><strong>平假名</strong>管「连接和变化的语法部件」 — 助词、动词尾巴、和语虚词</li>
-      <li><strong>片假名</strong>管「从外语借来的词」 — 外来词、拟声词、强调</li>
-    </ul>
-    <p class="muted">中文里只有一套字，所以「同一句话用三种字」一开始会觉得很别扭 — 多看几个例子就习惯了。其实这套混写系统很高效：眼睛一扫就知道这个词是「核心」（汉字）还是「连接词」（平假名）还是「外来词」（片假名）。</p>
-
-    <hr class="rule">
-
-    <h3>① 平假名 <span class="ja-big speak">ひらがな</span> — 日语的语法骨架</h3>
-    <p>9 世纪左右，日本宫廷女性书写时为了快，把汉字一笔写完，慢慢简化成了今天圆滑柔和的样子。所以平假名又叫「<strong>女手</strong>」（おんなで）。<strong>每一个平假名都是某个汉字的草书</strong>。</p>
-    <p><strong>它用来写什么：</strong></p>
-    <ul>
-      <li><strong>所有助词</strong>（は・が・を・に・で・と・も・の…）— 中文里没有助词，但日语句子全靠它们粘合，每句话都用得到。</li>
-      <li><strong>动词、形容词的尾巴</strong>。汉字管「核心意思」，平假名管「时态/否定/被动」这些尾巴变化。例：<span class="speak" data-speak="食べる">食べる</span>（吃，原形）/ <span class="speak" data-speak="食べた">食べた</span>（吃过了）/ <span class="speak" data-speak="食べない">食べない</span>（不吃）— 「食」是汉字不变，后面 る/た/ない 是平假名在变。</li>
-      <li><strong>没有汉字、或汉字太冷门不写的和语词</strong>。例：<span class="ja-big speak">これ</span>（这）、<span class="ja-big speak">どこ</span>（哪里）、<span class="ja-big speak">きれい</span>（漂亮）。</li>
-      <li><strong>给汉字注音（振り仮名 / フリガナ）</strong>。给小孩、外国人或者生僻字标读音用，写在汉字上方。例：<ruby><span class="speak" data-speak="桜">桜</span><rt>さくら</rt></ruby>。</li>
-    </ul>
-    <p class="muted"><strong>给初学者：</strong>平假名是入门日语<strong>必须最先学完</strong>的。哪怕一个汉字都不认识，全用平假名也能写出语法正确的句子，就像小学一年级课本那样。学完平假名，相当于拿到了「能拼出任何一个日语词的字母表」。</p>
-
-    <h3>② 片假名 <span class="ja-big speak">カタカナ</span> — 外来语和强调</h3>
-    <p>9 世纪的僧人在汉文佛经旁边标读音时，为了省空间只写汉字的<strong>一部分笔画</strong>（比如「阿」只取左边的「阝」就成了 ア）。所以片假名笔画硬朗、棱角分明，跟平假名的圆润正好相反。</p>
-    <p><strong>它用来写什么：</strong></p>
-    <ul>
-      <li><strong>外来词</strong> — 主要来自英语，也有法/德/葡/中等。例：<span class="ja-big speak">コーヒー</span>（coffee）、<span class="ja-big speak">パソコン</span>（personal computer 缩合）、<span class="ja-big speak">アルバイト</span>（来自德语 Arbeit，意为「打工」）、<span class="ja-big speak">ラーメン</span>（来自中文「拉麺」）。</li>
-      <li><strong>拟声词、拟态词</strong>。例：<span class="ja-big speak">ワンワン</span>（汪汪）、<span class="ja-big speak">キラキラ</span>（闪闪发光）、<span class="ja-big speak">ドキドキ</span>（心跳怦怦）。</li>
-      <li><strong>动植物的通用名</strong>（写文章/科普时用）。例：<span class="ja-big speak">サクラ</span>（樱花）、<span class="ja-big speak">ネコ</span>（猫）。</li>
-      <li><strong>强调</strong>（相当于英文斜体）。日语没有斜体，想强调一个词就改写成片假名。</li>
-      <li><strong>外国人名、地名、品牌名</strong>。例：<span class="ja-big speak">ニューヨーク</span>（New York）、<span class="ja-big speak">トヨタ</span>（Toyota）。</li>
-    </ul>
-    <p class="muted"><strong>给初学者：</strong>现代日语 <strong>10% ~ 20% 的词是外来词</strong>，全用片假名写。不学片假名，菜单、广告、新闻、IT 文章基本读不懂。学法上和平假名一样，先记字源再背字形。</p>
-
-    <h3>③ 汉字 <span class="ja-big speak">漢字</span> — 表意、压缩信息密度</h3>
-    <p>5 世纪从中国传入。日语用了 1500 多年没断过。现代日本常用汉字 <strong>2136 字</strong>（「常用漢字表」，2010 年修订），日常报纸、小说、菜单基本都在这个范围里。</p>
-    <p>大部分是繁体字。也有日本人自造的「<strong>国字</strong>」（中国没有的字，比如 峠 / 畑 / 働），还有少部分是日式简化字（国 / 広 / 学），跟中国大陆简体字大体兼容但不完全相同。</p>
-
-    <p><strong>关键概念 — 一个汉字常常有两套读法：</strong></p>
-    <ul>
-      <li><strong>音读（音読み）</strong>：日本人借汉字时连发音也一起借过来了，所以音读听起来「像中文但走了样」。一般用于<strong>两字以上的复合词</strong>（汉语词）。</li>
-      <li><strong>训读（訓読み）</strong>：把日本本土固有词的发音「套」在意思相同的汉字上，读音完全是日语本土的，跟中文一点关系都没有。一般用于<strong>单字独立出现</strong>时。</li>
-    </ul>
-    <p class="example">
-      <span class="ja-big speak">山</span> = <span class="speak">やま</span>（训：本土「山」）/ <span class="speak">さん</span>（音：来自中古汉语 sān）<br>
-      <span class="ja-big speak">水</span> = <span class="speak">みず</span>（训）/ <span class="speak">すい</span>（音）<br>
-      <span class="ja-big speak">人</span> = <span class="speak">ひと</span>（训）/ <span class="speak">じん</span>・<span class="speak">にん</span>（音）<br>
-      <span class="ja-big speak">山口</span> = <span class="speak">やまぐち</span>（训训，姓 / 地名）<br>
-      <span class="ja-big speak" data-speak="富士山">富士山</span> = <span class="speak">ふじさん</span>（音音音，山名）
+<p class="muted center">「我喝咖啡。」 — <span class="kanji-hl">藍字</span>是<strong>漢字</strong>（實詞），黑字是<strong>平假名</strong>（語法），<span class="kata-hl">紅字</span>是<strong>片假名</strong>（外來詞）。</p>
+<p>這三套文字不是誰替代誰的關係，而是<strong>各管一攤</strong>：</p>
+<ul>
+<li><strong>漢字</strong>管「意思最重的那個核心」 — 名詞、動詞詞根、形容詞詞根</li>
+<li><strong>平假名</strong>管「連接和變化的語法部件」 — 助詞、動詞尾巴、和語虛詞</li>
+<li><strong>片假名</strong>管「從外語借來的詞」 — 外來詞、擬聲詞、強調</li>
+</ul>
+<p class="muted">中文裏只有一套字，所以「同一句話用三種字」一開始會覺得很彆扭 — 多看幾個例子就習慣了。其實這套混寫系統很高效：眼睛一掃就知道這個詞是「核心」（漢字）還是「連接詞」（平假名）還是「外來詞」（片假名）。</p>
+<hr class="rule"/>
+<h3>① 平假名 <span class="ja-big speak">ひらがな</span> — 日語的語法骨架</h3>
+<p>9 世紀左右，日本宮廷女性書寫時為了快，把漢字一筆寫完，慢慢簡化成了今天圓滑柔和的樣子。所以平假名又叫「<strong>女手</strong>」（おんなで）。<strong>每一個平假名都是某個漢字的草書</strong>。</p>
+<p><strong>它用來寫什麼：</strong></p>
+<ul>
+<li><strong>所有助詞</strong>（は・が・を・に・で・と・も・の…）— 中文裏沒有助詞，但日語句子全靠它們粘合，每句話都用得到。</li>
+<li><strong>動詞、形容詞的尾巴</strong>。漢字管「核心意思」，平假名管「時態/否定/被動」這些尾巴變化。例：<span class="speak" data-speak="食べる">食べる</span>（吃，原形）/ <span class="speak" data-speak="食べた">食べた</span>（吃過了）/ <span class="speak" data-speak="食べない">食べない</span>（不吃）— 「食」是漢字不變，後面 る/た/ない 是平假名在變。</li>
+<li><strong>沒有漢字、或漢字太冷門不寫的和語詞</strong>。例：<span class="ja-big speak">これ</span>（這）、<span class="ja-big speak">どこ</span>（哪裏）、<span class="ja-big speak">きれい</span>（漂亮）。</li>
+<li><strong>給漢字注音（振り仮名 / フリガナ）</strong>。給小孩、外國人或者生僻字標讀音用，寫在漢字上方。例：<ruby><span class="speak" data-speak="桜">桜</span><rt>さくら</rt></ruby>。</li>
+</ul>
+<p class="muted"><strong>給初學者：</strong>平假名是入門日語<strong>必須最先學完</strong>的。哪怕一個漢字都不認識，全用平假名也能寫出語法正確的句子，就像小學一年級課本那樣。學完平假名，相當於拿到了「能拼出任何一個日語詞的字母表」。</p>
+<h3>② 片假名 <span class="ja-big speak">カタカナ</span> — 外來語和強調</h3>
+<p>9 世紀的僧人在漢文佛經旁邊標讀音時，為了省空間只寫漢字的<strong>一部分筆畫</strong>（比如「阿」只取左邊的「阝」就成了 ア）。所以片假名筆畫硬朗、稜角分明，跟平假名的圓潤正好相反。</p>
+<p><strong>它用來寫什麼：</strong></p>
+<ul>
+<li><strong>外來詞</strong> — 主要來自英語，也有法/德/葡/中等。例：<span class="ja-big speak">コーヒー</span>（coffee）、<span class="ja-big speak">パソコン</span>（personal computer 縮合）、<span class="ja-big speak">アルバイト</span>（來自德語 Arbeit，意為「打工」）、<span class="ja-big speak">ラーメン</span>（來自中文「拉麪」）。</li>
+<li><strong>擬聲詞、擬態詞</strong>。例：<span class="ja-big speak">ワンワン</span>（汪汪）、<span class="ja-big speak">キラキラ</span>（閃閃發光）、<span class="ja-big speak">ドキドキ</span>（心跳怦怦）。</li>
+<li><strong>動植物的通用名</strong>（寫文章/科普時用）。例：<span class="ja-big speak">サクラ</span>（櫻花）、<span class="ja-big speak">ネコ</span>（貓）。</li>
+<li><strong>強調</strong>（相當於英文斜體）。日語沒有斜體，想強調一個詞就改寫成片假名。</li>
+<li><strong>外國人名、地名、品牌名</strong>。例：<span class="ja-big speak">ニューヨーク</span>（New York）、<span class="ja-big speak">トヨタ</span>（Toyota）。</li>
+</ul>
+<p class="muted"><strong>給初學者：</strong>現代日語 <strong>10% ~ 20% 的詞是外來詞</strong>，全用片假名寫。不學片假名，菜單、廣告、新聞、IT 文章基本讀不懂。學法上和平假名一樣，先記字源再背字形。</p>
+<h3>③ 漢字 <span class="ja-big speak">漢字</span> — 表意、壓縮信息密度</h3>
+<p>5 世紀從中國傳入。日語用了 1500 多年沒斷過。現代日本常用漢字 <strong>2136 字</strong>（「常用漢字表」，2010 年修訂），日常報紙、小説、菜單基本都在這個範圍裏。</p>
+<p>大部分是繁體字。也有日本人自造的「<strong>國字</strong>」（中國沒有的字，比如 峠 / 畑 / 働），還有少部分是日式簡化字（國 / 広 / 學），跟中國大陸簡體字大體兼容但不完全相同。</p>
+<p><strong>關鍵概念 — 一個漢字常常有兩套讀法：</strong></p>
+<ul>
+<li><strong>音讀（音読み）</strong>：日本人借漢字時連發音也一起借過來了，所以音讀聽起來「像中文但走了樣」。一般用於<strong>兩字以上的複合詞</strong>（漢語詞）。</li>
+<li><strong>訓讀（訓読み）</strong>：把日本本土固有詞的發音「套」在意思相同的漢字上，讀音完全是日語本土的，跟中文一點關係都沒有。一般用於<strong>單字獨立出現</strong>時。</li>
+</ul>
+<p class="example">
+<span class="ja-big speak">山</span> = <span class="speak">やま</span>（訓：本土「山」）/ <span class="speak">さん</span>（音：來自中古漢語 sān）<br/>
+<span class="ja-big speak">水</span> = <span class="speak">みず</span>（訓）/ <span class="speak">すい</span>（音）<br/>
+<span class="ja-big speak">人</span> = <span class="speak">ひと</span>（訓）/ <span class="speak">じん</span>・<span class="speak">にん</span>（音）<br/>
+<span class="ja-big speak">山口</span> = <span class="speak">やまぐち</span>（訓訓，姓 / 地名）<br/>
+<span class="ja-big speak" data-speak="富士山">富士山</span> = <span class="speak">ふじさん</span>（音音音，山名）
     </p>
-    <p><strong>大致规律：</strong>单字独立 → 通常训读；两字复合 → 通常音读。例外不少，主要靠平时积累。</p>
-    <p class="muted"><strong>给初学者：</strong>不用一开始就背汉字。学完两套假名再开始接触汉字 — 而且记的时候<strong>同时记一个常见词</strong>（如学「学」就连「学校 がっこう」一起记），效率最高。</p>
-
-    <hr class="rule">
-
-    <h2>发音系统：5 元音 + 9 辅音 = 46 音节</h2>
-    <p class="lede">日语的发音结构在所有大语言里属于<strong>最简单的几个</strong>。说清楚这个，你会明白 50 音表为什么长那个样子。</p>
-
-    <h3>① 元音只有 5 个：a · i · u · e · o</h3>
-    <p>跟汉语拼音 a/i/u/e/o 几乎一样发音（u 略不圆唇、e 接近「ㄝ」）。<strong>这就是日语全部的元音</strong> — 没有 ü（拼音 u）、没有 ㄚ的多种变体、没有英语的 ʌ ɔ ɛ æ 那些。</p>
-    <p class="example">
-      <span class="ja-big speak">あ</span> a — 张大嘴 「啊」<br>
-      <span class="ja-big speak">い</span> i — 嘴角拉开 「一」<br>
-      <span class="ja-big speak">う</span> u — 嘴唇放松（不像中文 u 撅嘴）<br>
-      <span class="ja-big speak">え</span> e — 介于「ㄝ」和「e」之间<br>
-      <span class="ja-big speak">お</span> o — 圆口 「哦」
+<p><strong>大致規律：</strong>單字獨立 → 通常訓讀；兩字複合 → 通常音讀。例外不少，主要靠平時積累。</p>
+<p class="muted"><strong>給初學者：</strong>不用一開始就背漢字。學完兩套假名再開始接觸漢字 — 而且記的時候<strong>同時記一個常見詞</strong>（如學「學」就連「學校 がっこう」一起記），效率最高。</p>
+<hr class="rule"/>
+<h2>發音系統：5 元音 + 9 輔音 = 46 音節</h2>
+<p class="lede">日語的發音結構在所有大語言裏屬於<strong>最簡單的幾個</strong>。説清楚這個，你會明白 50 音表為什麼長那個樣子。</p>
+<h3>① 元音只有 5 個：a · i · u · e · o</h3>
+<p>跟漢語拼音 a/i/u/e/o 幾乎一樣發音（u 略不圓唇、e 接近「ㄝ」）。<strong>這就是日語全部的元音</strong> — 沒有 ü（拼音 u）、沒有 ㄚ的多種變體、沒有英語的 ʌ ɔ ɛ æ 那些。</p>
+<p class="example">
+<span class="ja-big speak">あ</span> a — 張大嘴 「啊」<br/>
+<span class="ja-big speak">い</span> i — 嘴角拉開 「一」<br/>
+<span class="ja-big speak">う</span> u — 嘴唇放鬆（不像中文 u 撅嘴）<br/>
+<span class="ja-big speak">え</span> e — 介於「ㄝ」和「e」之間<br/>
+<span class="ja-big speak">お</span> o — 圓口 「哦」
     </p>
-
-    <h3>② 辅音 9 个 × 5 元音 = 5×10 网格</h3>
-    <p>把 5 个元音横排，9 个辅音 (k/s/t/n/h/m/y/r/w) 加 1 个零辅音（纯元音行）竖排，就组合出 50 个格子的「五十音表」。</p>
-    <p class="example">
-      <strong>k 行</strong>：<span class="ja-big speak">か</span>ka <span class="ja-big speak">き</span>ki <span class="ja-big speak">く</span>ku <span class="ja-big speak">け</span>ke <span class="ja-big speak">こ</span>ko<br>
-      <strong>s 行</strong>：<span class="ja-big speak">さ</span>sa <span class="ja-big speak">し</span>shi <span class="ja-big speak">す</span>su <span class="ja-big speak">せ</span>se <span class="ja-big speak">そ</span>so<br>
-      <strong>t 行</strong>：<span class="ja-big speak">た</span>ta <span class="ja-big speak">ち</span>chi <span class="ja-big speak">つ</span>tsu <span class="ja-big speak">て</span>te <span class="ja-big speak">と</span>to
+<h3>② 輔音 9 個 × 5 元音 = 5×10 網格</h3>
+<p>把 5 個元音橫排，9 個輔音 (k/s/t/n/h/m/y/r/w) 加 1 個零輔音（純元音行）豎排，就組合出 50 個格子的「五十音表」。</p>
+<p class="example">
+<strong>k 行</strong>：<span class="ja-big speak">か</span>ka <span class="ja-big speak">き</span>ki <span class="ja-big speak">く</span>ku <span class="ja-big speak">け</span>ke <span class="ja-big speak">こ</span>ko<br/>
+<strong>s 行</strong>：<span class="ja-big speak">さ</span>sa <span class="ja-big speak">し</span>shi <span class="ja-big speak">す</span>su <span class="ja-big speak">せ</span>se <span class="ja-big speak">そ</span>so<br/>
+<strong>t 行</strong>：<span class="ja-big speak">た</span>ta <span class="ja-big speak">ち</span>chi <span class="ja-big speak">つ</span>tsu <span class="ja-big speak">て</span>te <span class="ja-big speak">と</span>to
     </p>
-    <p>有几个空位（や 行只有 や/ゆ/よ；わ 行只有 わ/を；末尾再加单独的 ん）— 算下来现代日语<strong>实际清音是 46 个</strong>。<strong>本站「五十音」标签页里的就是这张表</strong>。</p>
-
-    <h3>③ 没有声调、没有复合辅音、没有辅音收尾</h3>
-    <ul>
-      <li><strong>没有声调</strong>：mā/má/mǎ/mà 在日语里都是同一个 ma。但有「<strong>音调高低</strong>」(アクセント) — 比如「橋 はし」(桥) 和「箸 はし」(筷子) 拼写一样，靠音高区分，初学不用管。</li>
-      <li><strong>没有复合辅音</strong>：英语的 spr- str- bl- 在日语里不存在。Strike → ストライク (sutoraiku，5 拍)。</li>
-      <li><strong>辅音不能单独收尾</strong>：每个音节都得以元音结束（除了 ん 和促音 っ）。所以「Brian」→ ブライアン (buraian)，每个辅音后都要塞个元音。</li>
-    </ul>
-    <p class="muted">这就是为什么日语外来词听起来「日本味儿很重」 — coffee 变 <span class="ja-big speak">コーヒー</span>(kōhī) 不是因为「读不准」，而是日语音节系统不允许 cf 这种组合，只能拆成「ko-o-hi-i」。</p>
-
-    <h3>④ 「拍」(モーラ) — 日语的节奏单位</h3>
-    <p>日语是「<strong>等拍语言</strong>」(mora-timed)：<strong>每个假名占一拍，每拍时长完全相等</strong>。这跟英语（重音节奏）和中文（音节节奏）都不同。</p>
-    <p class="example">
-      <span class="ja-big speak">学校</span>（がっこう）= が-っ-こ-う = <strong>4 拍</strong>（连促音「っ」也是 1 拍，虽然不发音只停顿）<br>
-      <span class="ja-big speak">コーヒー</span> = コ-ー-ヒ-ー = <strong>4 拍</strong>（长音「ー」也是 1 拍）<br>
-      <span class="ja-big speak">東京</span>（とうきょう）= と-う-きょ-う = <strong>4 拍</strong>（拗音「きょ」是 1 拍，不是 2 拍）
+<p>有幾個空位（や 行只有 や/ゆ/よ；わ 行只有 わ/を；末尾再加單獨的 ん）— 算下來現代日語<strong>實際清音是 46 個</strong>。<strong>本站「五十音」標籤頁裏的就是這張表</strong>。</p>
+<h3>③ 沒有聲調、沒有複合輔音、沒有輔音收尾</h3>
+<ul>
+<li><strong>沒有聲調</strong>：mā/má/mǎ/mà 在日語裏都是同一個 ma。但有「<strong>音調高低</strong>」(アクセント) — 比如「橋 はし」(橋) 和「箸 はし」(筷子) 拼寫一樣，靠音高區分，初學不用管。</li>
+<li><strong>沒有複合輔音</strong>：英語的 spr- str- bl- 在日語裏不存在。Strike → ストライク (sutoraiku，5 拍)。</li>
+<li><strong>輔音不能單獨收尾</strong>：每個音節都得以元音結束（除了 ん 和促音 っ）。所以「Brian」→ ブライアン (buraian)，每個輔音後都要塞個元音。</li>
+</ul>
+<p class="muted">這就是為什麼日語外來詞聽起來「日本味兒很重」 — coffee 變 <span class="ja-big speak">コーヒー</span>(kōhī) 不是因為「讀不準」，而是日語音節系統不允許 cf 這種組合，只能拆成「ko-o-hi-i」。</p>
+<h3>④ 「拍」(モーラ) — 日語的節奏單位</h3>
+<p>日語是「<strong>等拍語言</strong>」(mora-timed)：<strong>每個假名佔一拍，每拍時長完全相等</strong>。這跟英語（重音節奏）和中文（音節節奏）都不同。</p>
+<p class="example">
+<span class="ja-big speak">学校</span>（がっこう）= が-っ-こ-う = <strong>4 拍</strong>（連促音「っ」也是 1 拍，雖然不發音只停頓）<br/>
+<span class="ja-big speak">コーヒー</span> = コ-ー-ヒ-ー = <strong>4 拍</strong>（長音「ー」也是 1 拍）<br/>
+<span class="ja-big speak">東京</span>（とうきょう）= と-う-きょ-う = <strong>4 拍</strong>（拗音「きょ」是 1 拍，不是 2 拍）
     </p>
-    <p class="muted">说日语听起来像「打节拍器」就是因为这个 — 每个假名时长相等，不重不轻。</p>
-
-    <h3>⑤ 罗马字 (ローマ字) — 学日语的拐杖，不是终点</h3>
-    <p>用拉丁字母拼日语叫「罗马字」(<span class="ja-big speak">ローマ字</span>)，方便外国人入门。但有<strong>两套主流拼法</strong>：</p>
-    <ul>
-      <li><strong>ヘボン式</strong>（Hepburn 式）：按英语习惯。し = shi、つ = tsu、ち = chi、ふ = fu、じ = ji。<strong>本站用这套</strong>，国际通用，机场路牌和大多数教材都用它。</li>
-      <li><strong>訓令式</strong>（Kunrei 式）：日本官方系统化拼法。し = si、つ = tu、ち = ti、ふ = hu、じ = zi。日本小学课本和地名罗马化用这套。</li>
-    </ul>
-    <p class="muted"><strong>关键提示：</strong>罗马字只是拐杖。真正学日语<strong>越早脱离罗马字越好</strong> — 用罗马字读多了会带着英语口音。直接看假名 → 出声音，是最佳路径。</p>
-
-    <hr class="rule">
-
-    <h2>读音的进阶：浊音 · 半浊音 · 拗音 · 促音 · 长音</h2>
-    <p class="lede">学完 50 音清音之后，下面这五个变化系统是日语发音的<strong>剩余全部</strong>。原理都很简单。</p>
-
-    <h3>为什么会出现这五种音变？</h3>
-    <p>这是个值得理解的问题 — <strong>知道「为什么」之后，记规则就不再是死背</strong>。简单说：</p>
-
-    <p><strong>① 50 音表本身只有 46 个清音。</strong>但口语里实际用到的发音远不止 46 种。日语从汉语借词、从外语借词、本土词的演化，都需要更多音节。<strong>这五种音变就是「用现有 46 个假名拼出更多发音」的扩展系统</strong> — 不是另起炉灶造新假名，而是给已有假名加标记或组合。</p>
-
-    <p><strong>② 各自的来历：</strong></p>
-    <ul>
-      <li><strong>浊音</strong>（が・ざ・だ・ば 行）：<strong>从汉语来</strong>。古汉语本来就分清浊（k/g、s/z、t/d、p/b），日语借汉字时连浊音一起借了。但平安时代以前没有专门的浊音假名，写作时「<span class="ja-big">か</span>」既可能读 ka 也可能读 ga，靠语境判断。后来为了消歧义，给浊化的音<strong>加两点</strong>，从此浊音正式有了写法。</li>
-
-      <li><strong>半浊音</strong>（ぱ 行）：<strong>从外来词来</strong>。古日语本身没有 p 音 — 古代「は 行」其实读 pa/pi/pu/pe/po，后来逐渐弱化成 ha/hi/fu/he/ho。等到 16 世纪葡萄牙传教士带来了大量含 p 音的词（如「pan 面包」），日语没字母可写，就给 は 行<strong>加个小圆圈</strong>恢复古音 p。所以半浊音是「找回失去的音」。</li>
-
-      <li><strong>拗音</strong>（きゃ・しゅ・ちょ 等）：<strong>也是从汉语来</strong>。古汉语有大量「j-/q-/x-」类带「介音 i」的音（如「教 jiào」、「钱 qián」），日语单用一个假名拼不出，就发明了「i 段假名 + 小写 ゃ/ゅ/ょ」的组合写法。所以拗音几乎只出现在<strong>汉字音读</strong>里 — 和语固有词基本不用拗音。</li>
-
-      <li><strong>促音</strong>（っ）：<strong>音节边界的「卡顿」自然产生</strong>。日语是「拍语言」（每个假名占一拍），词语连读时偶尔出现「停一拍才接下个辅音」的现象（类似中文「不可」连读偶有的小停顿）。古代写作时常省略，到平安末期才统一用<strong>小写的 つ</strong>占位表示。从汉语借词时大量出现（如「学 gak + 校 kō → 学校 gakkō」）。</li>
-
-      <li><strong>长音</strong>（おう・コー）：<strong>音节合并的产物</strong>。古日语很多两个连续的元音（如 a-u、e-i），口语里慢慢合并成一个被拉长的音（au→ō、ei→ē）。但写法保留了原来的两个假名，所以变成「写两个、读一个长的」。片假名干脆发明了横棒「ー」专门表长音，更直观。</li>
-    </ul>
-
-    <p><strong>③ 一句话总结：</strong></p>
-    <p class="muted center"><strong>清音 46 个</strong>是<strong>骨架</strong>；这 5 种音变是为了应付「<strong>借汉字</strong>」「<strong>借外语</strong>」「<strong>口语自然演化</strong>」三件事而长出的<strong>扩展机制</strong>。所以浊音/拗音常出现在汉字音读，半浊音常出现在外来词，长音/促音哪儿都有。看到一个生词，能从音变形态反推它大概是哪种来源 — 这是高级日语阅读的「直觉」。</p>
-
-
-    <h3>① 浊音 <span class="ja-big speak" data-speak="濁音">濁音</span> — 加两点变浊辅音</h3>
-    <p><strong>道理很简单：</strong>清辅音 k / s / t / h，把<strong>声带振动起来</strong> → 就变成浊辅音 g / z / d / b。日语用一个「<strong>点点</strong>」（゛，正式叫「<span class="speak" data-speak="濁点">濁点</span> / <span class="speak">だくてん</span>」）加在假名右上角来标记。</p>
-    <p class="example">
-      <span class="ja-big speak">か</span> ka → <span class="ja-big speak">が</span> ga
+<p class="muted">説日語聽起來像「打節拍器」就是因為這個 — 每個假名時長相等，不重不輕。</p>
+<h3>⑤ 羅馬字 (ローマ字) — 學日語的枴杖，不是終點</h3>
+<p>用拉丁字母拼日語叫「羅馬字」(<span class="ja-big speak">ローマ字</span>)，方便外國人入門。但有<strong>兩套主流拼法</strong>：</p>
+<ul>
+<li><strong>ヘボン式</strong>（Hepburn 式）：按英語習慣。し = shi、つ = tsu、ち = chi、ふ = fu、じ = ji。<strong>本站用這套</strong>，國際通用，機場路牌和大多數教材都用它。</li>
+<li><strong>訓令式</strong>（Kunrei 式）：日本官方系統化拼法。し = si、つ = tu、ち = ti、ふ = hu、じ = zi。日本小學課本和地名羅馬化用這套。</li>
+</ul>
+<p class="muted"><strong>關鍵提示：</strong>羅馬字只是枴杖。真正學日語<strong>越早脱離羅馬字越好</strong> — 用羅馬字讀多了會帶着英語口音。直接看假名 → 出聲音，是最佳路徑。</p>
+<hr class="rule"/>
+<h2>讀音的進階：濁音 · 半濁音 · 拗音 · 促音 · 長音</h2>
+<p class="lede">學完 50 音清音之後，下面這五個變化系統是日語發音的<strong>剩餘全部</strong>。原理都很簡單。</p>
+<h3>為什麼會出現這五種音變？</h3>
+<p>這是個值得理解的問題 — <strong>知道「為什麼」之後，記規則就不再是死背</strong>。簡單説：</p>
+<p><strong>① 50 音表本身只有 46 個清音。</strong>但口語裏實際用到的發音遠不止 46 種。日語從漢語藉詞、從外語藉詞、本土詞的演化，都需要更多音節。<strong>這五種音變就是「用現有 46 個假名拼出更多發音」的擴展系統</strong> — 不是另起爐灶造新假名，而是給已有假名加標記或組合。</p>
+<p><strong>② 各自的來歷：</strong></p>
+<ul>
+<li><strong>濁音</strong>（が・ざ・だ・ば 行）：<strong>從漢語來</strong>。古漢語本來就分清濁（k/g、s/z、t/d、p/b），日語借漢字時連濁音一起借了。但平安時代以前沒有專門的濁音假名，寫作時「<span class="ja-big">か</span>」既可能讀 ka 也可能讀 ga，靠語境判斷。後來為了消歧義，給濁化的音<strong>加兩點</strong>，從此濁音正式有了寫法。</li>
+<li><strong>半濁音</strong>（ぱ 行）：<strong>從外來詞來</strong>。古日語本身沒有 p 音 — 古代「は 行」其實讀 pa/pi/pu/pe/po，後來逐漸弱化成 ha/hi/fu/he/ho。等到 16 世紀葡萄牙傳教士帶來了大量含 p 音的詞（如「pan 麪包」），日語沒字母可寫，就給 は 行<strong>加個小圓圈</strong>恢復古音 p。所以半濁音是「找回失去的音」。</li>
+<li><strong>拗音</strong>（きゃ・しゅ・ちょ 等）：<strong>也是從漢語來</strong>。古漢語有大量「j-/q-/x-」類帶「介音 i」的音（如「教 jiào」、「錢 qián」），日語單用一個假名拼不出，就發明瞭「i 段假名 + 小寫 ゃ/ゅ/ょ」的組合寫法。所以拗音幾乎只出現在<strong>漢字音讀</strong>裏 — 和語固有詞基本不用拗音。</li>
+<li><strong>促音</strong>（っ）：<strong>音節邊界的「卡頓」自然產生</strong>。日語是「拍語言」（每個假名佔一拍），詞語連讀時偶爾出現「停一拍才接下個輔音」的現象（類似中文「不可」連讀偶有的小停頓）。古代寫作時常省略，到平安末期才統一用<strong>小寫的 つ</strong>佔位表示。從漢語藉詞時大量出現（如「學 gak + 校 kō → 學校 gakkō」）。</li>
+<li><strong>長音</strong>（おう・コー）：<strong>音節合併的產物</strong>。古日語很多兩個連續的元音（如 a-u、e-i），口語裏慢慢合併成一個被拉長的音（au→ō、ei→ē）。但寫法保留了原來的兩個假名，所以變成「寫兩個、讀一個長的」。片假名乾脆發明瞭橫棒「ー」專門表長音，更直觀。</li>
+</ul>
+<p><strong>③ 一句話總結：</strong></p>
+<p class="muted center"><strong>清音 46 個</strong>是<strong>骨架</strong>；這 5 種音變是為了應付「<strong>借漢字</strong>」「<strong>借外語</strong>」「<strong>口語自然演化</strong>」三件事而長出的<strong>擴展機制</strong>。所以濁音/拗音常出現在漢字音讀，半濁音常出現在外來詞，長音/促音哪兒都有。看到一個生詞，能從音變形態反推它大概是哪種來源 — 這是高級日語閲讀的「直覺」。</p>
+<h3>① 濁音 <span class="ja-big speak" data-speak="濁音">濁音</span> — 加兩點變濁輔音</h3>
+<p><strong>道理很簡單：</strong>清輔音 k / s / t / h，把<strong>聲帶振動起來</strong> → 就變成濁輔音 g / z / d / b。日語用一個「<strong>點點</strong>」（゛，正式叫「<span class="speak" data-speak="濁点">濁点</span> / <span class="speak">だくてん</span>」）加在假名右上角來標記。</p>
+<p class="example">
+<span class="ja-big speak">か</span> ka → <span class="ja-big speak">が</span> ga
       <span class="ja-big speak">さ</span> sa → <span class="ja-big speak">ざ</span> za
       <span class="ja-big speak">た</span> ta → <span class="ja-big speak">だ</span> da
       <span class="ja-big speak">は</span> ha → <span class="ja-big speak">ば</span> ba
     </p>
-    <p><strong>怎么用：</strong>没有什么活用规则 — <strong>这个词本身要不要带浊点，是死的</strong>，背单词时连浊点一起记。例：<span class="ja-big speak">学校</span>（<span class="speak">がっこう</span> gakkō）、<span class="ja-big speak">大学</span>（<span class="speak">だいがく</span> daigaku）。</p>
-    <p><strong>连浊（れんだく）</strong>是个进阶现象：两个汉字词拼在一起时，后字的清音常常自动变浊。例：<span class="ja-big speak">手紙</span> = て + かみ → <span class="speak">てがみ</span>（tegami，「信」）；<span class="ja-big speak">青空</span> = あお + そら → <span class="speak">あおぞら</span>（aozora，「蓝天」）。规律不严格，背词时遇到就记。</p>
-
-    <h3>② 半浊音 <span class="ja-big speak" data-speak="半濁音">半濁音</span> — 加小圆圈变 p</h3>
-    <p><strong>道理也简单：</strong>只对 <strong>は 行</strong>这一行有效。加一个小圆圈（°，叫「<span class="speak" data-speak="半濁音">半濁点</span> / <span class="speak">はんだくてん</span>」）→ h 系列就变成 p 系列。</p>
-    <p class="example">
-      <span class="ja-big speak">は</span> ha → <span class="ja-big speak">ぱ</span> pa
+<p><strong>怎麼用：</strong>沒有什麼活用規則 — <strong>這個詞本身要不要帶濁點，是死的</strong>，背單詞時連濁點一起記。例：<span class="ja-big speak">学校</span>（<span class="speak">がっこう</span> gakkō）、<span class="ja-big speak">大学</span>（<span class="speak">だいがく</span> daigaku）。</p>
+<p><strong>連濁（れんだく）</strong>是個進階現象：兩個漢字詞拼在一起時，後字的清音常常自動變濁。例：<span class="ja-big speak">手紙</span> = て + かみ → <span class="speak">てがみ</span>（tegami，「信」）；<span class="ja-big speak">青空</span> = あお + そら → <span class="speak">あおぞら</span>（aozora，「藍天」）。規律不嚴格，背詞時遇到就記。</p>
+<h3>② 半濁音 <span class="ja-big speak" data-speak="半濁音">半濁音</span> — 加小圓圈變 p</h3>
+<p><strong>道理也簡單：</strong>只對 <strong>は 行</strong>這一行有效。加一個小圓圈（°，叫「<span class="speak" data-speak="半濁音">半濁点</span> / <span class="speak">はんだくてん</span>」）→ h 系列就變成 p 系列。</p>
+<p class="example">
+<span class="ja-big speak">は</span> ha → <span class="ja-big speak">ぱ</span> pa
       <span class="ja-big speak">ひ</span> hi → <span class="ja-big speak">ぴ</span> pi
       <span class="ja-big speak">ふ</span> fu → <span class="ja-big speak">ぷ</span> pu
     </p>
-    <p><strong>怎么用：</strong>大量出现在外来词里（<span class="ja-big speak">パン</span> pan「面包」、<span class="ja-big speak">ピアノ</span> piano），还有拟声词（<span class="ja-big speak">ぱちぱち</span>「啪啪」）和少数促音后的和语词（<span class="ja-big speak">いっぱい</span>「满满」）。和语词里独立的半浊音很少，遇到大概率是借词。</p>
-
-    <h3>③ 拗音 <span class="ja-big speak" data-speak="拗音">拗音</span> — 像中文拼音里的「介音 i」</h3>
-    <p><strong>道理：</strong>「i 段假名」（き・し・ち・に・ひ・み・り，以及它们的浊音/半浊音）后面跟一个<strong>小一号写</strong>的 ゃ・ゅ・ょ，两个字符<strong>合拼成一个音节</strong>，只读一拍不读两拍。</p>
-    <p class="example">
-      <span class="ja-big speak">き</span> ki + <span class="ja-big speak">ゃ</span> ya → <span class="ja-big speak">きゃ</span> kya（不是 ki-ya 两拍，是 kya 一拍）<br>
-      <span class="ja-big speak">し</span> shi + <span class="ja-big speak">ゅ</span> yu → <span class="ja-big speak">しゅ</span> shu<br>
-      <span class="ja-big speak">ぎ</span> gi + <span class="ja-big speak">ょ</span> yo → <span class="ja-big speak">ぎょ</span> gyo
+<p><strong>怎麼用：</strong>大量出現在外來詞裏（<span class="ja-big speak">パン</span> pan「麪包」、<span class="ja-big speak">ピアノ</span> piano），還有擬聲詞（<span class="ja-big speak">ぱちぱち</span>「啪啪」）和少數促音後的和語詞（<span class="ja-big speak">いっぱい</span>「滿滿」）。和語詞裏獨立的半濁音很少，遇到大概率是藉詞。</p>
+<h3>③ 拗音 <span class="ja-big speak" data-speak="拗音">拗音</span> — 像中文拼音裏的「介音 i」</h3>
+<p><strong>道理：</strong>「i 段假名」（き・し・ち・に・ひ・み・り，以及它們的濁音/半濁音）後面跟一個<strong>小一號寫</strong>的 ゃ・ゅ・ょ，兩個字符<strong>合拼成一個音節</strong>，只讀一拍不讀兩拍。</p>
+<p class="example">
+<span class="ja-big speak">き</span> ki + <span class="ja-big speak">ゃ</span> ya → <span class="ja-big speak">きゃ</span> kya（不是 ki-ya 兩拍，是 kya 一拍）<br/>
+<span class="ja-big speak">し</span> shi + <span class="ja-big speak">ゅ</span> yu → <span class="ja-big speak">しゅ</span> shu<br/>
+<span class="ja-big speak">ぎ</span> gi + <span class="ja-big speak">ょ</span> yo → <span class="ja-big speak">ぎょ</span> gyo
     </p>
-    <p><strong>书写细节：</strong>ゃ・ゅ・ょ <strong>必须明显写小一号</strong>，否则就读成两个独立音节，意思都变了。横书时小字偏左下，竖书时偏右上。</p>
-    <p><strong>怎么用：</strong>大量出现在汉字的<strong>音读</strong>里。例：<span class="ja-big speak">教室</span>（<span class="speak">きょうしつ</span> kyō-shitsu）里的 きょ 就是拗音；<span class="ja-big speak">写真</span>（<span class="speak">しゃしん</span> sha-shin，照片）的 しゃ 也是。学完汉字会越来越频繁地遇到。</p>
-
-    <h3>④ 促音 <span class="ja-big speak" data-speak="促音">促音</span> — 一个停顿的「小っ」</h3>
-    <p><strong>道理：</strong>用一个<strong>小写的 っ / ッ</strong>占一个音节位置，但它<strong>不发音</strong>，只是<strong>停顿一拍</strong>，然后把后面那个辅音「憋一下再爆出来」。中文没有这个，最像英语 "hot dog" 中间那短促的停顿。</p>
-    <p class="example">
-      <span class="ja-big speak">学校</span> = が・<strong>っ</strong>・こ・う = ga-(停)-kō（<span class="speak" data-speak="学校">gakkō</span>）<br>
-      <span class="ja-big speak">切手</span> = き・<strong>っ</strong>・て = ki-(停)-te（<span class="speak" data-speak="切手">kitte</span>，邮票）<br>
-      <span class="ja-big speak">いっぱい</span> = い-(停)-pai（<span class="speak" data-speak="いっぱい">ippai</span>，满满）<br>
-      <span class="ja-big speak">ベッド</span> = be-(停)-do（<span class="speak" data-speak="ベッド">beddo</span>，bed，床）
+<p><strong>書寫細節：</strong>ゃ・ゅ・ょ <strong>必須明顯寫小一號</strong>，否則就讀成兩個獨立音節，意思都變了。橫書時小字偏左下，豎書時偏右上。</p>
+<p><strong>怎麼用：</strong>大量出現在漢字的<strong>音讀</strong>裏。例：<span class="ja-big speak">教室</span>（<span class="speak">きょうしつ</span> kyō-shitsu）裏的 きょ 就是拗音；<span class="ja-big speak">写真</span>（<span class="speak">しゃしん</span> sha-shin，照片）的 しゃ 也是。學完漢字會越來越頻繁地遇到。</p>
+<h3>④ 促音 <span class="ja-big speak" data-speak="促音">促音</span> — 一個停頓的「小っ」</h3>
+<p><strong>道理：</strong>用一個<strong>小寫的 っ / ッ</strong>佔一個音節位置，但它<strong>不發音</strong>，只是<strong>停頓一拍</strong>，然後把後面那個輔音「憋一下再爆出來」。中文沒有這個，最像英語 "hot dog" 中間那短促的停頓。</p>
+<p class="example">
+<span class="ja-big speak">学校</span> = が・<strong>っ</strong>・こ・う = ga-(停)-kō（<span class="speak" data-speak="学校">gakkō</span>）<br/>
+<span class="ja-big speak">切手</span> = き・<strong>っ</strong>・て = ki-(停)-te（<span class="speak" data-speak="切手">kitte</span>，郵票）<br/>
+<span class="ja-big speak">いっぱい</span> = い-(停)-pai（<span class="speak" data-speak="いっぱい">ippai</span>，滿滿）<br/>
+<span class="ja-big speak">ベッド</span> = be-(停)-do（<span class="speak" data-speak="ベッド">beddo</span>，bed，牀）
     </p>
-    <p><strong>规则：</strong>促音<strong>只能</strong>出现在 <strong>k / s / t / p 行</strong>之前。っ 后面跟什么辅音，那个停顿就是在「憋住」那个辅音。罗马字写法是把后面那个辅音<strong>双写</strong>（kk / ss / tt / pp）。</p>
-    <p><strong>听觉关键：</strong>速度快听起来就是「卡顿一下」，但<strong>这一拍跟一个正常假名一样长</strong> — 不能压缩它，否则日本人会听不出来你在说促音。</p>
-    <p><strong>书写：</strong>っ 必须写得明显小一号，跟拗音的 ゃゅょ 一样。写大了就读成普通的「tsu」，意思全变。</p>
-
-    <h3>⑤ 长音 <span class="ja-big speak" data-speak="長音">長音</span> — 元音拉长一拍</h3>
-    <p><strong>道理：</strong>元音持续<strong>两拍</strong>而不是一拍。日语的「拍」（モーラ）和假名一一对应 — 长音也要占两个假名位置。<strong>长短音区分意义</strong>，搞混真的会误会。比如：</p>
-    <p class="example">
-      <span class="ja-big speak">おばさん</span>（obasan，阿姨）vs <span class="ja-big speak">おばあさん</span>（obāsan，奶奶）<br>
-      <span class="ja-big speak">ゆき</span>（yuki，雪）vs <span class="ja-big speak">ゆうき</span>（yūki，勇气）
+<p><strong>規則：</strong>促音<strong>只能</strong>出現在 <strong>k / s / t / p 行</strong>之前。っ 後面跟什麼輔音，那個停頓就是在「憋住」那個輔音。羅馬字寫法是把後面那個輔音<strong>雙寫</strong>（kk / ss / tt / pp）。</p>
+<p><strong>聽覺關鍵：</strong>速度快聽起來就是「卡頓一下」，但<strong>這一拍跟一個正常假名一樣長</strong> — 不能壓縮它，否則日本人會聽不出來你在説促音。</p>
+<p><strong>書寫：</strong>っ 必須寫得明顯小一號，跟拗音的 ゃゅょ 一樣。寫大了就讀成普通的「tsu」，意思全變。</p>
+<h3>⑤ 長音 <span class="ja-big speak" data-speak="長音">長音</span> — 元音拉長一拍</h3>
+<p><strong>道理：</strong>元音持續<strong>兩拍</strong>而不是一拍。日語的「拍」（モーラ）和假名一一對應 — 長音也要佔兩個假名位置。<strong>長短音區分意義</strong>，搞混真的會誤會。比如：</p>
+<p class="example">
+<span class="ja-big speak">おばさん</span>（obasan，阿姨）vs <span class="ja-big speak">おばあさん</span>（obāsan，奶奶）<br/>
+<span class="ja-big speak">ゆき</span>（yuki，雪）vs <span class="ja-big speak">ゆうき</span>（yūki，勇氣）
     </p>
-
-    <p><strong>平假名怎么写：</strong>不同元音段加不同假名来延长（这是个有点反直觉的规则，多见几次就熟）：</p>
-    <ul>
-      <li><strong>あ段</strong> + <span class="ja-big speak">あ</span>：<span class="ja-big speak">おかあさん</span>（妈妈，okāsan）</li>
-      <li><strong>い段</strong> + <span class="ja-big speak">い</span>：<span class="ja-big speak">おにいさん</span>（哥哥，onīsan）</li>
-      <li><strong>う段</strong> + <span class="ja-big speak">う</span>：<span class="ja-big speak">くうき</span>（空气，kūki）</li>
-      <li><strong>え段</strong> + <span class="ja-big speak">え</span>（少）或 + <span class="ja-big speak">い</span>（多）：<span class="ja-big speak">おねえさん</span>（姐姐）/ <span class="ja-big speak">せんせい</span>（老师，sensē — 写 sensei，<strong>读</strong> sensē，最容易踩坑）</li>
-      <li><strong>お段</strong> + <span class="ja-big speak">う</span>（多）或 + <span class="ja-big speak">お</span>（少）：<span class="ja-big speak">おとうさん</span>（爸爸，otōsan）/ <span class="ja-big speak">おおきい</span>（大）</li>
-    </ul>
-    <p class="muted"><strong>初学者最容易踩的坑：</strong>看到「えい / おう」别按字母读 e-i / o-u — 现代口语里它们普遍念成长音 ē / ō。比如 せんせい 念 sensē 不是 sen-se-i。</p>
-
-    <p><strong>片假名怎么写：</strong>简单多了 — 统一用一根<strong>横线「ー」</strong>表示长音，叫「<strong>長音符</strong>」/ 长音棒。竖书时变成竖线。</p>
-    <p class="example">
-      <span class="ja-big speak">コーヒー</span> kōhī（coffee）<br>
-      <span class="ja-big speak">ラーメン</span> rāmen<br>
-      <span class="ja-big speak">ゲーム</span> gēmu（game）<br>
-      <span class="ja-big speak">パーティー</span> pātī（party）
+<p><strong>平假名怎麼寫：</strong>不同元音段加不同假名來延長（這是個有點反直覺的規則，多見幾次就熟）：</p>
+<ul>
+<li><strong>あ段</strong> + <span class="ja-big speak">あ</span>：<span class="ja-big speak">おかあさん</span>（媽媽，okāsan）</li>
+<li><strong>い段</strong> + <span class="ja-big speak">い</span>：<span class="ja-big speak">おにいさん</span>（哥哥，onīsan）</li>
+<li><strong>う段</strong> + <span class="ja-big speak">う</span>：<span class="ja-big speak">くうき</span>（空氣，kūki）</li>
+<li><strong>え段</strong> + <span class="ja-big speak">え</span>（少）或 + <span class="ja-big speak">い</span>（多）：<span class="ja-big speak">おねえさん</span>（姐姐）/ <span class="ja-big speak">せんせい</span>（老師，sensē — 寫 sensei，<strong>讀</strong> sensē，最容易踩坑）</li>
+<li><strong>お段</strong> + <span class="ja-big speak">う</span>（多）或 + <span class="ja-big speak">お</span>（少）：<span class="ja-big speak">おとうさん</span>（爸爸，otōsan）/ <span class="ja-big speak">おおきい</span>（大）</li>
+</ul>
+<p class="muted"><strong>初學者最容易踩的坑：</strong>看到「えい / おう」別按字母讀 e-i / o-u — 現代口語裏它們普遍念成長音 ē / ō。比如 せんせい 念 sensē 不是 sen-se-i。</p>
+<p><strong>片假名怎麼寫：</strong>簡單多了 — 統一用一根<strong>橫線「ー」</strong>表示長音，叫「<strong>長音符</strong>」/ 長音棒。豎書時變成豎線。</p>
+<p class="example">
+<span class="ja-big speak">コーヒー</span> kōhī（coffee）<br/>
+<span class="ja-big speak">ラーメン</span> rāmen<br/>
+<span class="ja-big speak">ゲーム</span> gēmu（game）<br/>
+<span class="ja-big speak">パーティー</span> pātī（party）
     </p>
-
-    <hr class="rule">
-
-    <h3>字源速记法 — 会汉字就会假名</h3>
-    <p>每个假名都源自一个汉字。中文学习者认识汉字，看一眼字源就能记住假名形状 — 本站每个假名格子的<strong>左上角小字</strong>就是它的源汉字。</p>
-    <p class="example"><span class="ja-big">あ</span> ← <span class="ja-big">安</span>的草书；<span class="ja-big">ア</span> ← <span class="ja-big">阿</span>左侧偏旁<br>
-    <span class="ja-big">の</span> ← <span class="ja-big">乃</span>的草书；<span class="ja-big">ノ</span> ← <span class="ja-big">乃</span>第一笔 — 同一汉字的不同切片</p>
-    <p class="muted">规律：平假名多取整字草书（曲线柔），片假名多取部分笔画（棱角硬）。</p>
-
-    <h3>学习顺序建议</h3>
-    <ol>
-      <li><strong>平假名 50 音</strong>（先 1-2 周读熟，写也尽量练）</li>
-      <li><strong>片假名 50 音</strong>（再 1-2 周。字源大部分跟平假名同源，能省一半力）</li>
-      <li><strong>浊音 / 半浊音 / 拗音</strong>（学完清音自然就懂规则，不用死背 — 边背单词边遇到边记）</li>
-      <li><strong>促音 / 长音</strong>（同上，规则简单，难的是听辨长短音区分）</li>
-      <li><strong>常用汉字 + 词汇</strong>（边读边积累，目标 500 字应付日常 / 2000 字看新闻）</li>
-    </ol>
-  </article>
+<hr class="rule"/>
+<h3>字源速記法 — 會漢字就會假名</h3>
+<p>每個假名都源自一個漢字。中文學習者認識漢字，看一眼字源就能記住假名形狀 — 本站每個假名格子的<strong>左上角小字</strong>就是它的源漢字。</p>
+<p class="example"><span class="ja-big">あ</span> ← <span class="ja-big">安</span>的草書；<span class="ja-big">ア</span> ← <span class="ja-big">阿</span>左側偏旁<br/>
+<span class="ja-big">の</span> ← <span class="ja-big">乃</span>的草書；<span class="ja-big">ノ</span> ← <span class="ja-big">乃</span>第一筆 — 同一漢字的不同切片</p>
+<p class="muted">規律：平假名多取整字草書（曲線柔），片假名多取部分筆畫（稜角硬）。</p>
+<h3>學習順序建議</h3>
+<ol>
+<li><strong>平假名 50 音</strong>（先 1-2 周讀熟，寫也儘量練）</li>
+<li><strong>片假名 50 音</strong>（再 1-2 周。字源大部分跟平假名同源，能省一半力）</li>
+<li><strong>濁音 / 半濁音 / 拗音</strong>（學完清音自然就懂規則，不用死背 — 邊背單詞邊遇到邊記）</li>
+<li><strong>促音 / 長音</strong>（同上，規則簡單，難的是聽辨長短音區分）</li>
+<li><strong>常用漢字 + 詞彙</strong>（邊讀邊積累，目標 500 字應付日常 / 2000 字看新聞）</li>
+</ol>
+</article>
 </section>
-
-<!-- ═══ 练习 ═══ -->
+<!-- ═══ 練習 ═══ -->
 <section class="page" id="page-practice">
-  <div class="practice-controls">
-    <label>范围：
+<div class="practice-controls">
+<label>範圍：
       <select id="practice-scope">
-        <option value="all">全部</option>
-        <option value="seion">仅清音</option>
-        <option value="dakuon">仅浊音/半浊音</option>
-        <option value="youon">仅拗音</option>
-      </select>
-    </label>
-    <label>字体：
+<option value="all">全部</option>
+<option value="seion">僅清音</option>
+<option value="dakuon">僅濁音/半濁音</option>
+<option value="youon">僅拗音</option>
+</select>
+</label>
+<label>字體：
       <select id="practice-script">
-        <option value="h">平假名</option>
-        <option value="k">片假名</option>
-        <option value="mix">混合</option>
-      </select>
-    </label>
-    <button id="btn-random">🎲 随机一个</button>
-    <button id="btn-show-romaji">显示罗马字</button>
-  </div>
-
-  <div class="practice-stage">
-    <div class="practice-glyph" id="practice-glyph">点「随机」开始</div>
-    <div class="practice-romaji muted" id="practice-romaji"></div>
-  </div>
-
-  <div class="practice-write">
-    <h3>书写练习 <span class="muted">— 用鼠标/手指在格子里跟着写</span></h3>
-    <div class="canvas-wrap">
-      <canvas id="write-canvas" width="320" height="320"></canvas>
-      <div class="canvas-guide" id="canvas-guide"></div>
-    </div>
-    <div class="canvas-controls">
-      <button id="btn-clear">🗑 清空</button>
-      <button id="btn-toggle-guide">隐藏参考字</button>
-      <button id="btn-replay">🔊 再听一次</button>
-    </div>
-  </div>
+<option value="h">平假名</option>
+<option value="k">片假名</option>
+<option value="mix">混合</option>
+</select>
+</label>
+<button id="btn-random">🎲 隨機一個</button>
+<button id="btn-show-romaji">顯示羅馬字</button>
+</div>
+<div class="practice-stage">
+<div class="practice-glyph" id="practice-glyph">點「隨機」開始</div>
+<div class="practice-romaji muted" id="practice-romaji"></div>
+</div>
+<div class="practice-write">
+<h3>書寫練習 <span class="muted">— 用鼠標/手指在格子裏跟着寫</span></h3>
+<div class="canvas-wrap">
+<canvas height="320" id="write-canvas" width="320"></canvas>
+<div class="canvas-guide" id="canvas-guide"></div>
+</div>
+<div class="canvas-controls">
+<button id="btn-clear">🗑 清空</button>
+<button id="btn-toggle-guide">隱藏參考字</button>
+<button id="btn-replay">🔊 再聽一次</button>
+</div>
+</div>
 </section>
-
 </main>
-
 <footer class="site-footer">
-  <p class="muted">日本語入門 <strong style="color:var(--accent)">v0.4</strong> · 由 <a href="https://irischanglabs.com">Iris Chang Labs</a> 制作 · 发音 Microsoft Edge-TTS (NanamiNeural) · 字体 Yuji Syuku + Noto Sans SC</p>
+<p class="muted">日本語入門 <strong style="color:var(--accent)">v0.5</strong> · 由 <a href="https://irischanglabs.com">Iris Chang Labs</a> 製作 · 發音 Microsoft Edge-TTS (NanamiNeural) · 字體 Yuji Syuku + Noto Sans HK/TC</p>
 </footer>
-
-<script src="js/data.js?v=4"></script>
-<script src="js/audio.js?v=4"></script>
-<script src="js/app.js?v=4"></script>
+<script src="js/data.js?v=5"></script>
+<script src="js/audio.js?v=5"></script>
+<script src="js/app.js?v=5"></script>
 </body>
 </html>
