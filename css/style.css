@@ -85,6 +85,71 @@ a:hover { color: var(--accent-soft); }
   margin: 24px 0 12px;
 }
 
+/* 五十音 page 2-column 佈局 (左 grid + 右 sticky 寫板) */
+.gojuon-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 24px;
+  align-items: start;
+}
+.gojuon-left { min-width: 0; }
+.gojuon-right {
+  position: sticky;
+  top: 16px;
+  align-self: start;
+}
+.gojuon-write-pad {
+  background: var(--paper-deep);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px;
+}
+.gw-title {
+  font-family: var(--font-zh);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 12px;
+  text-align: center;
+}
+.gw-target {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  padding: 6px;
+}
+.gw-glyph {
+  font-family: var(--font-ja);
+  font-size: 36px;
+  color: var(--accent);
+  line-height: 1;
+}
+.gw-romaji {
+  font-family: var(--font-zh);
+  font-size: 14px;
+  color: var(--ink-soft);
+  letter-spacing: 0.1em;
+}
+.gw-canvas-wrap {
+  width: 280px;
+  height: 280px;
+  margin: 0 auto;
+}
+.gw-canvas-wrap .canvas-guide { font-size: 200px; }
+.gw-controls {
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+.gw-controls button { font-size: 12px; padding: 5px 10px; }
+
+@media (max-width: 900px) {
+  .gojuon-layout { grid-template-columns: 1fr; }
+  .gojuon-right { position: static; }
+  .gojuon-write-pad { max-width: 320px; margin: 0 auto; }
+}
+
 /* 五十音搜索 */
 .kana-search {
   position: relative;

@@ -25,7 +25,7 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&amp;family=Noto+Sans+HK:wght@300;400;500;700&amp;family=Noto+Sans+TC:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
-<link href="css/style.css?v=19" rel="stylesheet"/>
+<link href="css/style.css?v=20" rel="stylesheet"/>
 </head>
 <body>
 <header class="site-header">
@@ -49,6 +49,8 @@
 <input autocomplete="off" id="kana-search" placeholder="🔍 搜尋假名 / 羅馬字 / 字源漢字 (如 a / 安 / あ / ア)" type="search"/>
 <button hidden="" id="kana-search-clear">✕</button>
 </div>
+<div class="gojuon-layout">
+<div class="gojuon-left">
 <h2 class="section-title">清音 <span class="muted">— 46 字 + ん</span></h2>
 <div class="grid-gojuon" id="grid-seion"></div>
 <details class="extra">
@@ -67,6 +69,28 @@
 <summary>拗音 <span class="muted">— きゃ・しゃ・ちゃ … 等</span></summary>
 <div class="grid-youon" id="grid-youon"></div>
 </details>
+</div>
+<aside class="gojuon-right">
+<div class="gojuon-write-pad">
+<h3 class="gw-title">📝 書寫練習 <span class="muted">— 點左邊任意假名 → 在這裏寫</span></h3>
+<div class="gw-target" id="gw-target">
+<span class="gw-glyph" id="gw-target-glyph">あ</span>
+<span class="gw-romaji" id="gw-target-romaji">a</span>
+</div>
+<div class="canvas-wrap gw-canvas-wrap">
+<canvas id="gw-canvas" width="280" height="280"></canvas>
+<div class="canvas-guide" id="gw-guide">あ</div>
+<div class="canvas-stroke" id="gw-stroke"></div>
+</div>
+<div class="canvas-controls gw-controls">
+<button id="gw-show-stroke">✍ 示範筆順</button>
+<button id="gw-clear">🗑 清空</button>
+<button id="gw-toggle-guide">隱藏參考字</button>
+<button id="gw-replay">🔊 再聽</button>
+</div>
+</div>
+</aside>
+</div>
 </section>
 <!-- ═══ 伊呂波歌 ═══ -->
 <section class="page" id="page-iroha">
@@ -733,7 +757,7 @@
 </section>
 </main>
 <footer class="site-footer">
-<p class="muted">日本語入門 <strong style="color:var(--accent)">v1.5.4</strong> · 由 <a href="https://irischanglabs.com">Iris Chang Labs</a> 製作 · 發音 Microsoft Edge-TTS (NanamiNeural) · 字體 Yuji Syuku + Noto Sans HK/TC</p>
+<p class="muted">日本語入門 <strong style="color:var(--accent)">v1.6</strong> · 由 <a href="https://irischanglabs.com">Iris Chang Labs</a> 製作 · 發音 Microsoft Edge-TTS (NanamiNeural) · 字體 Yuji Syuku + Noto Sans HK/TC</p>
 </footer>
 <!-- 筆順示範 modal -->
 <div class="stroke-modal" hidden="" id="stroke-modal">
@@ -781,12 +805,12 @@
 </div>
 </div>
 </div>
-<script src="js/data.js?v=19"></script>
-<script src="js/etymology.js?v=19"></script>
-<script src="js/vocab.js?v=19"></script>
-<script src="js/edu-kanji.js?v=19"></script>
-<script src="js/audio.js?v=19"></script>
-<script src="js/strokes.js?v=19"></script>
-<script src="js/app.js?v=19"></script>
+<script src="js/data.js?v=20"></script>
+<script src="js/etymology.js?v=20"></script>
+<script src="js/vocab.js?v=20"></script>
+<script src="js/edu-kanji.js?v=20"></script>
+<script src="js/audio.js?v=20"></script>
+<script src="js/strokes.js?v=20"></script>
+<script src="js/app.js?v=20"></script>
 </body>
 </html>

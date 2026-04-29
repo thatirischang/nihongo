@@ -104,6 +104,8 @@ function _kanaCell(cell, opts = {}) {
     div.classList.add('playing');
     setTimeout(() => div.classList.remove('playing'), 600);
     playKana(cell);
+    // 同步更新右側書寫練習板的目標字
+    if (window._setGojuonWritePadTarget) window._setGojuonWritePadTarget(cell);
   });
   return div;
 }
@@ -402,6 +404,75 @@ canvas.addEventListener('mouseleave', _end);
 canvas.addEventListener('touchstart', _start, { passive: false });
 canvas.addEventListener('touchmove', _move, { passive: false });
 canvas.addEventListener('touchend', _end);
+
+// === 通用畫板初始化器（給 gojuon page 的副本畫板用） ===
+function initDrawingCanvas(canvasEl) {
+  const c = canvasEl.getContext('2d');
+  c.lineCap = 'round'; c.lineJoin = 'round'; c.lineWidth = 5; c.strokeStyle = '#1a1a1a';
+  let drawing = false;
+  function coords(e) {
+    const rect = canvasEl.getBoundingClientRect();
+    const t = e.touches ? e.touches[0] : e;
+    return {
+      x: (t.clientX - rect.left) * (canvasEl.width / rect.width),
+      y: (t.clientY - rect.top) * (canvasEl.height / rect.height),
+    };
+  }
+  function start(e) { e.preventDefault(); drawing = true; const {x,y} = coords(e); c.beginPath(); c.moveTo(x,y); }
+  function move(e) { if (!drawing) return; e.preventDefault(); const {x,y} = coords(e); c.lineTo(x,y); c.stroke(); }
+  function end(e) { if (!drawing) return; e.preventDefault(); drawing = false; }
+  canvasEl.addEventListener('mousedown', start);
+  canvasEl.addEventListener('mousemove', move);
+  canvasEl.addEventListener('mouseup', end);
+  canvasEl.addEventListener('mouseleave', end);
+  canvasEl.addEventListener('touchstart', start, { passive: false });
+  canvasEl.addEventListener('touchmove', move, { passive: false });
+  canvasEl.addEventListener('touchend', end);
+  return {
+    clear: () => c.clearRect(0, 0, canvasEl.width, canvasEl.height),
+    ctx: c,
+  };
+}
+
+// === 五十音 page 副本畫板 ===
+const gwCanvas = document.getElementById('gw-canvas');
+let _gwCurrentCell = null;
+if (gwCanvas) {
+  const gw = initDrawingCanvas(gwCanvas);
+  // 設置目標假名
+  window._setGojuonWritePadTarget = function(cell) {
+    if (!cell) return;
+    _gwCurrentCell = cell;
+    const glyph = currentScript === 'h' ? cell.h : cell.k;
+    document.getElementById('gw-target-glyph').textContent = `${cell.h} / ${cell.k}`;
+    document.getElementById('gw-target-romaji').textContent = cell.r;
+    document.getElementById('gw-guide').textContent = glyph;
+    gw.clear();
+    document.getElementById('gw-stroke').innerHTML = '';
+  };
+  document.getElementById('gw-clear').addEventListener('click', () => {
+    gw.clear();
+    document.getElementById('gw-stroke').innerHTML = '';
+  });
+  document.getElementById('gw-toggle-guide').addEventListener('click', () => {
+    const g = document.getElementById('gw-guide');
+    g.classList.toggle('hidden');
+    document.getElementById('gw-toggle-guide').textContent =
+      g.classList.contains('hidden') ? '顯示參考字' : '隱藏參考字';
+  });
+  document.getElementById('gw-replay').addEventListener('click', () => {
+    if (_gwCurrentCell) playKana(_gwCurrentCell);
+  });
+  document.getElementById('gw-show-stroke').addEventListener('click', async () => {
+    if (!_gwCurrentCell) return;
+    const glyph = currentScript === 'h' ? _gwCurrentCell.h : _gwCurrentCell.k;
+    gw.clear();
+    await animateStrokes(glyph, document.getElementById('gw-stroke'));
+  });
+  // 預設顯示 あ
+  const initCell = GOJUON[0][0];
+  window._setGojuonWritePadTarget(initCell);
+}
 
 document.getElementById('btn-clear').addEventListener('click', () => {
   clearCanvas();
