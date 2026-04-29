@@ -25,6 +25,54 @@ document.querySelectorAll('.sub-tabs').forEach(group => {
   });
 });
 
+// ═══ 五十音搜索 ═══
+function _kanaCellMatchesQuery(cellEl, q) {
+  if (!q) return null;
+  q = q.trim().toLowerCase();
+  if (!q) return null;
+  // cellEl: kana-cell 內 .kana-glyph (h or k), .kana-romaji, .kana-etymon
+  const glyph = cellEl.querySelector('.kana-glyph')?.textContent?.trim() || '';
+  const romaji = cellEl.querySelector('.kana-romaji')?.textContent?.trim().toLowerCase() || '';
+  const etymon = cellEl.querySelector('.kana-etymon')?.textContent?.trim() || '';
+  // 任一字段含 q 就算匹配
+  return glyph.includes(q) || romaji.includes(q) || etymon.includes(q) ||
+         // 也匹配對應的另一個 script (h ↔ k)，靠 data attr 不存就 fallback
+         q === glyph || q === romaji || q === etymon;
+}
+
+function applyKanaSearch(q) {
+  const cells = document.querySelectorAll('#page-gojuon .kana-cell:not(.empty)');
+  q = (q || '').trim().toLowerCase();
+  if (!q) {
+    cells.forEach(c => { c.classList.remove('search-match', 'search-dim'); });
+    document.getElementById('kana-search-clear').hidden = true;
+    return;
+  }
+  let matched = 0;
+  cells.forEach(c => {
+    if (_kanaCellMatchesQuery(c, q)) {
+      c.classList.add('search-match');
+      c.classList.remove('search-dim');
+      matched++;
+    } else {
+      c.classList.remove('search-match');
+      c.classList.add('search-dim');
+    }
+  });
+  document.getElementById('kana-search-clear').hidden = false;
+  // 滾到第一個匹配
+  const first = document.querySelector('#page-gojuon .kana-cell.search-match');
+  if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+document.getElementById('kana-search')?.addEventListener('input', (e) => applyKanaSearch(e.target.value));
+document.getElementById('kana-search-clear')?.addEventListener('click', () => {
+  const inp = document.getElementById('kana-search');
+  inp.value = '';
+  applyKanaSearch('');
+  inp.focus();
+});
+
 // ═══ 渲染五十音表 ═══
 function _kanaCell(cell, opts = {}) {
   if (!cell) {
@@ -149,7 +197,10 @@ function renderIroha() {
       span.className = 'iroha-char';
       if (c.archaic) span.classList.add('archaic');
       if (c.modern) span.classList.add('modern');
-      span.textContent = currentScript === 'h' ? c.h : c.k;
+      span.innerHTML = `
+        <span class="iroha-glyph">${currentScript === 'h' ? c.h : c.k}</span>
+        <span class="iroha-romaji">${c.r}</span>
+      `;
       // 给非 modern 字符（即朗读音频里有的 47 字）记 charIndex，用于同步高亮
       if (!c.modern) {
         span.dataset.charIndex = String(idx);
@@ -428,15 +479,80 @@ const _quizEls = ['.quiz-controls', '#quiz-stage'];
 function _setPracticeMode(mode) {
   _practiceMode = mode;
   document.querySelectorAll('.mode-tab').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+  const progPanel = document.getElementById('progress-panel');
   if (mode === 'learn') {
     _learnEls.forEach(s => { const el = document.querySelector(s); if (el) el.hidden = false; });
     _quizEls.forEach(s => { const el = document.querySelector(s); if (el) el.hidden = true; });
-  } else {
+    if (progPanel) progPanel.hidden = true;
+  } else if (mode === 'quiz') {
     _learnEls.forEach(s => { const el = document.querySelector(s); if (el) el.hidden = true; });
     _quizEls.forEach(s => { const el = document.querySelector(s); if (el) el.hidden = false; });
+    if (progPanel) progPanel.hidden = true;
     if (!_quizCurrent) startQuiz();
+  } else if (mode === 'progress') {
+    _learnEls.forEach(s => { const el = document.querySelector(s); if (el) el.hidden = true; });
+    _quizEls.forEach(s => { const el = document.querySelector(s); if (el) el.hidden = true; });
+    if (progPanel) progPanel.hidden = false;
+    renderProgressPanel();
   }
 }
+
+function renderProgressPanel() {
+  const p = _loadProgress();
+  const entries = Object.entries(p.quiz || {});
+  let totalRight = 0, totalWrong = 0;
+  for (const [, v] of entries) {
+    totalRight += v.right || 0;
+    totalWrong += v.wrong || 0;
+  }
+  const totalPlays = totalRight + totalWrong;
+  const accuracy = totalPlays > 0 ? Math.round(totalRight * 100 / totalPlays) : 0;
+  const mastered = entries.filter(([, v]) => (v.right || 0) >= 3 && (v.wrong || 0) === 0).length;
+  const weak = entries.filter(([, v]) => (v.wrong || 0) > 0).length;
+
+  document.getElementById('stat-total').textContent = totalPlays;
+  document.getElementById('stat-accuracy').textContent = totalPlays > 0 ? `${accuracy}%` : '—';
+  document.getElementById('stat-mastered').textContent = mastered;
+  document.getElementById('stat-weak').textContent = weak;
+
+  // 弱項 top 5: 按 wrong 降序，wrong 0 不算
+  const allKana = _allKana();
+  const findKana = (r) => allKana.find(k => k.r === r);
+  const weakSorted = entries
+    .filter(([, v]) => (v.wrong || 0) > 0)
+    .sort((a, b) => (b[1].wrong || 0) - (a[1].wrong || 0))
+    .slice(0, 5);
+  const strongSorted = entries
+    .filter(([, v]) => (v.right || 0) >= 3 && (v.wrong || 0) === 0)
+    .sort((a, b) => (b[1].right || 0) - (a[1].right || 0))
+    .slice(0, 5);
+
+  const renderItem = (r, stats, isWeak) => {
+    const k = findKana(r);
+    if (!k) return '';
+    const cls = isWeak ? 'weak' : 'strong';
+    return `
+      <div class="prog-item ${cls} speak" data-speak="${k.h}">
+        <div class="prog-glyph">${k.h}/${k.k}</div>
+        <div class="prog-romaji">${r}</div>
+        <div class="prog-stat">${isWeak ? `錯 ${stats.wrong} / 對 ${stats.right || 0}` : `對 ${stats.right} 次`}</div>
+      </div>`;
+  };
+  document.getElementById('progress-weak').innerHTML =
+    weakSorted.length ? weakSorted.map(([r, s]) => renderItem(r, s, true)).join('') :
+    '<div class="prog-empty">還沒做測驗 — 切到「🎯 測驗模式」開始</div>';
+  document.getElementById('progress-strong').innerHTML =
+    strongSorted.length ? strongSorted.map(([r, s]) => renderItem(r, s, false)).join('') :
+    '<div class="prog-empty">連續答對同一個字 3+ 次就會出現在這裏</div>';
+}
+
+document.getElementById('btn-progress-reset')?.addEventListener('click', () => {
+  if (!confirm('確定清空所有測驗進度？')) return;
+  localStorage.removeItem(_STORAGE_KEY);
+  _quizScore = { correct: 0, total: 0 };
+  _updateQuizScore?.();
+  renderProgressPanel();
+});
 
 document.querySelectorAll('.mode-tab').forEach(btn => {
   btn.addEventListener('click', () => _setPracticeMode(btn.dataset.mode));
@@ -588,33 +704,37 @@ function renderPhrases() {
   }
 }
 
-let _n5CurrentCat = null;
-function renderN5CategoryTabs() {
-  const tabs = document.getElementById('n5-cat-tabs');
-  if (!tabs) return;
-  tabs.innerHTML = '';
-  for (const cat of N5_CATEGORIES) {
+// 通用 vocab level 渲染器 (N5 / N4 / N3 共用)
+const _levelState = { n5: { cat: null }, n4: { cat: null }, n3: { cat: null }, n2: { cat: null }, n1: { cat: null } };
+const _levelData = { n5: N5_CATEGORIES, n4: N4_CATEGORIES, n3: N3_CATEGORIES, n2: N2_CATEGORIES, n1: N1_CATEGORIES };
+
+function renderLevelCategoryTabs(level) {
+  const tabsEl = document.getElementById(`${level}-cat-tabs`);
+  if (!tabsEl) return;
+  const cats = _levelData[level];
+  tabsEl.innerHTML = '';
+  for (const cat of cats) {
     const btn = document.createElement('button');
     btn.className = 'n5-cat-tab';
     btn.textContent = `${cat.label} (${cat.words.length})`;
     btn.dataset.catId = cat.id;
     btn.addEventListener('click', () => {
-      _n5CurrentCat = cat.id;
-      tabs.querySelectorAll('.n5-cat-tab').forEach(b => b.classList.toggle('active', b.dataset.catId === cat.id));
-      renderN5();
+      _levelState[level].cat = cat.id;
+      tabsEl.querySelectorAll('.n5-cat-tab').forEach(b => b.classList.toggle('active', b.dataset.catId === cat.id));
+      renderLevelList(level);
     });
-    tabs.appendChild(btn);
+    tabsEl.appendChild(btn);
   }
-  // 默認第一個
-  if (!_n5CurrentCat) _n5CurrentCat = N5_CATEGORIES[0].id;
-  const activeBtn = tabs.querySelector(`[data-cat-id="${_n5CurrentCat}"]`);
+  if (!_levelState[level].cat) _levelState[level].cat = cats[0].id;
+  const activeBtn = tabsEl.querySelector(`[data-cat-id="${_levelState[level].cat}"]`);
   if (activeBtn) activeBtn.classList.add('active');
 }
 
-function renderN5() {
-  const list = document.getElementById('n5-list');
+function renderLevelList(level) {
+  const list = document.getElementById(`${level}-list`);
   if (!list) return;
-  const cat = N5_CATEGORIES.find(c => c.id === _n5CurrentCat) || N5_CATEGORIES[0];
+  const cats = _levelData[level];
+  const cat = cats.find(c => c.id === _levelState[level].cat) || cats[0];
   list.innerHTML = '';
   for (const w of cat.words) {
     const card = document.createElement('div');
@@ -632,7 +752,6 @@ function renderN5() {
         </div>
       ` : ''}
     `;
-    // toggle example expansion
     const exToggle = card.querySelector('.vocab-ex-toggle');
     if (exToggle) {
       exToggle.addEventListener('click', (e) => {
@@ -646,6 +765,61 @@ function renderN5() {
   }
 }
 
+// 兼容舊 API
+function renderN5CategoryTabs() { renderLevelCategoryTabs('n5'); }
+function renderN5() { renderLevelList('n5'); }
+function renderN4CategoryTabs() { renderLevelCategoryTabs('n4'); }
+function renderN4() { renderLevelList('n4'); }
+function renderN3CategoryTabs() { renderLevelCategoryTabs('n3'); }
+function renderN3() { renderLevelList('n3'); }
+function renderN2CategoryTabs() { renderLevelCategoryTabs('n2'); }
+function renderN2() { renderLevelList('n2'); }
+function renderN1CategoryTabs() { renderLevelCategoryTabs('n1'); }
+function renderN1() { renderLevelList('n1'); }
+
+// 教育漢字 1026 字 — 按年級渲染
+let _kanjiCurrentGrade = 1;
+function renderKanjiGradeTabs() {
+  const tabs = document.getElementById('kanji-grade-tabs');
+  if (!tabs) return;
+  tabs.innerHTML = '';
+  for (let g = 1; g <= 6; g++) {
+    const count = (EDU_KANJI[g] || []).length;
+    const btn = document.createElement('button');
+    btn.className = 'n5-cat-tab';
+    btn.textContent = `${g} 年生 (${count})`;
+    btn.dataset.grade = String(g);
+    btn.addEventListener('click', () => {
+      _kanjiCurrentGrade = g;
+      tabs.querySelectorAll('.n5-cat-tab').forEach(b => b.classList.toggle('active', b.dataset.grade === String(g)));
+      renderKanjiGrid();
+    });
+    tabs.appendChild(btn);
+  }
+  const activeBtn = tabs.querySelector(`[data-grade="${_kanjiCurrentGrade}"]`);
+  if (activeBtn) activeBtn.classList.add('active');
+}
+function renderKanjiGrid() {
+  const grid = document.getElementById('kanji-grid');
+  if (!grid) return;
+  const list = EDU_KANJI[_kanjiCurrentGrade] || [];
+  grid.innerHTML = '';
+  for (const k of list) {
+    const card = document.createElement('div');
+    card.className = 'kanji-ref-card speak';
+    card.dataset.speak = k.k;
+    card.innerHTML = `
+      <div class="kanji-ref-glyph">${k.k}</div>
+      <div class="kanji-ref-readings">
+        <div><span class="kanji-ref-tag on">音</span>${k.on}</div>
+        <div><span class="kanji-ref-tag kun">訓</span>${k.kun}</div>
+      </div>
+      <div class="kanji-ref-mean">${k.mean}</div>
+    `;
+    grid.appendChild(card);
+  }
+}
+
 document.querySelectorAll('[data-vocab-tab]').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('[data-vocab-tab]').forEach(b => b.classList.remove('active'));
@@ -653,6 +827,15 @@ document.querySelectorAll('[data-vocab-tab]').forEach(btn => {
     const which = btn.dataset.vocabTab;
     document.getElementById('vocab-phrases').hidden = which !== 'phrases';
     document.getElementById('vocab-n5').hidden = which !== 'n5';
+    document.getElementById('vocab-n4').hidden = which !== 'n4';
+    document.getElementById('vocab-n3').hidden = which !== 'n3';
+    document.getElementById('vocab-n2').hidden = which !== 'n2';
+    document.getElementById('vocab-n1').hidden = which !== 'n1';
+    document.getElementById('vocab-kanji').hidden = which !== 'kanji';
+    if (which === 'kanji' && !document.getElementById('kanji-grid').innerHTML) {
+      renderKanjiGradeTabs();
+      renderKanjiGrid();
+    }
   });
 });
 
@@ -703,5 +886,15 @@ renderPicker();
 renderPhrases();
 renderN5CategoryTabs();
 renderN5();
+renderN4CategoryTabs();
+renderN4();
+renderN3CategoryTabs();
+renderN3();
+renderN2CategoryTabs();
+renderN2();
+renderN1CategoryTabs();
+renderN1();
+renderKanjiGradeTabs();
+renderKanjiGrid();
 buildAboutToc();
 document.getElementById('practice-glyph').classList.add('placeholder');

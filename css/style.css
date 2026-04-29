@@ -84,6 +84,49 @@ a:hover { color: var(--accent-soft); }
   justify-content: center;
   margin: 24px 0 12px;
 }
+
+/* 五十音搜索 */
+.kana-search {
+  position: relative;
+  max-width: 480px;
+  margin: 12px auto 16px;
+}
+.kana-search input {
+  width: 100%;
+  padding: 10px 36px 10px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper-deep);
+  font-family: var(--font-zh);
+  font-size: 14px;
+  color: var(--ink);
+  outline: none;
+}
+.kana-search input:focus {
+  border-color: var(--accent);
+  background: var(--paper);
+}
+.kana-search button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--ink-soft);
+  padding: 4px 8px;
+}
+.kana-search button:hover { color: var(--accent); }
+
+/* 搜索匹配高亮 */
+.kana-cell.search-match {
+  border-color: var(--accent);
+  background: var(--hl);
+  box-shadow: 0 0 0 2px var(--accent-soft);
+}
+.kana-cell.search-dim { opacity: 0.25; }
 .sub-tab {
   background: transparent;
   border: 1px solid var(--line);
@@ -309,11 +352,10 @@ details.extra[open] > summary::before { transform: rotate(90deg); }
   margin-bottom: 16px;
 }
 .iroha-char {
-  font-family: var(--font-ja);
-  font-size: 56px;
   width: 76px;
-  height: 90px;
+  height: 100px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
@@ -321,7 +363,23 @@ details.extra[open] > summary::before { transform: rotate(90deg); }
   transition: all 0.12s;
   position: relative;
   color: var(--ink);
+  padding: 4px 2px;
 }
+.iroha-glyph {
+  font-family: var(--font-ja);
+  font-size: 48px;
+  line-height: 1;
+}
+.iroha-romaji {
+  font-family: var(--font-zh);
+  font-size: 11px;
+  color: var(--ink-soft);
+  margin-top: 4px;
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+.iroha-char.playing .iroha-glyph,
+.iroha-char.playing .iroha-romaji { color: var(--paper); }
 .iroha-char:hover { background: var(--hl); }
 .iroha-char.playing { background: var(--accent); color: var(--paper); }
 
@@ -578,6 +636,50 @@ details.extra[open] > summary::before { transform: rotate(90deg); }
   color: var(--ink-soft);
 }
 .particles-table tbody tr:hover { background: var(--paper-deep); }
+
+/* 音讀訓讀對照表 */
+.onkun-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0 24px;
+  font-family: var(--font-zh);
+  font-size: 13px;
+}
+.onkun-table thead th {
+  background: var(--paper-deep);
+  padding: 8px;
+  text-align: left;
+  border-bottom: 2px solid var(--accent);
+  font-weight: 500;
+  color: var(--ink);
+}
+.onkun-table tbody td {
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-soft);
+  vertical-align: middle;
+}
+.onkun-table tbody tr:hover { background: var(--paper-deep); }
+.onkun-table td.ja-big {
+  font-family: var(--font-ja);
+  font-size: 28px;
+  color: var(--accent);
+  text-align: center;
+  width: 50px;
+  cursor: pointer;
+}
+.onkun-table td.ja-big:hover { color: var(--accent-soft); background: var(--hl); }
+@media (max-width: 540px) {
+  .onkun-table { font-size: 12px; }
+  .onkun-table td { padding: 6px 4px; }
+  .onkun-table td.ja-big { font-size: 22px; }
+}
+
+.prose ol.reasons {
+  margin: 12px 0 16px 24px;
+  color: var(--ink-soft);
+}
+.prose ol.reasons li { margin-bottom: 12px; line-height: 1.85; }
 .particles-table td.ja-big {
   font-family: var(--font-ja);
   font-size: 28px;
@@ -770,6 +872,105 @@ details.extra[open] > summary::before { transform: rotate(90deg); }
 }
 .progress-bar strong { color: var(--accent); font-size: 15px; }
 
+/* 進度面板 */
+.progress-panel { padding: 16px 0; }
+.progress-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.stat-card {
+  background: var(--paper-deep);
+  padding: 18px 12px;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid var(--line);
+}
+.stat-num {
+  font-family: var(--font-zh);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--accent);
+  line-height: 1.1;
+}
+.stat-label {
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin-top: 4px;
+  letter-spacing: 0.05em;
+}
+.progress-section { margin-bottom: 24px; }
+.progress-section h3 {
+  font-family: var(--font-zh);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+}
+.progress-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 8px;
+}
+.prog-item {
+  background: var(--paper-deep);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+.prog-item.weak { border-color: #c25555; background: rgba(194,85,85,0.05); }
+.prog-item.strong { border-color: #2e7d32; background: rgba(46,125,50,0.05); }
+.prog-item:hover { background: var(--hl); }
+.prog-glyph {
+  font-family: var(--font-ja);
+  font-size: 22px;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+.prog-romaji {
+  font-size: 11px;
+  color: var(--ink-soft);
+  letter-spacing: 0.05em;
+}
+.prog-stat {
+  font-size: 11px;
+  color: var(--ink-soft);
+  margin-top: 4px;
+}
+.prog-empty {
+  grid-column: 1/-1;
+  padding: 24px;
+  text-align: center;
+  color: var(--ink-soft);
+  background: var(--paper-deep);
+  border-radius: 8px;
+  font-size: 13px;
+}
+.progress-actions {
+  text-align: center;
+  margin-top: 16px;
+}
+.progress-actions button {
+  background: transparent;
+  border: 1px solid var(--line);
+  padding: 8px 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--ink-soft);
+  font-family: var(--font-zh);
+  font-size: 13px;
+}
+.progress-actions button:hover { color: var(--accent); border-color: var(--accent); }
+@media (max-width: 540px) {
+  .progress-stats { grid-template-columns: repeat(2, 1fr); }
+  .stat-num { font-size: 22px; }
+}
+
 /* 實戰：詞彙 + 句子 */
 .vocab-section { margin-top: 16px; }
 .vocab-list {
@@ -833,6 +1034,73 @@ details.extra[open] > summary::before { transform: rotate(90deg); }
   opacity: 0.4;
 }
 .vocab-card:hover.speak::before { opacity: 1; }
+
+/* 教育漢字 reference */
+.kanji-grade-tabs {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin: 12px 0 16px;
+  padding: 12px;
+  background: var(--paper-deep);
+  border-radius: 8px;
+  flex-wrap: wrap;
+}
+.kanji-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 6px;
+}
+.kanji-ref-card {
+  background: var(--paper-deep);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 10px 6px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.12s;
+  position: relative;
+}
+.kanji-ref-card:hover {
+  background: var(--hl);
+  border-color: var(--accent-soft);
+  transform: translateY(-1px);
+}
+.kanji-ref-glyph {
+  font-family: var(--font-ja);
+  font-size: 36px;
+  line-height: 1.1;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.kanji-ref-readings {
+  font-family: var(--font-zh);
+  font-size: 11px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+.kanji-ref-tag {
+  display: inline-block;
+  padding: 0 4px;
+  border-radius: 3px;
+  font-size: 9px;
+  margin-right: 3px;
+  color: var(--paper);
+}
+.kanji-ref-tag.on { background: var(--accent); }
+.kanji-ref-tag.kun { background: #2c5282; }
+.kanji-ref-mean {
+  font-family: var(--font-zh);
+  font-size: 11px;
+  color: var(--ink);
+  border-top: 1px solid var(--line);
+  padding-top: 4px;
+}
+@media (max-width: 540px) {
+  .kanji-grid { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); }
+  .kanji-ref-glyph { font-size: 30px; }
+}
 
 /* N5 分類 sub-tabs */
 .n5-cat-tabs {
@@ -1447,7 +1715,9 @@ details.extra[open] > summary::before { transform: rotate(90deg); }
   .site-title .zh { font-size: 24px; }
   .kana-glyph { font-size: 40px; }
   .kana-cell { min-height: 88px; padding: 12px 4px 8px; }
-  .iroha-char { font-size: 40px; width: 56px; height: 70px; }
+  .iroha-char { width: 56px; height: 80px; padding: 2px; }
+  .iroha-glyph { font-size: 36px; }
+  .iroha-romaji { font-size: 9px; }
   .practice-glyph { font-size: 120px; }
   .canvas-wrap { width: 260px; height: 260px; }
   .canvas-guide { font-size: 200px; }

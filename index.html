@@ -25,7 +25,7 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&amp;family=Noto+Sans+HK:wght@300;400;500;700&amp;family=Noto+Sans+TC:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
-<link href="css/style.css?v=13" rel="stylesheet"/>
+<link href="css/style.css?v=16" rel="stylesheet"/>
 </head>
 <body>
 <header class="site-header">
@@ -44,6 +44,10 @@
 <div class="sub-tabs">
 <button class="sub-tab active" data-script="h">平假名 ひらがな</button>
 <button class="sub-tab" data-script="k">片假名 カタカナ</button>
+</div>
+<div class="kana-search">
+<input autocomplete="off" id="kana-search" placeholder="🔍 搜尋假名 / 羅馬字 / 字源漢字 (如 a / 安 / あ / ア)" type="search"/>
+<button hidden="" id="kana-search-clear">✕</button>
 </div>
 <h2 class="section-title">清音 <span class="muted">— 46 字 + ん</span></h2>
 <div class="grid-gojuon" id="grid-seion"></div>
@@ -180,20 +184,122 @@
 <h3>③ 漢字 <span class="ja-big speak">漢字</span> — 表意、壓縮信息密度</h3>
 <p>5 世紀從中國傳入。日語用了 1500 多年沒斷過。現代日本常用漢字 <strong>2136 字</strong>（「常用漢字表」，2010 年修訂），日常報紙、小説、菜單基本都在這個範圍裏。</p>
 <p>大部分是繁體字。也有日本人自造的「<strong>國字</strong>」（中國沒有的字，比如 峠 / 畑 / 働），還有少部分是日式簡化字（國 / 広 / 學），跟中國大陸簡體字大體兼容但不完全相同。</p>
-<p><strong>關鍵概念 — 一個漢字常常有兩套讀法：</strong></p>
-<ul>
-<li><strong>音讀（音読み）</strong>：日本人借漢字時連發音也一起借過來了，所以音讀聽起來「像中文但走了樣」。一般用於<strong>兩字以上的複合詞</strong>（漢語詞）。</li>
-<li><strong>訓讀（訓読み）</strong>：把日本本土固有詞的發音「套」在意思相同的漢字上，讀音完全是日語本土的，跟中文一點關係都沒有。一般用於<strong>單字獨立出現</strong>時。</li>
-</ul>
+<h4>音讀 vs 訓讀 — 為什麼一個漢字有兩套讀法</h4>
+<p>這是日語裏最讓中文母語者困惑的點。但理解了「為什麼」後，記憶反而比死背容易。</p>
+<p><strong>故事是這樣的：</strong>5 世紀，日本從中國借漢字。借的時候有兩個選擇：</p>
+<ol class="reasons">
+<li><strong>連讀音一起借</strong> — 把漢字「山」連同中古漢語讀音「sān」一起拿過來，本地化成 <span class="speak">さん</span>。<strong>這就是音讀。</strong></li>
+<li><strong>只借意思，套上日語自己的發音</strong> — 日本本土早就有「山」這個東西，本地詞叫 <span class="speak">やま</span>。借了「山」這個漢字後，遇到日語固有詞「やま」就用這個漢字寫，讀音保留 <span class="speak">やま</span>。<strong>這就是訓讀。</strong></li>
+</ol>
+<p>所以同一個漢字「山」現在有兩個讀音：</p>
 <p class="example">
-<span class="ja-big speak">山</span> = <span class="speak">やま</span>（訓：本土「山」）/ <span class="speak">さん</span>（音：來自中古漢語 sān）<br/>
-<span class="ja-big speak">水</span> = <span class="speak">みず</span>（訓）/ <span class="speak">すい</span>（音）<br/>
-<span class="ja-big speak">人</span> = <span class="speak">ひと</span>（訓）/ <span class="speak">じん</span>・<span class="speak">にん</span>（音）<br/>
-<span class="ja-big speak">山口</span> = <span class="speak">やまぐち</span>（訓訓，姓 / 地名）<br/>
-<span class="ja-big speak" data-speak="富士山">富士山</span> = <span class="speak">ふじさん</span>（音音音，山名）
-    </p>
-<p><strong>大致規律：</strong>單字獨立 → 通常訓讀；兩字複合 → 通常音讀。例外不少，主要靠平時積累。</p>
-<p class="muted"><strong>給初學者：</strong>不用一開始就背漢字。學完兩套假名再開始接觸漢字 — 而且記的時候<strong>同時記一個常見詞</strong>（如學「學」就連「學校 がっこう」一起記），效率最高。</p>
+<span class="ja-big">山</span> 一個字，兩條獨立路徑：<br/>
+  音讀（漢語來的）：<span class="speak">さん</span> san — 用於「<span class="speak" data-speak="富士山">富士山</span>」「<span class="speak" data-speak="火山">火山</span>」等漢語複合詞<br/>
+  訓讀（日本本土的）：<span class="speak">やま</span> yama — 用於單字「山」或「<span class="speak" data-speak="山口">山口</span>」等和語複合詞
+</p>
+<h4>音讀的歷史層次：吳音 / 漢音 / 唐音</h4>
+<p>日本不是一次性借完中國的字音 — 在不同朝代借了三批，所以一個字常有<strong>多個音讀</strong>：</p>
+<ul>
+<li><strong>吳音</strong>（5-7 世紀，從中國南朝經朝鮮半島傳入）— 多用於<strong>佛教詞、人名</strong>。例：「<span class="ja-big speak">人</span>」吳音 <span class="speak">にん</span>（人間 にんげん）</li>
+<li><strong>漢音</strong>（7-8 世紀，遣唐使從長安帶回）— 最多最常用。例：「<span class="ja-big speak">人</span>」漢音 <span class="speak">じん</span>（日本人 にほんじん）</li>
+<li><strong>唐音</strong>（13-17 世紀，宋元明傳入）— 最少。例：「<span class="ja-big">行</span>」唐音 <span class="speak">あん</span>（行燈 あんどん）</li>
+</ul>
+<p class="muted">所以「人」一個字有 <strong>2 個音讀</strong>（じん / にん）+ <strong>1 個訓讀</strong>（ひと）。看到時要根據詞判斷用哪個。</p>
+<h4>30 個高頻例字 — 音讀訓讀對照</h4>
+<p>背漢字最有效的方法：<strong>同時記一個常用詞</strong>。本表覆蓋小學 1-3 年級教育漢字裏使用最頻繁的 30 個。</p>
+<table class="onkun-table">
+<thead><tr><th>漢字</th><th>音讀</th><th>訓讀</th><th>常用例詞</th></tr></thead>
+<tbody>
+<tr><td class="ja-big speak">山</td><td><span class="speak">さん</span></td><td><span class="speak">やま</span></td><td><span class="speak" data-speak="富士山">富士山 ふじさん</span> / <span class="speak" data-speak="山口">山口 やまぐち</span></td></tr>
+<tr><td class="ja-big speak">水</td><td><span class="speak">すい</span></td><td><span class="speak">みず</span></td><td><span class="speak" data-speak="水曜日">水曜日 すいようび</span> / <span class="speak" data-speak="水">水 みず</span>（飲料）</td></tr>
+<tr><td class="ja-big speak">火</td><td><span class="speak">か</span></td><td><span class="speak">ひ</span></td><td><span class="speak" data-speak="火山">火山 かざん</span> / <span class="speak" data-speak="火">火 ひ</span></td></tr>
+<tr><td class="ja-big speak">木</td><td><span class="speak" data-speak="木">ぼく</span> / <span class="speak">もく</span></td><td><span class="speak">き</span></td><td><span class="speak" data-speak="木曜日">木曜日 もくようび</span> / <span class="speak" data-speak="木">木 き</span>（樹）</td></tr>
+<tr><td class="ja-big speak">金</td><td><span class="speak">きん</span></td><td><span class="speak">かね</span></td><td><span class="speak" data-speak="金曜日">金曜日 きんようび</span> / <span class="speak" data-speak="お金">お金 おかね</span></td></tr>
+<tr><td class="ja-big speak">土</td><td><span class="speak">ど</span></td><td><span class="speak">つち</span></td><td><span class="speak" data-speak="土曜日">土曜日 どようび</span> / <span class="speak" data-speak="土">土 つち</span></td></tr>
+<tr><td class="ja-big speak">日</td><td><span class="speak">にち</span> / <span class="speak">じつ</span></td><td><span class="speak">ひ</span> / <span class="speak">び</span></td><td><span class="speak" data-speak="日本">日本 にほん</span> / <span class="speak" data-speak="今日">今日 きょう</span></td></tr>
+<tr><td class="ja-big speak">月</td><td><span class="speak">げつ</span> / <span class="speak">がつ</span></td><td><span class="speak">つき</span></td><td><span class="speak" data-speak="月曜日">月曜日 げつようび</span> / <span class="speak" data-speak="月">月 つき</span></td></tr>
+<tr><td class="ja-big speak">人</td><td><span class="speak">じん</span> / <span class="speak">にん</span></td><td><span class="speak">ひと</span></td><td><span class="speak" data-speak="日本人">日本人 にほんじん</span> / <span class="speak" data-speak="一人">一人 ひとり</span></td></tr>
+<tr><td class="ja-big speak">口</td><td><span class="speak">こう</span></td><td><span class="speak">くち</span></td><td><span class="speak" data-speak="人口">人口 じんこう</span> / <span class="speak" data-speak="口">口 くち</span></td></tr>
+<tr><td class="ja-big speak">目</td><td><span class="speak">もく</span></td><td><span class="speak">め</span></td><td><span class="speak" data-speak="目的">目的 もくてき</span> / <span class="speak" data-speak="目">目 め</span></td></tr>
+<tr><td class="ja-big speak">手</td><td><span class="speak">しゅ</span></td><td><span class="speak">て</span></td><td><span class="speak" data-speak="手紙">手紙 てがみ</span> / <span class="speak" data-speak="手">手 て</span></td></tr>
+<tr><td class="ja-big speak">足</td><td><span class="speak">そく</span></td><td><span class="speak">あし</span></td><td><span class="speak" data-speak="足">足 あし</span> / <span class="speak" data-speak="満足">満足 まんぞく</span></td></tr>
+<tr><td class="ja-big speak">大</td><td><span class="speak">だい</span> / <span class="speak">たい</span></td><td><span class="speak" data-speak="大きい">おお</span>(きい)</td><td><span class="speak" data-speak="大学">大学 だいがく</span> / <span class="speak" data-speak="大きい">大きい おおきい</span></td></tr>
+<tr><td class="ja-big speak">小</td><td><span class="speak">しょう</span></td><td><span class="speak" data-speak="小さい">ちい</span>(さい)</td><td><span class="speak" data-speak="小学校">小学校 しょうがっこう</span> / <span class="speak" data-speak="小さい">小さい ちいさい</span></td></tr>
+<tr><td class="ja-big speak">中</td><td><span class="speak">ちゅう</span></td><td><span class="speak">なか</span></td><td><span class="speak" data-speak="中国">中国 ちゅうごく</span> / <span class="speak" data-speak="中">中 なか</span></td></tr>
+<tr><td class="ja-big speak">上</td><td><span class="speak">じょう</span></td><td><span class="speak">うえ</span></td><td><span class="speak" data-speak="以上">以上 いじょう</span> / <span class="speak" data-speak="上">上 うえ</span></td></tr>
+<tr><td class="ja-big speak">下</td><td><span class="speak">か</span> / <span class="speak">げ</span></td><td><span class="speak">した</span></td><td><span class="speak" data-speak="地下">地下 ちか</span> / <span class="speak" data-speak="下">下 した</span></td></tr>
+<tr><td class="ja-big speak">本</td><td><span class="speak">ほん</span></td><td><span class="speak">もと</span></td><td><span class="speak" data-speak="日本">日本 にほん</span> / <span class="speak" data-speak="本">本 ほん</span>（書）</td></tr>
+<tr><td class="ja-big speak">国</td><td><span class="speak">こく</span></td><td><span class="speak">くに</span></td><td><span class="speak" data-speak="中国">中国 ちゅうごく</span> / <span class="speak" data-speak="国">国 くに</span></td></tr>
+<tr><td class="ja-big speak">家</td><td><span class="speak">か</span></td><td><span class="speak">いえ</span> / <span class="speak">うち</span></td><td><span class="speak" data-speak="家族">家族 かぞく</span> / <span class="speak" data-speak="家">家 いえ</span></td></tr>
+<tr><td class="ja-big speak">学</td><td><span class="speak">がく</span></td><td><span class="speak" data-speak="学ぶ">まな</span>(ぶ)</td><td><span class="speak" data-speak="学校">学校 がっこう</span> / <span class="speak" data-speak="学ぶ">学ぶ まなぶ</span></td></tr>
+<tr><td class="ja-big speak">校</td><td><span class="speak">こう</span></td><td>—</td><td><span class="speak" data-speak="学校">学校 がっこう</span> / <span class="speak" data-speak="校長">校長 こうちょう</span></td></tr>
+<tr><td class="ja-big speak">先</td><td><span class="speak">せん</span></td><td><span class="speak">さき</span></td><td><span class="speak" data-speak="先生">先生 せんせい</span> / <span class="speak" data-speak="先">先 さき</span></td></tr>
+<tr><td class="ja-big speak">生</td><td><span class="speak">せい</span></td><td><span class="speak" data-speak="生きる">い</span>(きる)</td><td><span class="speak" data-speak="学生">学生 がくせい</span> / <span class="speak" data-speak="生きる">生きる いきる</span></td></tr>
+<tr><td class="ja-big speak">行</td><td><span class="speak">こう</span></td><td><span class="speak" data-speak="行く">い</span>(く)</td><td><span class="speak" data-speak="銀行">銀行 ぎんこう</span> / <span class="speak" data-speak="行く">行く いく</span></td></tr>
+<tr><td class="ja-big speak">食</td><td><span class="speak">しょく</span></td><td><span class="speak" data-speak="食べる">た</span>(べる)</td><td><span class="speak" data-speak="食事">食事 しょくじ</span> / <span class="speak" data-speak="食べる">食べる たべる</span></td></tr>
+<tr><td class="ja-big speak">飲</td><td><span class="speak">いん</span></td><td><span class="speak" data-speak="飲む">の</span>(む)</td><td><span class="speak" data-speak="飲料">飲料 いんりょう</span> / <span class="speak" data-speak="飲む">飲む のむ</span></td></tr>
+<tr><td class="ja-big speak">見</td><td><span class="speak">けん</span></td><td><span class="speak" data-speak="見る">み</span>(る)</td><td><span class="speak" data-speak="意見">意見 いけん</span> / <span class="speak" data-speak="見る">見る みる</span></td></tr>
+<tr><td class="ja-big speak">名</td><td><span class="speak">めい</span></td><td><span class="speak">な</span>(まえ)</td><td><span class="speak" data-speak="有名">有名 ゆうめい</span> / <span class="speak" data-speak="名前">名前 なまえ</span></td></tr>
+<tr><td class="ja-big speak">年</td><td><span class="speak" data-speak="今年">ねん</span></td><td><span class="speak">とし</span></td><td><span class="speak" data-speak="今年">今年 ことし</span> / <span class="speak" data-speak="去年">去年 きょねん</span></td></tr>
+<tr><td class="ja-big speak">時</td><td><span class="speak" data-speak="時間">じ</span></td><td><span class="speak" data-speak="時">とき</span></td><td><span class="speak" data-speak="時間">時間 じかん</span> / <span class="speak" data-speak="時">時 とき</span></td></tr>
+<tr><td class="ja-big speak">分</td><td><span class="speak">ふん</span> / <span class="speak">ぶん</span></td><td><span class="speak" data-speak="分ける">わ</span>(ける)</td><td><span class="speak" data-speak="自分">自分 じぶん</span> / <span class="speak">三分 さんぷん</span></td></tr>
+<tr><td class="ja-big speak">空</td><td><span class="speak">くう</span></td><td><span class="speak">そら</span></td><td><span class="speak" data-speak="空気">空気 くうき</span> / <span class="speak" data-speak="空">空 そら</span></td></tr>
+<tr><td class="ja-big speak">海</td><td><span class="speak">かい</span></td><td><span class="speak">うみ</span></td><td><span class="speak">海洋 かいよう</span> / <span class="speak" data-speak="海">海 うみ</span></td></tr>
+<tr><td class="ja-big speak">川</td><td><span class="speak">せん</span></td><td><span class="speak">かわ</span></td><td><span class="speak">河川 かせん</span> / <span class="speak" data-speak="川">川 かわ</span></td></tr>
+<tr><td class="ja-big speak">花</td><td><span class="speak">か</span></td><td><span class="speak">はな</span></td><td><span class="speak" data-speak="花見">花見 はなみ</span> / <span class="speak" data-speak="花">花 はな</span></td></tr>
+<tr><td class="ja-big speak">雨</td><td><span class="speak">う</span></td><td><span class="speak">あめ</span></td><td><span class="speak">梅雨 つゆ</span> / <span class="speak" data-speak="雨">雨 あめ</span></td></tr>
+<tr><td class="ja-big speak">風</td><td><span class="speak" data-speak="台風">ふう</span></td><td><span class="speak">かぜ</span></td><td><span class="speak" data-speak="台風">台風 たいふう</span> / <span class="speak" data-speak="風">風 かぜ</span></td></tr>
+<tr><td class="ja-big speak">気</td><td><span class="speak">き</span></td><td>—</td><td><span class="speak" data-speak="天気">天気 てんき</span> / <span class="speak" data-speak="元気">元気 げんき</span></td></tr>
+<tr><td class="ja-big speak">高</td><td><span class="speak">こう</span></td><td><span class="speak" data-speak="高い">たか</span>(い)</td><td><span class="speak">高校 こうこう</span> / <span class="speak" data-speak="高い">高い たかい</span></td></tr>
+<tr><td class="ja-big speak">長</td><td><span class="speak">ちょう</span></td><td><span class="speak" data-speak="長い">なが</span>(い)</td><td><span class="speak" data-speak="校長">校長 こうちょう</span> / <span class="speak" data-speak="長い">長い ながい</span></td></tr>
+<tr><td class="ja-big speak">新</td><td><span class="speak" data-speak="新聞">しん</span></td><td><span class="speak" data-speak="新しい">あたら</span>(しい)</td><td><span class="speak" data-speak="新聞">新聞 しんぶん</span> / <span class="speak" data-speak="新しい">新しい あたらしい</span></td></tr>
+<tr><td class="ja-big speak">古</td><td><span class="speak">こ</span></td><td><span class="speak" data-speak="古い">ふる</span>(い)</td><td><span class="speak">古代 こだい</span> / <span class="speak" data-speak="古い">古い ふるい</span></td></tr>
+<tr><td class="ja-big speak">今</td><td><span class="speak" data-speak="今">こん</span></td><td><span class="speak" data-speak="今">いま</span></td><td><span class="speak" data-speak="今日">今日 きょう</span> / <span class="speak" data-speak="今">今 いま</span></td></tr>
+<tr><td class="ja-big speak">何</td><td><span class="speak">か</span></td><td><span class="speak">なに</span> / <span class="speak">なん</span></td><td><span class="speak">幾何 きか</span> / <span class="speak">何 なに</span>（什麼）</td></tr>
+<tr><td class="ja-big speak">来</td><td><span class="speak">らい</span></td><td><span class="speak" data-speak="来る">く</span>(る)</td><td><span class="speak" data-speak="来年">来年 らいねん</span> / <span class="speak" data-speak="来る">来る くる</span></td></tr>
+<tr><td class="ja-big speak">出</td><td><span class="speak">しゅつ</span></td><td><span class="speak" data-speak="出る">で</span>(る)</td><td><span class="speak">出発 しゅっぱつ</span> / <span class="speak" data-speak="出る">出る でる</span></td></tr>
+<tr><td class="ja-big speak">入</td><td><span class="speak">にゅう</span></td><td><span class="speak" data-speak="入る">はい</span>(る)</td><td><span class="speak" data-speak="入学">入学 にゅうがく</span> / <span class="speak" data-speak="入る">入る はいる</span></td></tr>
+<tr><td class="ja-big speak">立</td><td><span class="speak">りつ</span></td><td><span class="speak" data-speak="立つ">た</span>(つ)</td><td><span class="speak">独立 どくりつ</span> / <span class="speak" data-speak="立つ">立つ たつ</span></td></tr>
+<tr><td class="ja-big speak">前</td><td><span class="speak">ぜん</span></td><td><span class="speak">まえ</span></td><td><span class="speak" data-speak="午前">午前 ごぜん</span> / <span class="speak" data-speak="前">前 まえ</span></td></tr>
+<tr><td class="ja-big speak">後</td><td><span class="speak">ご</span> / <span class="speak">こう</span></td><td><span class="speak" data-speak="後ろ">うし</span>(ろ) / <span class="speak">あと</span></td><td><span class="speak" data-speak="午後">午後 ごご</span> / <span class="speak" data-speak="後ろ">後ろ うしろ</span></td></tr>
+<tr><td class="ja-big speak">男</td><td><span class="speak">だん</span></td><td><span class="speak">おとこ</span></td><td><span class="speak">男性 だんせい</span> / <span class="speak">男 おとこ</span></td></tr>
+<tr><td class="ja-big speak">女</td><td><span class="speak">じょ</span></td><td><span class="speak">おんな</span></td><td><span class="speak">女性 じょせい</span> / <span class="speak">女 おんな</span></td></tr>
+<tr><td class="ja-big speak">子</td><td><span class="speak">し</span></td><td><span class="speak" data-speak="子供">こ</span></td><td><span class="speak" data-speak="子供">子供 こども</span> / <span class="speak">息子 むすこ</span></td></tr>
+<tr><td class="ja-big speak">父</td><td><span class="speak">ふ</span></td><td><span class="speak" data-speak="お父さん">ちち</span></td><td><span class="speak" data-speak="お父さん">父 ちち / お父さん</span> / <span class="speak">父母 ふぼ</span></td></tr>
+<tr><td class="ja-big speak">母</td><td><span class="speak">ぼ</span></td><td><span class="speak" data-speak="お母さん">はは</span></td><td><span class="speak" data-speak="お母さん">母 はは / お母さん</span> / <span class="speak">母校 ぼこう</span></td></tr>
+<tr><td class="ja-big speak">兄</td><td><span class="speak">けい</span></td><td><span class="speak" data-speak="兄">あに</span></td><td><span class="speak">兄弟 きょうだい</span> / <span class="speak" data-speak="兄">兄 あに</span></td></tr>
+<tr><td class="ja-big speak">姉</td><td><span class="speak">し</span></td><td><span class="speak" data-speak="姉">あね</span></td><td><span class="speak">姉妹 しまい</span> / <span class="speak" data-speak="姉">姉 あね</span></td></tr>
+<tr><td class="ja-big speak">弟</td><td><span class="speak">てい</span></td><td><span class="speak" data-speak="弟">おとうと</span></td><td><span class="speak">兄弟 きょうだい</span> / <span class="speak" data-speak="弟">弟 おとうと</span></td></tr>
+<tr><td class="ja-big speak">妹</td><td><span class="speak">まい</span></td><td><span class="speak" data-speak="妹">いもうと</span></td><td><span class="speak">姉妹 しまい</span> / <span class="speak" data-speak="妹">妹 いもうと</span></td></tr>
+<tr><td class="ja-big speak">町</td><td><span class="speak">ちょう</span></td><td><span class="speak" data-speak="町">まち</span></td><td><span class="speak">町長 ちょうちょう</span> / <span class="speak" data-speak="町">町 まち</span></td></tr>
+<tr><td class="ja-big speak">店</td><td><span class="speak">てん</span></td><td><span class="speak" data-speak="店">みせ</span></td><td><span class="speak">書店 しょてん</span> / <span class="speak" data-speak="店">店 みせ</span></td></tr>
+<tr><td class="ja-big speak">道</td><td><span class="speak">どう</span></td><td><span class="speak" data-speak="道">みち</span></td><td><span class="speak" data-speak="書道">書道 しょどう</span> / <span class="speak" data-speak="道">道 みち</span></td></tr>
+<tr><td class="ja-big speak">力</td><td><span class="speak">りょく</span> / <span class="speak">りき</span></td><td><span class="speak" data-speak="力">ちから</span></td><td><span class="speak" data-speak="努力">努力 どりょく</span> / <span class="speak" data-speak="力">力 ちから</span></td></tr>
+<tr><td class="ja-big speak">心</td><td><span class="speak">しん</span></td><td><span class="speak" data-speak="心">こころ</span></td><td><span class="speak" data-speak="心配">心配 しんぱい</span> / <span class="speak" data-speak="心">心 こころ</span></td></tr>
+<tr><td class="ja-big speak">気</td><td><span class="speak">き</span> / <span class="speak">け</span></td><td>—</td><td><span class="speak" data-speak="元気">元気 げんき</span> / <span class="speak">気持ち きもち</span></td></tr>
+<tr><td class="ja-big speak">愛</td><td><span class="speak">あい</span></td><td>—</td><td><span class="speak" data-speak="愛">愛 あい</span> / <span class="speak">愛情 あいじょう</span></td></tr>
+<tr><td class="ja-big speak">体</td><td><span class="speak">たい</span></td><td><span class="speak">からだ</span></td><td><span class="speak" data-speak="体育">体育 たいいく</span> / <span class="speak">体 からだ</span></td></tr>
+<tr><td class="ja-big speak">花</td><td><span class="speak">か</span></td><td><span class="speak">はな</span></td><td><span class="speak" data-speak="花見">花見 はなみ</span> / <span class="speak" data-speak="花">花 はな</span></td></tr>
+<tr><td class="ja-big speak">音</td><td><span class="speak">おん</span></td><td><span class="speak">おと</span></td><td><span class="speak" data-speak="音楽">音楽 おんがく</span> / <span class="speak">音 おと</span></td></tr>
+<tr><td class="ja-big speak">楽</td><td><span class="speak">がく</span> / <span class="speak">らく</span></td><td><span class="speak" data-speak="楽しい">たの</span>(しい)</td><td><span class="speak" data-speak="音楽">音楽 おんがく</span> / <span class="speak" data-speak="楽しい">楽しい たのしい</span></td></tr>
+<tr><td class="ja-big speak">電</td><td><span class="speak">でん</span></td><td>—</td><td><span class="speak" data-speak="電車">電車 でんしゃ</span> / <span class="speak" data-speak="電気">電気 でんき</span></td></tr>
+<tr><td class="ja-big speak">話</td><td><span class="speak">わ</span></td><td><span class="speak" data-speak="話す">はな</span>(す)</td><td><span class="speak">会話 かいわ</span> / <span class="speak" data-speak="話す">話す はなす</span></td></tr>
+<tr><td class="ja-big speak">読</td><td><span class="speak">どく</span></td><td><span class="speak" data-speak="読む">よ</span>(む)</td><td><span class="speak">読書 どくしょ</span> / <span class="speak" data-speak="読む">読む よむ</span></td></tr>
+<tr><td class="ja-big speak">書</td><td><span class="speak">しょ</span></td><td><span class="speak" data-speak="書く">か</span>(く)</td><td><span class="speak">図書 としょ</span> / <span class="speak" data-speak="書く">書く かく</span></td></tr>
+<tr><td class="ja-big speak">買</td><td><span class="speak">ばい</span></td><td><span class="speak" data-speak="買う">か</span>(う)</td><td><span class="speak">売買 ばいばい</span> / <span class="speak" data-speak="買う">買う かう</span></td></tr>
+<tr><td class="ja-big speak">作</td><td><span class="speak">さく</span></td><td><span class="speak" data-speak="作る">つく</span>(る)</td><td><span class="speak">作品 さくひん</span> / <span class="speak" data-speak="作る">作る つくる</span></td></tr>
+<tr><td class="ja-big speak">使</td><td><span class="speak">し</span></td><td><span class="speak" data-speak="使う">つか</span>(う)</td><td><span class="speak">使用 しよう</span> / <span class="speak" data-speak="使う">使う つかう</span></td></tr>
+</tbody>
+</table>
+<h4>判斷規律</h4>
+<ul>
+<li>單字獨立出現 → 通常<strong>訓讀</strong>。例：「山に登る」(やまにのぼる) — 單個「山」讀 やま。</li>
+<li>兩個漢字以上的複合詞 → 通常<strong>音讀</strong>。例：「火山」(かざん) — 「山」讀 さん 變成 ざん（音讀+連濁）。</li>
+<li><strong>例外多</strong>：「山口（やまぐち）」是訓+訓，「兄弟（きょうだい）」是音+音 — 完全是約定俗成。</li>
+<li><strong>佛教/法律/醫學/科學詞彙</strong>多用音讀（漢語借詞傳統）。</li>
+<li><strong>家庭/動植物/身體部位/方位</strong>多用訓讀（本土詞傳統）。</li>
+</ul>
+<p class="muted"><strong>給初學者：</strong>不用死背所有讀音 — <strong>記詞，不記字</strong>。學「學校」連帶記「がっこう」，學「飲料」連帶記「いんりょう」。讀音遇多了自然就分得清音讀訓讀。</p>
 <hr class="rule"/>
 <h2>發音系統：5 元音 + 9 輔音 = 46 音節</h2>
 <p class="lede">日語的發音結構在所有大語言裏屬於<strong>最簡單的幾個</strong>。説清楚這個，你會明白 50 音表為什麼長那個樣子。</p>
@@ -228,10 +334,10 @@
 <p class="example">
 <span class="ja-big speak">あ</span> a — 張大嘴 「啊」<br/>
 <span class="ja-big speak">い</span> i — 嘴角拉開 「一」<br/>
-<span class="ja-big speak">う</span> u — 嘴唇放鬆（不像中文 u 撅嘴）<br/>
-<span class="ja-big speak">え</span> e — 介於「ㄝ」和「e」之間<br/>
+<span class="ja-big speak">う</span> u — 嘴唇放鬆（不像中文 u 撅嘴）<br>
+<span class="ja-big speak">え</span> e — 介於「ㄝ」和「e」之間<br>
 <span class="ja-big speak">お</span> o — 圓口 「哦」
-    </p>
+    </br></br></p>
 <h3>② 輔音 9 個 × 5 元音 = 5×10 網格</h3>
 <p>把 5 個元音橫排，9 個輔音 (k/s/t/n/h/m/y/r/w) 加 1 個零輔音（純元音行）豎排，就組合出 50 個格子的「五十音表」。</p>
 <p class="example">
@@ -493,6 +599,26 @@
 <div class="practice-mode-tabs">
 <button class="mode-tab active" data-mode="learn">📖 學習模式</button>
 <button class="mode-tab" data-mode="quiz">🎯 測驗模式</button>
+<button class="mode-tab" data-mode="progress">📊 我的進度</button>
+</div>
+<div class="progress-panel" hidden="" id="progress-panel">
+<div class="progress-stats">
+<div class="stat-card"><div class="stat-num" id="stat-total">0</div><div class="stat-label">總練習數</div></div>
+<div class="stat-card"><div class="stat-num" id="stat-accuracy">—</div><div class="stat-label">準確率</div></div>
+<div class="stat-card"><div class="stat-num" id="stat-mastered">0</div><div class="stat-label">已掌握 (≥3 對)</div></div>
+<div class="stat-card"><div class="stat-num" id="stat-weak">0</div><div class="stat-label">需加強 (錯過)</div></div>
+</div>
+<div class="progress-section">
+<h3>⚡ 弱項 Top 5 — 最容易答錯的字</h3>
+<div class="progress-list" id="progress-weak"></div>
+</div>
+<div class="progress-section">
+<h3>✨ 強項 Top 5 — 已熟練</h3>
+<div class="progress-list" id="progress-strong"></div>
+</div>
+<div class="progress-actions">
+<button id="btn-progress-reset">⚠ 清空進度</button>
+</div>
 </div>
 <div class="practice-controls">
 <label>範圍：
@@ -562,10 +688,18 @@
 <article class="prose">
 <h2>實戰：高頻句子 + N5 詞彙</h2>
 <p class="lede">學完五十音之後就讀真句子。這裏是日本人天天用的<strong>高頻日常表達</strong>。每句都點得響，慢慢攢。</p>
-<div class="sub-tabs">
+<div class="sub-tabs vocab-level-tabs">
 <button class="sub-tab active" data-vocab-tab="phrases">日常 20 句</button>
-<button class="sub-tab" data-vocab-tab="n5">N5 100 詞</button>
+<button class="sub-tab" data-vocab-tab="n5">N5 100 詞 ⭐</button>
+<button class="sub-tab" data-vocab-tab="n4">N4 200 詞 ⭐⭐</button>
+<button class="sub-tab" data-vocab-tab="n3">N3 高頻 ⭐⭐⭐</button>
+<button class="sub-tab" data-vocab-tab="n2">N2 高頻 ⭐⭐⭐⭐</button>
+<button class="sub-tab" data-vocab-tab="n1">N1 高頻 ⭐⭐⭐⭐⭐</button>
+<button class="sub-tab" data-vocab-tab="kanji">📚 教育漢字 1026</button>
 </div>
+<p class="vocab-progress-note muted" style="text-align:center;margin:8px 0;font-size:13px">
+共 ~990 詞 + 80 音讀訓讀對照 + 1026 教育漢字 — <strong>慶應義塾幼稚舍 6 年級全覆蓋</strong>
+</p>
 <div class="vocab-section" id="vocab-phrases">
 <div class="vocab-list" id="phrases-list"></div>
 </div>
@@ -573,11 +707,31 @@
 <div class="n5-cat-tabs" id="n5-cat-tabs"></div>
 <div class="vocab-list n5-list" id="n5-list"></div>
 </div>
+<div class="vocab-section" hidden="" id="vocab-n4">
+<div class="n5-cat-tabs" id="n4-cat-tabs"></div>
+<div class="vocab-list n5-list" id="n4-list"></div>
+</div>
+<div class="vocab-section" hidden="" id="vocab-n3">
+<div class="n5-cat-tabs" id="n3-cat-tabs"></div>
+<div class="vocab-list n5-list" id="n3-list"></div>
+</div>
+<div class="vocab-section" hidden="" id="vocab-n2">
+<div class="n5-cat-tabs" id="n2-cat-tabs"></div>
+<div class="vocab-list n5-list" id="n2-list"></div>
+</div>
+<div class="vocab-section" hidden="" id="vocab-n1">
+<div class="n5-cat-tabs" id="n1-cat-tabs"></div>
+<div class="vocab-list n5-list" id="n1-list"></div>
+</div>
+<div class="vocab-section" hidden="" id="vocab-kanji">
+<div class="kanji-grade-tabs" id="kanji-grade-tabs"></div>
+<div class="kanji-grid" id="kanji-grid"></div>
+</div>
 </article>
 </section>
 </main>
 <footer class="site-footer">
-<p class="muted">日本語入門 <strong style="color:var(--accent)">v1.1.1</strong> · 由 <a href="https://irischanglabs.com">Iris Chang Labs</a> 製作 · 發音 Microsoft Edge-TTS (NanamiNeural) · 字體 Yuji Syuku + Noto Sans HK/TC</p>
+<p class="muted">日本語入門 <strong style="color:var(--accent)">v1.4</strong> · 由 <a href="https://irischanglabs.com">Iris Chang Labs</a> 製作 · 發音 Microsoft Edge-TTS (NanamiNeural) · 字體 Yuji Syuku + Noto Sans HK/TC</p>
 </footer>
 <!-- 筆順示範 modal -->
 <div class="stroke-modal" hidden="" id="stroke-modal">
@@ -625,11 +779,12 @@
 </div>
 </div>
 </div>
-<script src="js/data.js?v=13"></script>
-<script src="js/etymology.js?v=13"></script>
-<script src="js/vocab.js?v=13"></script>
-<script src="js/audio.js?v=13"></script>
-<script src="js/strokes.js?v=13"></script>
-<script src="js/app.js?v=13"></script>
+<script src="js/data.js?v=16"></script>
+<script src="js/etymology.js?v=16"></script>
+<script src="js/vocab.js?v=16"></script>
+<script src="js/edu-kanji.js?v=16"></script>
+<script src="js/audio.js?v=16"></script>
+<script src="js/strokes.js?v=16"></script>
+<script src="js/app.js?v=16"></script>
 </body>
 </html>
