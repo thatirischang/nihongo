@@ -339,6 +339,12 @@ details.extra[open] > summary::before { transform: rotate(90deg); }
   letter-spacing: 0.05em;
 }
 .btn-play-all:hover { background: var(--accent-soft); }
+.btn-play-all.btn-iroha-sing {
+  background: linear-gradient(135deg, #c25555 0%, #8b1a1a 100%);
+}
+.btn-play-all.btn-iroha-sing:hover {
+  background: linear-gradient(135deg, #d46666 0%, #a02020 100%);
+}
 
 .iroha-poem {
   text-align: center;

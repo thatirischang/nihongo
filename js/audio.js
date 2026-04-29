@@ -88,6 +88,132 @@ function stopIroha() {
 }
 function isIrohaPaused() { return _irohaAudio && _irohaAudio.paused && _irohaAudio.currentTime > 0; }
 
+// ═══ 伊呂波歌唱版 — 真人演唱 + 智能 sync ═══
+// 歌唱版 169.6s，分 8 段（按 IROHA_LINES 的 7-5-6-5-7-5-7-5 分句）
+// 每段內字符均分時間，段末有 breath pause
+let _sungAudio = null;
+let _sungSyncTimer = null;
+const SUNG_INTRO_SEC = 3.5;     // 開頭前奏沉默
+const SUNG_OUTRO_SEC = 3.0;     // 結尾餘韻
+const SUNG_LINE_BREATH_RATIO = 0.15;  // 每段末 15% 是 breath
+
+function _buildSungSchedule(totalDuration) {
+  // 47 字按 IROHA_LINES 分 8 段
+  const lines = [];
+  for (const line of IROHA_LINES) {
+    const chars = line.filter(c => !c.modern);
+    if (chars.length) lines.push(chars);
+  }
+  const sungBody = totalDuration - SUNG_INTRO_SEC - SUNG_OUTRO_SEC;
+  // 每段時長按字數比例分配
+  const totalChars = lines.reduce((s, l) => s + l.length, 0);
+  const schedule = []; // {startMs, endMs, charIndex}
+  let charIdx = 0;
+  let cursor = SUNG_INTRO_SEC;
+  for (const line of lines) {
+    const lineFraction = line.length / totalChars;
+    const lineSec = sungBody * lineFraction;
+    const breathSec = lineSec * SUNG_LINE_BREATH_RATIO;
+    const charSec = (lineSec - breathSec) / line.length;
+    for (let i = 0; i < line.length; i++) {
+      schedule.push({
+        startMs: (cursor) * 1000,
+        endMs: (cursor + charSec) * 1000,
+        charIndex: charIdx,
+      });
+      cursor += charSec;
+      charIdx++;
+    }
+    cursor += breathSec;
+  }
+  return schedule;
+}
+
+function _getSungAudio() {
+  if (!_sungAudio) {
+    _sungAudio = new Audio('audio/iroha-sung.mp3');
+    _sungAudio.addEventListener('ended', () => {
+      _stopSungSync();
+      if (_irohaCallbacks.onState) _irohaCallbacks.onState('stopped');
+      if (_irohaCallbacks.onEnd) _irohaCallbacks.onEnd();
+    });
+    _sungAudio.addEventListener('pause', () => {
+      _stopSungSync();
+      if (!_sungAudio.ended && _irohaCallbacks.onState) _irohaCallbacks.onState('paused');
+    });
+    _sungAudio.addEventListener('play', () => {
+      _startSungSync();
+      if (_irohaCallbacks.onState) _irohaCallbacks.onState('playing');
+    });
+  }
+  return _sungAudio;
+}
+
+let _sungSchedule = null;
+function _startSungSync() {
+  _stopSungSync();
+  if (!_sungSchedule && _sungAudio.duration) {
+    _sungSchedule = _buildSungSchedule(_sungAudio.duration);
+  }
+  _sungSyncTimer = setInterval(() => {
+    if (!_sungAudio || !_sungSchedule) return;
+    const t = _sungAudio.currentTime * 1000;
+    const cur = _sungSchedule.find(s => t >= s.startMs && t < s.endMs);
+    if (cur && _irohaCallbacks.onChar) _irohaCallbacks.onChar(cur.charIndex);
+  }, 80);
+}
+function _stopSungSync() {
+  if (_sungSyncTimer) { clearInterval(_sungSyncTimer); _sungSyncTimer = null; }
+}
+
+async function playIrohaSung(callbacks = {}) {
+  // 停止朗讀版
+  if (_irohaAudio) { _irohaAudio.pause(); _irohaAudio.currentTime = 0; }
+  _irohaCallbacks = callbacks;
+  const a = _getSungAudio();
+  // 第一次需要等 metadata
+  if (!a.duration) {
+    await new Promise((res) => {
+      a.addEventListener('loadedmetadata', res, { once: true });
+      a.addEventListener('error', res, { once: true });
+    });
+    _sungSchedule = _buildSungSchedule(a.duration);
+  }
+  a.currentTime = 0;
+  try { await a.play(); }
+  catch (err) { console.warn('iroha sung play failed:', err); }
+}
+
+// 統一的 pause/resume/stop 路由 — 同時控制朗讀和歌唱兩個音頻
+const _origPause = pauseIroha, _origResume = resumeIroha, _origStop = stopIroha;
+function _activeAudio() {
+  if (_sungAudio && !_sungAudio.paused) return _sungAudio;
+  if (_irohaAudio && !_irohaAudio.paused) return _irohaAudio;
+  // 都暫停了，找誰有 currentTime > 0 (剛剛在播)
+  if (_sungAudio && _sungAudio.currentTime > 0) return _sungAudio;
+  if (_irohaAudio && _irohaAudio.currentTime > 0) return _irohaAudio;
+  return null;
+}
+pauseIroha = function() {
+  const a = _activeAudio();
+  if (a) a.pause();
+};
+resumeIroha = function() {
+  const a = _activeAudio();
+  if (a && a.paused) a.play().catch(()=>{});
+};
+stopIroha = function() {
+  if (_irohaAudio) { _irohaAudio.pause(); _irohaAudio.currentTime = 0; }
+  if (_sungAudio) { _sungAudio.pause(); _sungAudio.currentTime = 0; }
+  _stopIrohaSync();
+  _stopSungSync();
+  if (_irohaCallbacks.onState) _irohaCallbacks.onState('stopped');
+};
+isIrohaPaused = function() {
+  const a = _activeAudio();
+  return a && a.paused && a.currentTime > 0;
+};
+
 // 单个假名 → 罗马字 的查表（懒构建，依赖 data.js）
 let _kanaToRomaji = null;
 function _buildKanaMap() {

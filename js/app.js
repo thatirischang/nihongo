@@ -229,39 +229,48 @@ function _clearIrohaHighlight() {
 }
 
 function _setIrohaUiState(state) {
+  const btnIrohaSing = document.getElementById('btn-iroha-sing');
   // state: 'playing' | 'paused' | 'stopped'
   if (state === 'playing') {
     btnIrohaPlay.hidden = true;
+    if (btnIrohaSing) btnIrohaSing.hidden = true;
     btnIrohaPause.hidden = false;
     btnIrohaPause.textContent = '⏸ 暫停';
     btnIrohaStop.hidden = false;
   } else if (state === 'paused') {
     btnIrohaPlay.hidden = true;
+    if (btnIrohaSing) btnIrohaSing.hidden = true;
     btnIrohaPause.hidden = false;
     btnIrohaPause.textContent = '▶ 繼續';
     btnIrohaStop.hidden = false;
   } else { // stopped
     btnIrohaPlay.hidden = false;
+    if (btnIrohaSing) btnIrohaSing.hidden = false;
     btnIrohaPause.hidden = true;
     btnIrohaStop.hidden = true;
     _clearIrohaHighlight();
   }
 }
 
+const _irohaCb = {
+  onChar: (idx) => {
+    _clearIrohaHighlight();
+    const el = _irohaCharEls[idx];
+    if (el) {
+      el.classList.add('playing');
+      el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+    }
+  },
+  onState: _setIrohaUiState,
+  onEnd: () => _setIrohaUiState('stopped'),
+};
+
 btnIrohaPlay.addEventListener('click', () => {
-  playIrohaFull({
-    onChar: (idx) => {
-      _clearIrohaHighlight();
-      const el = _irohaCharEls[idx];
-      if (el) {
-        el.classList.add('playing');
-        // 自动滚动让高亮字保持在视野内
-        el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
-      }
-    },
-    onState: _setIrohaUiState,
-    onEnd: () => _setIrohaUiState('stopped'),
-  });
+  playIrohaFull(_irohaCb);
+});
+
+document.getElementById('btn-iroha-sing')?.addEventListener('click', () => {
+  playIrohaSung(_irohaCb);
 });
 
 btnIrohaPause.addEventListener('click', () => {
