@@ -93,9 +93,9 @@ function isIrohaPaused() { return _irohaAudio && _irohaAudio.paused && _irohaAud
 // 每段內字符均分時間，段末有 breath pause
 let _sungAudio = null;
 let _sungSyncTimer = null;
-const SUNG_INTRO_SEC = 3.5;     // 開頭前奏沉默
-const SUNG_OUTRO_SEC = 3.0;     // 結尾餘韻
-const SUNG_LINE_BREATH_RATIO = 0.15;  // 每段末 15% 是 breath
+const SUNG_INTRO_SEC = 0;       // 之前 3.5 太多，導致高亮慢 ~7s。歌曲幾乎一開始就唱
+const SUNG_OUTRO_SEC = 0;
+const SUNG_LINE_BREATH_RATIO = 0;     // 段末不加 breath，純按字數均分
 
 function _buildSungSchedule(totalDuration) {
   // 47 字按 IROHA_LINES 分 8 段
