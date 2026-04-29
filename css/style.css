@@ -1168,6 +1168,39 @@ details.extra[open] > summary::before { transform: rotate(90deg); }
   border-top: 1px solid var(--line);
   padding-top: 4px;
 }
+.kanji-ref-main { cursor: pointer; }
+.kanji-ref-related-toggle {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-top: 1px dashed var(--line);
+  margin-top: 6px;
+  padding: 5px 0 0;
+  font-family: var(--font-zh);
+  font-size: 11px;
+  color: var(--accent);
+  cursor: pointer;
+}
+.kanji-ref-related-toggle:hover { color: var(--accent-soft); }
+.kanji-ref-related {
+  margin-top: 6px;
+  padding-top: 6px;
+  display: grid;
+  gap: 4px;
+}
+.kanji-related-word {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 5px 6px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.12s;
+}
+.kanji-related-word:hover { background: var(--hl); border-color: var(--accent-soft); }
+.krw-ja { font-family: var(--font-ja); font-size: 14px; color: var(--ink); }
+.krw-kana { font-family: var(--font-zh); font-size: 10px; color: var(--ink-soft); }
+.krw-zh { font-family: var(--font-zh); font-size: 11px; color: var(--ink-soft); }
 @media (max-width: 540px) {
   .kanji-grid { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); }
   .kanji-ref-glyph { font-size: 30px; }

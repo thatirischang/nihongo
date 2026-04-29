@@ -879,23 +879,62 @@ function renderKanjiGradeTabs() {
   const activeBtn = tabs.querySelector(`[data-grade="${_kanjiCurrentGrade}"]`);
   if (activeBtn) activeBtn.classList.add('active');
 }
+// 自動 cross-ref: 給定漢字，從所有 vocab 級別找出含該字的詞
+function _findRelatedWords(kanjiChar) {
+  const out = [];
+  const seen = new Set();
+  for (const cat of ALL_CATEGORIES) {
+    for (const w of cat.words) {
+      if (w.ja.includes(kanjiChar) && !seen.has(w.ja)) {
+        seen.add(w.ja);
+        out.push(w);
+      }
+    }
+  }
+  return out;
+}
+
 function renderKanjiGrid() {
   const grid = document.getElementById('kanji-grid');
   if (!grid) return;
   const list = EDU_KANJI[_kanjiCurrentGrade] || [];
   grid.innerHTML = '';
   for (const k of list) {
+    const related = _findRelatedWords(k.k);
     const card = document.createElement('div');
-    card.className = 'kanji-ref-card speak';
-    card.dataset.speak = k.k;
+    card.className = 'kanji-ref-card';
     card.innerHTML = `
-      <div class="kanji-ref-glyph">${k.k}</div>
-      <div class="kanji-ref-readings">
-        <div><span class="kanji-ref-tag on">音</span>${k.on}</div>
-        <div><span class="kanji-ref-tag kun">訓</span>${k.kun}</div>
+      <div class="kanji-ref-main speak" data-speak="${k.k}">
+        <div class="kanji-ref-glyph">${k.k}</div>
+        <div class="kanji-ref-readings">
+          <div><span class="kanji-ref-tag on">音</span>${k.on}</div>
+          <div><span class="kanji-ref-tag kun">訓</span>${k.kun}</div>
+        </div>
+        <div class="kanji-ref-mean">${k.mean}</div>
       </div>
-      <div class="kanji-ref-mean">${k.mean}</div>
+      ${related.length ? `
+        <button class="kanji-ref-related-toggle" data-count="${related.length}">▸ 相關詞 ${related.length}</button>
+        <div class="kanji-ref-related" hidden>
+          ${related.map(w => `
+            <div class="kanji-related-word speak" data-speak="${w.ja}">
+              <div class="krw-ja">${w.ja}</div>
+              ${w.kana ? `<div class="krw-kana">${w.kana}</div>` : ''}
+              <div class="krw-zh">${w.zh}</div>
+            </div>
+          `).join('')}
+        </div>
+      ` : ''}
     `;
+    // toggle related expansion
+    const toggle = card.querySelector('.kanji-ref-related-toggle');
+    if (toggle) {
+      toggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const rel = card.querySelector('.kanji-ref-related');
+        rel.hidden = !rel.hidden;
+        toggle.textContent = rel.hidden ? `▸ 相關詞 ${related.length}` : `▾ 相關詞 ${related.length}`;
+      });
+    }
     grid.appendChild(card);
   }
 }
