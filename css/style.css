@@ -1185,16 +1185,28 @@ details.extra[open] > summary::before { transform: rotate(90deg); }
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: 4px;
-  padding: 8px 0;
+  padding: 8px 4px 6px;
   cursor: pointer;
   text-align: center;
+  user-select: none;
+  transition: all 0.12s;
+}
+.picker-glyph {
   font-family: var(--font-ja);
   font-size: 22px;
   line-height: 1;
   color: var(--ink);
-  user-select: none;
-  transition: all 0.12s;
 }
+.picker-romaji {
+  font-family: var(--font-zh);
+  font-size: 11px;
+  color: var(--ink-soft);
+  margin-top: 3px;
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+.picker-cell.active .picker-glyph,
+.picker-cell.active .picker-romaji { color: var(--paper); }
 .picker-cell:hover {
   background: var(--hl);
   border-color: var(--accent-soft);
@@ -1212,7 +1224,9 @@ details.extra[open] > summary::before { transform: rotate(90deg); }
 }
 @media (max-width: 640px) {
   .picker-grid { grid-template-columns: repeat(5, 1fr); }
-  .picker-cell { font-size: 20px; padding: 6px 0; }
+  .picker-cell { padding: 6px 4px 4px; }
+  .picker-glyph { font-size: 20px; }
+  .picker-romaji { font-size: 10px; }
 }
 
 /* ═══ 字源解析 modal ═══ */

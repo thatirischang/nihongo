@@ -376,7 +376,10 @@ function renderPicker() {
         div.className = 'picker-cell empty';
       } else {
         div.className = 'picker-cell';
-        div.textContent = _pickerScript === 'h' ? cell.h : cell.k;
+        div.innerHTML = `
+          <div class="picker-glyph">${_pickerScript === 'h' ? cell.h : cell.k}</div>
+          <div class="picker-romaji">${cell.r}</div>
+        `;
         div.dataset.romaji = cell.r;
         div.addEventListener('click', () => {
           document.querySelectorAll('.picker-cell.active').forEach(c => c.classList.remove('active'));
