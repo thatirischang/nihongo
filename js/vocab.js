@@ -24,6 +24,50 @@ const PHRASES = [
   { ja: "これをください", romaji: "kore o kudasai", zh: "請給我這個", note: "點餐 / 購物萬能句" },
   { ja: "おいしいです", romaji: "oishī desu", zh: "很好吃" },
   { ja: "さようなら", romaji: "sayōnara", zh: "再見", note: "正式 / 較長時間不見" },
+
+  // — 餐廳 / 點餐 —
+  { ja: "メニューをください", romaji: "menyū o kudasai", zh: "請給我菜單", note: "餐廳必備" },
+  { ja: "お勧めは何ですか", romaji: "osusume wa nan desu ka", zh: "有什麼推薦的？" },
+  { ja: "お会計お願いします", romaji: "okaikei onegaishimasu", zh: "請結賬" },
+  { ja: "美味しかったです", romaji: "oishikatta desu", zh: "很好吃（過去式）", note: "離開時的禮貌" },
+  { ja: "ご馳走様でした", romaji: "gochisōsama deshita", zh: "謝謝款待 / 我吃飽了", note: "用餐後固定說法" },
+  { ja: "いただきます", romaji: "itadakimasu", zh: "我開動了", note: "用餐前固定說法" },
+  { ja: "辛くしないでください", romaji: "karaku shinaide kudasai", zh: "請不要做辣的" },
+
+  // — 購物 / 服務 —
+  { ja: "サイズはありますか", romaji: "saizu wa arimasu ka", zh: "有 size 嗎？" },
+  { ja: "試着できますか", romaji: "shichaku dekimasu ka", zh: "可以試穿嗎？" },
+  { ja: "クレジットカードは使えますか", romaji: "kurejitto kādo wa tsukaemasu ka", zh: "可以刷卡嗎？" },
+  { ja: "袋は要りません", romaji: "fukuro wa irimasen", zh: "不需要袋子" },
+  { ja: "もう少し安くなりますか", romaji: "mō sukoshi yasuku narimasu ka", zh: "可以再便宜一點嗎？" },
+
+  // — 交通 / 旅遊 —
+  { ja: "切符を一枚ください", romaji: "kippu o ichimai kudasai", zh: "請給我一張票" },
+  { ja: "東京駅までお願いします", romaji: "tōkyō eki made onegaishimasu", zh: "麻煩到東京站", note: "計程車內" },
+  { ja: "次の電車は何時ですか", romaji: "tsugi no densha wa nanji desu ka", zh: "下班電車幾點？" },
+  { ja: "道に迷いました", romaji: "michi ni mayoimashita", zh: "我迷路了" },
+  { ja: "Wi-Fi は使えますか", romaji: "Wi-Fi wa tsukaemasu ka", zh: "可以用 Wi-Fi 嗎？" },
+
+  // — 求助 / 緊急 —
+  { ja: "助けてください", romaji: "tasukete kudasai", zh: "請幫忙 / 救命" },
+  { ja: "病院はどこですか", romaji: "byōin wa doko desu ka", zh: "醫院在哪裏？" },
+  { ja: "気分が悪いです", romaji: "kibun ga warui desu", zh: "我不舒服" },
+  { ja: "警察を呼んでください", romaji: "keisatsu o yonde kudasai", zh: "請叫警察" },
+  { ja: "英語が話せますか", romaji: "eigo ga hanasemasu ka", zh: "你會說英語嗎？" },
+
+  // — 工作 / 商務 —
+  { ja: "お疲れ様です", romaji: "otsukaresama desu", zh: "辛苦了", note: "職場必備，對同事說" },
+  { ja: "申し訳ありません", romaji: "mōshiwake arimasen", zh: "非常抱歉（最敬語）" },
+  { ja: "確認します", romaji: "kakunin shimasu", zh: "我確認一下" },
+  { ja: "少々お待ちください", romaji: "shōshō omachi kudasai", zh: "請稍候（敬語）" },
+  { ja: "失礼します", romaji: "shitsurei shimasu", zh: "失禮了 / 告辭", note: "進出辦公室都用" },
+
+  // — 表達意見 —
+  { ja: "そうですね", romaji: "sō desu ne", zh: "是啊（附和）" },
+  { ja: "本当ですか", romaji: "hontō desu ka", zh: "真的嗎？" },
+  { ja: "大丈夫です", romaji: "daijōbu desu", zh: "沒問題 / 沒事" },
+  { ja: "頑張ります", romaji: "ganbarimasu", zh: "我會努力的", note: "對未來決心" },
+  { ja: "頑張ってください", romaji: "ganbatte kudasai", zh: "請加油", note: "鼓勵對方" },
 ];
 
 // === N5 (100 詞) — 全部例句覆蓋 ===
