@@ -25,7 +25,7 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&amp;family=Noto+Sans+HK:wght@300;400;500;700&amp;family=Noto+Sans+TC:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
-<link href="css/style.css?v=21" rel="stylesheet"/>
+<link href="css/style.css?v=22" rel="stylesheet"/>
 </head>
 <body>
 <header class="site-header">
@@ -105,10 +105,34 @@
 <button class="btn-play-all" hidden="" id="btn-iroha-stop">■ 停止</button>
 <span class="muted">點單字朗讀單音</span>
 </div>
+<div class="iroha-layout">
+<div class="iroha-left">
 <div class="iroha-poem" id="iroha-poem"></div>
 <div class="iroha-translation">
 <h3>意譯</h3>
 <p id="iroha-translation"></p>
+</div>
+</div>
+<aside class="iroha-right">
+<div class="gojuon-write-pad">
+<h3 class="gw-title">📝 書寫練習 <span class="muted">— 點左邊任意假名 → 在這裏寫</span></h3>
+<div class="gw-target">
+<span class="gw-glyph" id="iw-target-glyph">い</span>
+<span class="gw-romaji" id="iw-target-romaji">i</span>
+</div>
+<div class="canvas-wrap gw-canvas-wrap">
+<canvas id="iw-canvas" width="280" height="280"></canvas>
+<div class="canvas-guide" id="iw-guide">い</div>
+<div class="canvas-stroke" id="iw-stroke"></div>
+</div>
+<div class="canvas-controls gw-controls">
+<button id="iw-show-stroke">✍ 示範筆順</button>
+<button id="iw-clear">🗑 清空</button>
+<button id="iw-toggle-guide">隱藏參考字</button>
+<button id="iw-replay">🔊 再聽</button>
+</div>
+</div>
+</aside>
 </div>
 </section>
 <!-- ═══ 日語構成 ═══ -->
@@ -757,7 +781,7 @@
 </section>
 </main>
 <footer class="site-footer">
-<p class="muted">日本語入門 <strong style="color:var(--accent)">v1.7</strong> · 由 <a href="https://irischanglabs.com">Iris Chang Labs</a> 製作 · 發音 Microsoft Edge-TTS (NanamiNeural) · 字體 Yuji Syuku + Noto Sans HK/TC</p>
+<p class="muted">日本語入門 <strong style="color:var(--accent)">v1.8</strong> · 由 <a href="https://irischanglabs.com">Iris Chang Labs</a> 製作 · 發音 Microsoft Edge-TTS (NanamiNeural) · 字體 Yuji Syuku + Noto Sans HK/TC</p>
 </footer>
 <!-- 筆順示範 modal -->
 <div class="stroke-modal" hidden="" id="stroke-modal">
@@ -805,12 +829,12 @@
 </div>
 </div>
 </div>
-<script src="js/data.js?v=21"></script>
-<script src="js/etymology.js?v=21"></script>
-<script src="js/vocab.js?v=21"></script>
-<script src="js/edu-kanji.js?v=21"></script>
-<script src="js/audio.js?v=21"></script>
-<script src="js/strokes.js?v=21"></script>
-<script src="js/app.js?v=21"></script>
+<script src="js/data.js?v=22"></script>
+<script src="js/etymology.js?v=22"></script>
+<script src="js/vocab.js?v=22"></script>
+<script src="js/edu-kanji.js?v=22"></script>
+<script src="js/audio.js?v=22"></script>
+<script src="js/strokes.js?v=22"></script>
+<script src="js/app.js?v=22"></script>
 </body>
 </html>

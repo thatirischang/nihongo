@@ -214,6 +214,7 @@ function renderIroha() {
         span.classList.add('playing');
         setTimeout(() => span.classList.remove('playing'), 600);
         playKana(c);
+        if (window._setIrohaWritePadTarget) window._setIrohaWritePadTarget(c);
       });
       lineEl.appendChild(span);
     }
@@ -472,6 +473,45 @@ if (gwCanvas) {
   // 預設顯示 あ
   const initCell = GOJUON[0][0];
   window._setGojuonWritePadTarget(initCell);
+}
+
+// === 伊呂波歌 page 副本畫板 ===
+const iwCanvas = document.getElementById('iw-canvas');
+let _iwCurrentCell = null;
+if (iwCanvas) {
+  const iw = initDrawingCanvas(iwCanvas);
+  window._setIrohaWritePadTarget = function(cell) {
+    if (!cell) return;
+    _iwCurrentCell = cell;
+    const glyph = currentScript === 'h' ? cell.h : cell.k;
+    document.getElementById('iw-target-glyph').textContent = `${cell.h} / ${cell.k}`;
+    document.getElementById('iw-target-romaji').textContent = cell.r;
+    document.getElementById('iw-guide').textContent = glyph;
+    iw.clear();
+    document.getElementById('iw-stroke').innerHTML = '';
+  };
+  document.getElementById('iw-clear').addEventListener('click', () => {
+    iw.clear();
+    document.getElementById('iw-stroke').innerHTML = '';
+  });
+  document.getElementById('iw-toggle-guide').addEventListener('click', () => {
+    const g = document.getElementById('iw-guide');
+    g.classList.toggle('hidden');
+    document.getElementById('iw-toggle-guide').textContent =
+      g.classList.contains('hidden') ? '顯示參考字' : '隱藏參考字';
+  });
+  document.getElementById('iw-replay').addEventListener('click', () => {
+    if (_iwCurrentCell) playKana(_iwCurrentCell);
+  });
+  document.getElementById('iw-show-stroke').addEventListener('click', async () => {
+    if (!_iwCurrentCell) return;
+    const glyph = currentScript === 'h' ? _iwCurrentCell.h : _iwCurrentCell.k;
+    iw.clear();
+    await animateStrokes(glyph, document.getElementById('iw-stroke'));
+  });
+  // 預設顯示 い
+  const initIroha = IROHA_LINES[0][0];
+  window._setIrohaWritePadTarget(initIroha);
 }
 
 document.getElementById('btn-clear').addEventListener('click', () => {

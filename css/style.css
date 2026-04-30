@@ -150,6 +150,25 @@ a:hover { color: var(--accent-soft); }
   .gojuon-write-pad { max-width: 320px; margin: 0 auto; }
 }
 
+/* 伊呂波歌 page 2-column 佈局 */
+.iroha-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 24px;
+  align-items: start;
+}
+.iroha-left { min-width: 0; }
+.iroha-right {
+  position: sticky;
+  top: 16px;
+  align-self: start;
+}
+@media (max-width: 900px) {
+  .iroha-layout { grid-template-columns: 1fr; }
+  .iroha-right { position: static; }
+  .iroha-right .gojuon-write-pad { max-width: 320px; margin: 0 auto; }
+}
+
 /* 五十音搜索 */
 .kana-search {
   position: relative;
