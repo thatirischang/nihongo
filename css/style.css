@@ -136,6 +136,8 @@ a:hover { color: var(--accent-soft); }
   width: 280px;
   height: 280px;
   margin: 0 auto;
+  background: transparent;
+  border: 1px solid var(--line);
 }
 .gw-canvas-wrap .canvas-guide { font-size: 200px; }
 .gw-controls {

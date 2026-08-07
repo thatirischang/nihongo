@@ -1,0 +1,1 @@
+pbpaste > /Users/brianlau/Downloads/nihongo/raw-lyrics.txt

@@ -2,19 +2,19 @@
 // 策略：install 階段 precache 核心資源；runtime cache-first 所有 same-origin 請求
 // 升級版本號 → 用戶下次訪問自動清舊 cache
 
-const CACHE_VERSION = 'nihongo-v1.8.0';
+const CACHE_VERSION = 'nihongo-v1.8.1';
 
 // 核心資源 — install 時必須拉下，否則離線首次進站會白屏
 const PRECACHE_URLS = [
   './',
   'index.html',
-  'css/style.css?v=22',
-  'js/data.js?v=22',
-  'js/etymology.js?v=22',
-  'js/vocab.js?v=22',
-  'js/audio.js?v=22',
-  'js/strokes.js?v=22',
-  'js/app.js?v=22',
+  'css/style.css?v=23',
+  'js/data.js?v=23',
+  'js/etymology.js?v=23',
+  'js/vocab.js?v=23',
+  'js/audio.js?v=23',
+  'js/strokes.js?v=23',
+  'js/app.js?v=23',
   'icon.svg',
   'manifest.webmanifest',
   // 伊呂波歌全文
